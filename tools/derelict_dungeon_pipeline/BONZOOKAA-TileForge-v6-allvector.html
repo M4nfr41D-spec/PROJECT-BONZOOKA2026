@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BONZOOKAA Tile Forge v6</title>
+  <style>
+    :root{
+      --bg:#0b0b14;--panel:#12121c;--panel2:#171725;--border:#232333;--text:#c8c4b8;--muted:#707084;--accent:#d4a853;--danger:#d96b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(145deg,#08080d,#12121c,#0b0b14);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+    body{padding:12px}
+    .wrap{max-width:1380px;margin:0 auto}
+    .top{text-align:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+    .top h1{margin:0;font-size:clamp(20px,4vw,30px);letter-spacing:.18em;color:var(--accent);text-transform:uppercase}
+    .top p{margin:6px 0 0;color:var(--muted);font-size:12px}
+    .grid{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;justify-content:center}
+    .left{width:360px;display:flex;flex-direction:column;gap:10px}
+    .right{flex:1;min-width:300px;max-width:760px;display:flex;flex-direction:column;align-items:center}
+    .box{background:rgba(18,18,28,.92);border:1px solid var(--border);border-radius:10px;padding:12px}
+    .box .label{font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;font-weight:700}
+    select,input[type="number"],button,.btn,.small-btn{border-radius:8px;border:1px solid #2a2a3a;background:#13131c;color:var(--text)}
+    select,input[type="number"]{width:100%;padding:9px 10px;font-size:14px}
+    input[type="range"]{width:100%;accent-color:var(--accent)}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    button,.btn,.small-btn{cursor:pointer;padding:8px 12px;font-size:13px;transition:.15s ease;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+    button:hover,.btn:hover,.small-btn:hover{transform:translateY(-1px)}
+    .active{border-color:var(--accent)!important;background:rgba(212,168,83,.12)!important;color:var(--accent)!important}
+    .small-btn{padding:5px 8px;font-size:12px}
+    .muted{color:var(--muted);font-size:12px;line-height:1.35}
+    .texture-slot{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:8px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid var(--border)}
+    .thumb{width:42px;height:42px;border-radius:6px;border:1px solid #2a2a3a;flex-shrink:0;background-size:cover;background-position:center}
+    .texture-meta{min-width:0;flex:1}.texture-meta .t1{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.08em}.texture-meta .t2{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .exit-layout{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .exit-mid{display:flex;align-items:center;gap:12px}
+    .exit-stack{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:108px}
+    .exit-width{width:74px!important;padding:6px 8px!important;font-size:12px!important;text-align:center}
+    .exit-preview{width:120px;height:120px;border:1px solid #2a2a3a;border-radius:8px;overflow:hidden;display:grid;grid-template-columns:repeat(8,1fr);position:relative;background:#101018}
+    .exit-cell{border:0 solid transparent}.goldbar{position:absolute;background:var(--accent);box-shadow:0 0 8px rgba(212,168,83,.35)}
+    .paint-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;user-select:none;touch-action:none}
+    .paint-cell{aspect-ratio:1;background:#222;border:1px solid #333;border-radius:4px;cursor:crosshair}
+    .canvas-shell{width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;border:2px solid #1e1e2a;background:repeating-conic-gradient(#1a1a1a 0% 25%,#222 0% 50%) 0 0/16px 16px}
+    canvas{display:block;width:100%;height:100%;image-rendering:auto}
+    .download{width:100%;padding:13px 16px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--accent);background:rgba(212,168,83,.15);color:var(--accent)}
+    .danger{border-color:rgba(217,107,107,.45)!important;color:#ef9d9d!important;background:rgba(217,107,107,.08)!important}
+    .status{margin-top:10px;font-size:12px;color:var(--muted);min-height:18px}
+    .hidden{display:none!important}
+    .pill{padding:5px 8px;font-size:11px;border-radius:999px;border:1px solid #2a2a3a;background:#13131c;color:var(--muted)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>BONZOOKAA Tile Forge</h1>
+    <p>Standalone HTML · All-vector rendering · corner radius on every shape · Custom Paint → vector contour · size classes · metadata export</p>
+  </div>
+
+  <div class="grid">
+    <div class="left">
+      <div class="box">
+        <div class="label">BONZOOKAA Presets</div>
+        <div class="row">
+          <button class="small-btn preset-btn" data-preset="cor_straight">cor_straight</button>
+          <button class="small-btn preset-btn" data-preset="cor_corner">cor_corner</button>
+          <button class="small-btn preset-btn" data-preset="cor_tjunction">cor_tjunction</button>
+          <button class="small-btn preset-btn" data-preset="cor_cross">cor_cross</button>
+          <button class="small-btn preset-btn" data-preset="dead_end_pocket">dead_end_pocket</button>
+          <button class="small-btn preset-btn" data-preset="room_medium">room_medium</button>
+          <button class="small-btn preset-btn" data-preset="room_objective">room_objective</button>
+          <button class="small-btn preset-btn" data-preset="round_hub">round_hub</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="label">Module</div>
+        <div class="grid2">
+          <div>
+            <div class="muted" style="margin-bottom:6px">Shape</div>
+            <select id="shape"></select>
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px">Size Class</div>
+            <select id="sizeClass">
+              <option value="1">1x1 · 1024</option>
+              <option value="2">2x2 · 2048</option>
+              <option value="3">3x3 · 3072</option>
+              <option value="4">4x4 · 4096</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin-top:8px;align-items:center">
+          <span class="pill" id="exportSizeInfo">Export 1024×1024</span>
+          <span class="pill" id="gridInfo">Grid 8×8</span>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="label">Exits</div>
+        <div class="exit-layout">
+          <div class="exit-stack">
+            <button class="small-btn exit-btn" data-dir="N">North</button>
+            <select class="exit-width" data-width-dir="N"><option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select>
+          </div>
+          <div class="exit-mid">
+            <div class="exit-stack">
+              <button class="small-btn exit-btn" data-dir="W">West</button>
+              <select class="exit-width" data-width-dir="W"><option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select>
+            </div>
+            <div id="exitPreview" class="exit-preview"></div>
+            <div class="exit-stack">
+              <button class="small-btn exit-btn" data-dir="E">East</button>
+              <select class="exit-width" data-width-dir="E"><option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select>
+            </div>
+          </div>
+          <div class="exit-stack">
+            <button class="small-btn exit-btn" data-dir="S">South</button>
+            <select class="exit-width" data-width-dir="S"><option value="2">2</option><option value="4">4</option><option value="6">6</option><option value="8">8</option></select>
+          </div>
+        </div>
+        <div class="row" style="justify-content:center;margin-top:8px">
+          <button class="small-btn preset-exits" data-preset="all">All</button>
+          <button class="small-btn preset-exits" data-preset="none">None</button>
+          <button class="small-btn preset-exits" data-preset="ns">N+S</button>
+          <button class="small-btn preset-exits" data-preset="ew">E+W</button>
+        </div>
+        <div id="exitText" class="muted" style="margin-top:8px;text-align:center">Enclosed room</div>
+      </div>
+
+      <div class="box">
+        <div class="label">Geometry</div>
+        <div class="grid2">
+          <div>
+            <div class="muted" style="margin-bottom:6px">Wall Width</div>
+            <input id="wallWidth" type="range" min="8" max="48" value="20" />
+            <div class="muted" id="wallWidthLabel">Wall Width: 20px fixed</div>
+          </div>
+          <div>
+            <div class="muted" style="margin-bottom:6px">Corner Radius</div>
+            <input id="cornerRadius" type="range" min="0" max="60" value="26" />
+            <div class="muted" id="cornerRadiusLabel">Corner Radius: 26%</div>
+          </div>
+        </div>
+        <div class="muted" style="margin-top:8px">Corner radius applies to ALL shapes — grid shapes are contour-traced to vector paths.</div>
+      </div>
+
+      <div class="box">
+        <div class="label">Custom Textures</div>
+        <div class="muted" style="margin-bottom:8px">Uploaded textures override the procedural floor, wall or background and tile seamlessly.</div>
+        <div class="texture-slot">
+          <div id="floorThumb" class="thumb" style="background:#464b52"></div>
+          <div class="texture-meta"><div class="t1">Floor</div><div id="floorName" class="t2">Procedural</div></div>
+          <input id="floorInput" type="file" accept="image/*" class="hidden" />
+          <button class="small-btn" data-upload="floor">Upload</button>
+          <button class="small-btn danger hidden" data-clear="floor">✕</button>
+        </div>
+        <div class="texture-slot">
+          <div id="wallThumb" class="thumb" style="background:#282a30"></div>
+          <div class="texture-meta"><div class="t1">Wall</div><div id="wallName" class="t2">Procedural</div></div>
+          <input id="wallInput" type="file" accept="image/*" class="hidden" />
+          <button class="small-btn" data-upload="wall">Upload</button>
+          <button class="small-btn danger hidden" data-clear="wall">✕</button>
+        </div>
+        <div class="texture-slot" style="margin-bottom:0">
+          <div id="bgThumb" class="thumb" style="background:#32343a"></div>
+          <div class="texture-meta"><div class="t1">Background</div><div id="bgName" class="t2">Procedural</div></div>
+          <input id="bgInput" type="file" accept="image/*" class="hidden" />
+          <button class="small-btn" data-upload="bg">Upload</button>
+          <button class="small-btn danger hidden" data-clear="bg">✕</button>
+        </div>
+      </div>
+
+      <div id="paintBox" class="box hidden">
+        <div class="label">Custom Paint</div>
+        <div class="row" style="margin-bottom:8px">
+          <button id="paintFill" class="small-btn">Fill</button>
+          <button id="paintClear" class="small-btn">Clear</button>
+          <button id="paintModeBtn" class="small-btn">Mode: Draw</button>
+        </div>
+        <div id="paintGrid" class="paint-grid"></div>
+      </div>
+
+      <div class="box">
+        <div class="label">Transparency</div>
+        <div class="row" style="margin-bottom:8px">
+          <button id="bgTextureMode" class="small-btn active">Background Texture</button>
+          <button id="bgTransparentMode" class="small-btn">Background Transparent</button>
+        </div>
+        <div class="row">
+          <button id="floorSolidMode" class="small-btn">Floor Solid</button>
+          <button id="floorTransparentMode" class="small-btn active">Floor Transparent</button>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="label">Procedural Palette</div>
+        <div class="muted" style="margin-bottom:8px">Used whenever no custom texture is uploaded. You can also override the procedural colors below.</div>
+        <div id="paletteWrap" class="row" style="margin-bottom:10px"></div>
+        <div class="row">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)">Floor <input id="floorColor" type="color" value="#464b52" style="width:40px;height:32px;padding:0;border:none;background:transparent"></label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)">Wall <input id="wallColor" type="color" value="#282a30" style="width:40px;height:32px;padding:0;border:none;background:transparent"></label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)">Background <input id="bgColor" type="color" value="#32343a" style="width:40px;height:32px;padding:0;border:none;background:transparent"></label>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="label">Seed</div>
+        <div class="muted" style="margin-bottom:8px">Same seed = same procedural variation. Change for a fresh look.</div>
+        <div class="row" style="align-items:center">
+          <input id="seed" type="number" value="42" style="flex:1" />
+          <button id="dice" class="small-btn">Dice</button>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <button id="downloadBtn" class="download">Download PNG</button>
+        <button id="metadataBtn" class="download">Download JSON</button>
+      </div>
+      <button id="batchBtn" class="download" style="margin-top:8px">Batch Export Core Family</button>
+      <div id="status" class="status">Ready.</div>
+    </div>
+
+    <div class="right">
+      <div id="canvasShell" class="canvas-shell"><canvas id="canvas" width="1024" height="1024"></canvas></div>
+      <p class="muted" id="previewNote" style="margin-top:8px">Preview is scaled in the browser. Export follows the selected size class.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const BASE_TS = 1024;
+  const BASE_GRID = 8;
+  const GRID_SHAPES = {
+    "Full Room": Array.from({length:8},()=>Array(8).fill(1)),
+    "Corridor H": [
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],
+      [1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]
+    ],
+    "Corridor V": [
+      [0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],
+      [0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0]
+    ],
+    "Cross": [
+      [0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],
+      [1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],
+      [0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0]
+    ],
+    "T-North": [
+      [0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],
+      [1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]
+    ],
+    "T-South": [
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],
+      [1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],
+      [0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0],[0,0,0,1,1,0,0,0]
+    ],
+    "L-NorthEast": [
+      [0,0,0,1,1,1,1,1],[0,0,0,1,1,1,1,1],[0,0,0,1,1,1,1,1],[0,0,0,1,1,1,1,1],
+      [0,0,0,0,0,1,1,1],[0,0,0,0,0,1,1,1],[0,0,0,0,0,1,1,1],[0,0,0,0,0,1,1,1]
+    ],
+    "L-SouthWest": [
+      [1,1,1,0,0,0,0,0],[1,1,1,0,0,0,0,0],[1,1,1,0,0,0,0,0],[1,1,1,0,0,0,0,0],
+      [1,1,1,1,1,0,0,0],[1,1,1,1,1,0,0,0],[1,1,1,1,1,0,0,0],[1,1,1,1,1,0,0,0]
+    ],
+    "Small Center": [
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],
+      [0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]
+    ],
+    "Alcove": [
+      [0,0,0,0,0,0,0,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],
+      [0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,0]
+    ],
+    "Dead End E": [
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],
+      [0,0,0,1,1,1,1,1],[0,0,0,1,1,1,1,1],
+      [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]
+    ],
+    "Custom Paint": "custom"
+  };
+  const VECTOR_SHAPES = ["Round Room","Round Hub","Capsule H","Capsule V","Rounded Rect","Octagon"];
+  const PALETTES = {
+    "Sci-Fi Metal": { floor:"#464b52", crack:"rgba(30,32,38,0.5)", crackFine:"rgba(20,22,28,0.3)", crackW:1.5, wall:"#282a30", wallEdge:"rgba(15,16,20,0.8)", bg:"#32343a" },
+    "Dark Dungeon": { floor:"#64695a", crack:"rgba(30,25,20,0.55)", crackFine:"rgba(20,18,12,0.35)", crackW:2, wall:"#37322d", wallEdge:"rgba(15,12,8,0.8)", bg:"#413c34" },
+    "Dungeon Stone": { floor:"#8e9478", crack:"rgba(50,45,35,0.45)", crackFine:"rgba(40,35,25,0.25)", crackW:2, wall:"#5a554b", wallEdge:"rgba(30,25,20,0.7)", bg:"#645f55" },
+    "Sandstone": { floor:"#beaa82", crack:"rgba(120,100,60,0.35)", crackFine:"rgba(100,80,40,0.25)", crackW:2, wall:"#826e50", wallEdge:"rgba(80,65,40,0.6)", bg:"#96825f" }
+  };
+
+  const state = {
+    shape: "Full Room",
+    sizeClass: 1,
+    bgMode: "texture",
+    floorMode: "transparent",
+    palette: "Sci-Fi Metal",
+    colors: { floor:"#464b52", wall:"#282a30", bg:"#32343a" },
+    seed: 42,
+    wallWidth: 20,
+    cornerRadius: 26,
+    exits: {N:false,S:false,E:false,W:false},
+    exitWidths: {N:2,S:2,E:2,W:2},
+    customGrid: Array.from({length:BASE_GRID},()=>Array(BASE_GRID).fill(0)),
+    painting: false,
+    paintMode: 1,
+    textures: { floor:{img:null,url:null,name:null}, wall:{img:null,url:null,name:null}, bg:{img:null,url:null,name:null} }
+  };
+
+  const $ = id => document.getElementById(id);
+  const els = {
+    shape: $("shape"), sizeClass: $("sizeClass"), exitPreview: $("exitPreview"), exitText: $("exitText"), paintBox: $("paintBox"), paintGrid: $("paintGrid"),
+    paintModeBtn: $("paintModeBtn"), bgTextureMode: $("bgTextureMode"), bgTransparentMode: $("bgTransparentMode"), floorSolidMode: $("floorSolidMode"), floorTransparentMode: $("floorTransparentMode"),
+    paletteWrap: $("paletteWrap"), floorColor: $("floorColor"), wallColor: $("wallColor"), bgColor: $("bgColor"), seed: $("seed"), dice: $("dice"), wallWidth: $("wallWidth"),
+    wallWidthLabel: $("wallWidthLabel"), cornerRadius: $("cornerRadius"), cornerRadiusLabel: $("cornerRadiusLabel"), canvas: $("canvas"), canvasShell: $("canvasShell"), downloadBtn: $("downloadBtn"), metadataBtn: $("metadataBtn"), batchBtn: $("batchBtn"), status: $("status"),
+    floorInput: $("floorInput"), wallInput: $("wallInput"), bgInput: $("bgInput"), floorThumb: $("floorThumb"), wallThumb: $("wallThumb"), bgThumb: $("bgThumb"),
+    floorName: $("floorName"), wallName: $("wallName"), bgName: $("bgName"), exportSizeInfo: $("exportSizeInfo"), gridInfo: $("gridInfo"), previewNote: $("previewNote")
+  };
+
+  function ts(){ return BASE_TS * state.sizeClass; }
+  function gridSize(){ return BASE_GRID * state.sizeClass; }
+  function cell(){ return ts() / gridSize(); }
+  function scaledWallWidth(){ return state.wallWidth; }
+  function deepCopyGrid(g){ return g.map(r=>r.slice()); }
+  function makeRng(seed){ let s=Math.max(1,Math.abs(seed|0)); return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646; }; }
+
+  // --- Pattern cache: avoids recreating 128×128 procedural canvases on every render ---
+  let _patternCache = {};
+  function invalidatePatterns(){ _patternCache = {}; }
+  function getCachedPattern(ctx, kind, pal){
+    const tex = state.textures[kind].img;
+    const key = tex ? `tex_${kind}_${state.textures[kind].name}` : `proc_${kind}_${state.seed}_${state.colors[kind]||''}`;
+    if (!_patternCache[key]) {
+      const source = tex || createProceduralPattern(kind, pal);
+      _patternCache[key] = ctx.createPattern(source, 'repeat');
+    }
+    return _patternCache[key];
+  }
+
+  function scaleBaseGrid(base){
+    const factor = state.sizeClass;
+    const out = Array.from({length:BASE_GRID*factor}, ()=> Array(BASE_GRID*factor).fill(0));
+    for(let y=0;y<BASE_GRID;y++){
+      for(let x=0;x<BASE_GRID;x++){
+        for(let yy=0;yy<factor;yy++) for(let xx=0;xx<factor;xx++) out[y*factor+yy][x*factor+xx] = base[y][x];
+      }
+    }
+    return out;
+  }
+
+  function circleMask(){
+    const G = gridSize();
+    const r = (G * (0.38 + state.cornerRadius/300));
+    const m = Array.from({length:G},()=>Array(G).fill(0));
+    const cx=(G-1)/2, cy=(G-1)/2;
+    for(let y=0;y<G;y++) for(let x=0;x<G;x++){ if(Math.hypot(x-cx, y-cy) <= r) m[y][x]=1; }
+    return m;
+  }
+
+  function getGridBase(){
+    if (state.shape === "Custom Paint") return scaleBaseGrid(state.customGrid);
+    if (state.shape === "Round Room" || state.shape === "Round Hub") return circleMask();
+    return scaleBaseGrid(GRID_SHAPES[state.shape] || GRID_SHAPES["Full Room"]);
+  }
+
+  function exitSpan(width){
+    const G = gridSize();
+    const w = Math.max(2, Math.min(G, (Number(width)||2) * state.sizeClass));
+    const start = Math.floor((G - w) / 2);
+    return {start, end:start + w - 1, width:w};
+  }
+
+  function applyExits(base){
+    const G = gridSize();
+    const g = deepCopyGrid(base);
+    for (const dir of ["N","S","E","W"]) {
+      if (!state.exits[dir]) continue;
+      const span = exitSpan(state.exitWidths[dir]);
+      if (dir === "N") {
+        for (let y=0;y<G;y++){
+          for(let x=span.start;x<=span.end;x++) g[y][x]=1;
+          let hit=false; for(let x=span.start;x<=span.end;x++){ if(base[y][x]) { hit=true; break; } }
+          if(hit && y>0) break;
+        }
+      }
+      if (dir === "S") {
+        for (let y=G-1;y>=0;y--){
+          for(let x=span.start;x<=span.end;x++) g[y][x]=1;
+          let hit=false; for(let x=span.start;x<=span.end;x++){ if(base[y][x]) { hit=true; break; } }
+          if(hit && y<G-1) break;
+        }
+      }
+      if (dir === "W") {
+        for (let x=0;x<G;x++){
+          for(let y=span.start;y<=span.end;y++) g[y][x]=1;
+          let hit=false; for(let y=span.start;y<=span.end;y++){ if(base[y][x]) { hit=true; break; } }
+          if(hit && x>0) break;
+        }
+      }
+      if (dir === "E") {
+        for (let x=G-1;x>=0;x--){
+          for(let y=span.start;y<=span.end;y++) g[y][x]=1;
+          let hit=false; for(let y=span.start;y<=span.end;y++){ if(base[y][x]) { hit=true; break; } }
+          if(hit && x<G-1) break;
+        }
+      }
+    }
+    return g;
+  }
+
+  function finalGrid(){ return applyExits(getGridBase()); }
+  function exitEdgeSet(){
+    const G = gridSize(); const s = new Set();
+    if (state.exits.N){ const span=exitSpan(state.exitWidths.N); for(let x=span.start;x<=span.end;x++) s.add(`${x},0`); }
+    if (state.exits.S){ const span=exitSpan(state.exitWidths.S); for(let x=span.start;x<=span.end;x++) s.add(`${x},${G-1}`); }
+    if (state.exits.W){ const span=exitSpan(state.exitWidths.W); for(let y=span.start;y<=span.end;y++) s.add(`0,${y}`); }
+    if (state.exits.E){ const span=exitSpan(state.exitWidths.E); for(let y=span.start;y<=span.end;y++) s.add(`${G-1},${y}`); }
+    return s;
+  }
+
+  function createProceduralPattern(kind, pal){
+    const c = document.createElement('canvas'); c.width=128; c.height=128; const ctx=c.getContext('2d'); const rng=makeRng((state.seed + kind.length*97) | 0);
+    if (kind === 'bg') {
+      ctx.fillStyle = state.colors.bg || pal.bg; ctx.fillRect(0,0,128,128);
+      for(let i=0;i<180;i++){ const a=Math.floor(rng()*20); ctx.fillStyle = rng()>0.5?`rgba(255,255,255,${a/255})`:`rgba(0,0,0,${a/190})`; ctx.fillRect(rng()*128,rng()*128,2+rng()*4,2+rng()*4); }
+    }
+    if (kind === 'floor') {
+      ctx.fillStyle = state.colors.floor || pal.floor; ctx.fillRect(0,0,128,128);
+      for(let i=0;i<80;i++){ const b=rng()>0.5?1:-1; const amt=Math.floor(rng()*28); ctx.fillStyle = b>0?`rgba(255,255,255,${amt/255})`:`rgba(0,0,0,${amt/220})`; ctx.fillRect(rng()*128,rng()*128,2+rng()*4,2+rng()*4); }
+      ctx.strokeStyle = pal.crack; ctx.lineWidth = pal.crackW; ctx.beginPath();
+      for(let i=1;i<4;i++){ const x=i*32 + (rng()-0.5)*4; ctx.moveTo(x,0); ctx.lineTo(x + (rng()-0.5)*16,128); }
+      for(let i=1;i<4;i++){ const y=i*32 + (rng()-0.5)*4; ctx.moveTo(0,y); ctx.lineTo(128,y + (rng()-0.5)*16); }
+      ctx.stroke();
+    }
+    if (kind === 'wall') {
+      ctx.fillStyle = state.colors.wall || pal.wall; ctx.fillRect(0,0,128,128);
+      for(let i=0;i<220;i++){ const b=50+Math.floor(rng()*60); ctx.fillStyle = `rgb(${b},${Math.max(0,b-5)},${Math.max(0,b-10)})`; ctx.beginPath(); ctx.arc(rng()*128,rng()*128,0.7+rng()*2.2,0,Math.PI*2); ctx.fill(); }
+      ctx.strokeStyle = pal.wallEdge; ctx.lineWidth=2.4; ctx.strokeRect(1.5,1.5,125,125);
+    }
+    return c;
+  }
+
+  // ================================================================
+  // CONTOUR TRACING ENGINE — converts any binary grid to Path2D
+  // ================================================================
+
+  // Trace CW boundary edges of floor cells into closed loops
+  function traceContours(grid, rows, cols) {
+    const fl = (x,y) => x>=0 && x<cols && y>=0 && y<rows && grid[y][x]===1;
+    // Collect directed boundary edges (CW winding)
+    const edgeList = [];
+    const startMap = new Map(); // "x,y" → [indices into edgeList]
+    const addE = (x1,y1,x2,y2) => {
+      const idx = edgeList.length;
+      edgeList.push({x1,y1,x2,y2});
+      const k = `${x1},${y1}`;
+      if (!startMap.has(k)) startMap.set(k,[]);
+      startMap.get(k).push(idx);
+    };
+    for (let y=0;y<rows;y++) for (let x=0;x<cols;x++) {
+      if (!fl(x,y)) continue;
+      if (!fl(x,y-1)) addE(x,y,x+1,y);       // top
+      if (!fl(x+1,y)) addE(x+1,y,x+1,y+1);   // right
+      if (!fl(x,y+1)) addE(x+1,y+1,x,y+1);   // bottom
+      if (!fl(x-1,y)) addE(x,y+1,x,y);        // left
+    }
+    // Chain edges into closed loops
+    const used = new Set();
+    const loops = [];
+    for (let i=0;i<edgeList.length;i++) {
+      if (used.has(i)) continue;
+      const loop = [];
+      let ci = i;
+      while (ci !== undefined && !used.has(ci)) {
+        used.add(ci);
+        const e = edgeList[ci];
+        loop.push({x:e.x1,y:e.y1});
+        const nk = `${e.x2},${e.y2}`;
+        const cands = startMap.get(nk) || [];
+        ci = cands.find(j => !used.has(j));
+      }
+      if (loop.length > 2) loops.push(loop);
+    }
+    return loops;
+  }
+
+  // Inward normal for CW-wound rectilinear edge
+  function inwardN(dx,dy,wt) {
+    if (dx===1) return {x:0,y:wt};     // right → inward down
+    if (dy===1) return {x:-wt,y:0};    // down → inward left
+    if (dx===-1) return {x:0,y:-wt};   // left → inward up
+    if (dy===-1) return {x:wt,y:0};    // up → inward right
+    return {x:0,y:0};
+  }
+
+  // Build outer Path2D from contour loops with optional corner radius
+  function contoursToPath(loops, scale, offX, offY, radius) {
+    const path = new Path2D();
+    const maxR = Math.min(radius, scale * 0.48);
+    for (const loop of loops) {
+      const n = loop.length;
+      const gx = v => (v.x - offX) * scale;
+      const gy = v => (v.y - offY) * scale;
+      if (maxR <= 1) {
+        path.moveTo(gx(loop[0]), gy(loop[0]));
+        for (let i=1;i<n;i++) path.lineTo(gx(loop[i]), gy(loop[i]));
+      } else {
+        const p0=loop[0], p1=loop[1];
+        path.moveTo((gx(p0)+gx(p1))/2, (gy(p0)+gy(p1))/2);
+        for (let i=1;i<=n;i++) {
+          const c=loop[i%n], nx=loop[(i+1)%n];
+          path.arcTo(gx(c),gy(c),gx(nx),gy(nx),maxR);
+        }
+      }
+      path.closePath();
+    }
+    return path;
+  }
+
+  // Build inset (inner floor) Path2D — each vertex offset inward by wallWidth
+  function contoursToInsetPath(loops, scale, offX, offY, wt, radius) {
+    const path = new Path2D();
+    const maxR = Math.max(0, Math.min(radius - wt*0.6, scale*0.48 - wt));
+    for (const loop of loops) {
+      const n = loop.length;
+      const inset = [];
+      for (let i=0;i<n;i++) {
+        const prev=loop[(i-1+n)%n], curr=loop[i], next=loop[(i+1)%n];
+        const idx=Math.sign(curr.x-prev.x), idy=Math.sign(curr.y-prev.y);
+        const odx=Math.sign(next.x-curr.x), ody=Math.sign(next.y-curr.y);
+        const iN=inwardN(idx,idy,wt), oN=inwardN(odx,ody,wt);
+        const cx=(curr.x-offX)*scale, cy=(curr.y-offY)*scale;
+        const cross = idx*ody - idy*odx;
+        if (cross > 0) {
+          // Convex corner — single point offset by both normals
+          inset.push({x:cx+iN.x+oN.x, y:cy+iN.y+oN.y});
+        } else if (cross < 0) {
+          // Concave corner — two points
+          inset.push({x:cx+iN.x, y:cy+iN.y});
+          inset.push({x:cx+oN.x, y:cy+oN.y});
+        } else {
+          inset.push({x:cx+iN.x, y:cy+iN.y});
+        }
+      }
+      const m=inset.length;
+      if (m<3) continue;
+      if (maxR <= 1) {
+        path.moveTo(inset[0].x, inset[0].y);
+        for (let i=1;i<m;i++) path.lineTo(inset[i].x, inset[i].y);
+      } else {
+        path.moveTo((inset[0].x+inset[1].x)/2, (inset[0].y+inset[1].y)/2);
+        for (let i=1;i<=m;i++) {
+          const c=inset[i%m], nx=inset[(i+1)%m];
+          path.arcTo(c.x,c.y,nx.x,nx.y,maxR);
+        }
+      }
+      path.closePath();
+    }
+    return path;
+  }
+
+  // Build vector paths from grid shape (grid-based + Custom Paint)
+  function buildGridVectorPath() {
+    const T=ts(), G=gridSize(), scale=T/G, wt=scaledWallWidth();
+    const radiusPx = scale * (state.cornerRadius/100) * 1.5;
+    const grid = finalGrid();
+    // Pad grid by 1 cell on each exit side so corridors extend past tile edge
+    const pN=state.exits.N?1:0, pS=state.exits.S?1:0, pW=state.exits.W?1:0, pE=state.exits.E?1:0;
+    const pH=G+pN+pS, pWW=G+pW+pE;
+    const padded=Array.from({length:pH},()=>Array(pWW).fill(0));
+    for(let y=0;y<G;y++) for(let x=0;x<G;x++) padded[y+pN][x+pW]=grid[y][x];
+    // Extend exit cells into padding
+    if(state.exits.N){const s=exitSpan(state.exitWidths.N);for(let x=s.start;x<=s.end;x++)padded[0][x+pW]=1;}
+    if(state.exits.S){const s=exitSpan(state.exitWidths.S);for(let x=s.start;x<=s.end;x++)padded[pH-1][x+pW]=1;}
+    if(state.exits.W){const s=exitSpan(state.exitWidths.W);for(let y=s.start;y<=s.end;y++)padded[y+pN][0]=1;}
+    if(state.exits.E){const s=exitSpan(state.exitWidths.E);for(let y=s.start;y<=s.end;y++)padded[y+pN][pWW-1]=1;}
+    // Trace and build paths
+    const loops = traceContours(padded, pH, pWW);
+    const outerPath = contoursToPath(loops, scale, pW, pN, radiusPx);
+    const innerPath = contoursToInsetPath(loops, scale, pW, pN, wt, radiusPx);
+    return {outerPath, innerPath, exitRects:[]};
+  }
+
+
+  function buildPureVectorPath(){
+    const T = ts();
+    const radiusScale = state.cornerRadius / 100;
+    const wallWt = scaledWallWidth();
+    const mainW = T * 0.72;
+    const mainH = T * 0.72;
+    const left = (T - mainW) / 2;
+    const top = (T - mainH) / 2;
+    const right = left + mainW;
+    const bottom = top + mainH;
+
+    const roundedRect = (p,x,y,w,h,r)=>{ r=Math.max(0,Math.min(r,Math.min(w,h)/2)); p.moveTo(x+r,y); p.arcTo(x+w,y,x+w,y+h,r); p.arcTo(x+w,y+h,x,y+h,r); p.arcTo(x,y+h,x,y,r); p.arcTo(x,y,x+w,y,r); p.closePath(); };
+
+    const addRoomShape = (p, inset = 0) => {
+      const L = left + inset, Tt = top + inset;
+      const W = Math.max(1, mainW - inset*2), H = Math.max(1, mainH - inset*2);
+      const R = L + W, B = Tt + H;
+      const innerR = Math.max(0, Math.min(W, H) * (0.12 + radiusScale * 0.28));
+
+      if (state.shape === 'Round Room' || state.shape === 'Round Hub') {
+        const baseR = (state.shape === 'Round Hub' ? T*0.34 : T*0.29) + T*radiusScale*0.08;
+        const rr = Math.max(1, baseR - inset);
+        p.moveTo(T/2 + rr, T/2);
+        p.arc(T/2, T/2, rr, 0, Math.PI*2);
+        p.closePath();
+      } else if (state.shape === 'Capsule H') {
+        const r = Math.max(0, Math.min(H/2, T*(0.14 + radiusScale*0.18) - inset));
+        roundedRect(p, L, T*0.34 + inset, W, Math.max(1, T*0.32 - inset*2), r);
+      } else if (state.shape === 'Capsule V') {
+        const r = Math.max(0, Math.min(W/2, T*(0.14 + radiusScale*0.18) - inset));
+        roundedRect(p, T*0.34 + inset, Tt, Math.max(1, T*0.32 - inset*2), H, r);
+      } else if (state.shape === 'Rounded Rect') {
+        roundedRect(p, L, Tt, W, H, Math.max(0, innerR - inset*0.6));
+      } else if (state.shape === 'Octagon') {
+        const cut = Math.max(0, T * (0.10 + radiusScale * 0.12) - inset*0.8);
+        p.moveTo(L+cut, Tt);
+        p.lineTo(R-cut, Tt); p.lineTo(R, Tt+cut); p.lineTo(R, B-cut);
+        p.lineTo(R-cut, B); p.lineTo(L+cut, B); p.lineTo(L, B-cut); p.lineTo(L, Tt+cut); p.closePath();
+      }
+    };
+
+    const outerPath = new Path2D();
+    addRoomShape(outerPath, 0);
+
+    const exitRects = [];
+    for (const dir of ['N','S','E','W']) {
+      if (!state.exits[dir]) continue;
+      const ratio = ((state.exitWidths[dir]||2)/8) * 0.72;
+      const width = T * ratio;
+      const half = width/2;
+      const depth = T * 0.22;
+      if (dir === 'N') exitRects.push({dir:'N', x:T/2-half, y:0, w:width, h:top+depth});
+      if (dir === 'S') exitRects.push({dir:'S', x:T/2-half, y:bottom-depth, w:width, h:T-(bottom-depth)});
+      if (dir === 'W') exitRects.push({dir:'W', x:0, y:T/2-half, w:left+depth, h:width});
+      if (dir === 'E') exitRects.push({dir:'E', x:right-depth, y:T/2-half, w:T-(right-depth), h:width});
+    }
+    exitRects.forEach(r => outerPath.rect(r.x,r.y,r.w,r.h));
+
+    const innerPath = new Path2D();
+    addRoomShape(innerPath, wallWt);
+    exitRects.forEach(r => {
+      const clearW = Math.max(1, r.w - wallWt*2);
+      const clearH = Math.max(1, r.h - wallWt*2);
+      const overlap = Math.max(wallWt * 4, (r.dir === 'N' || r.dir === 'S') ? clearW * 0.5 : clearH * 0.5, 64);
+      if (r.dir === 'N') innerPath.rect(r.x + wallWt, 0, clearW, Math.min(T, r.h + wallWt + overlap));
+      if (r.dir === 'S') {
+        const iy = Math.max(0, r.y - wallWt - overlap);
+        innerPath.rect(r.x + wallWt, iy, clearW, Math.min(T - iy, r.h + wallWt + overlap));
+      }
+      if (r.dir === 'W') innerPath.rect(0, r.y + wallWt, Math.min(T, r.w + wallWt + overlap), clearH);
+      if (r.dir === 'E') {
+        const ix = Math.max(0, r.x - wallWt - overlap);
+        innerPath.rect(ix, r.y + wallWt, Math.min(T - ix, r.w + wallWt + overlap), clearH);
+      }
+    });
+
+    return { outerPath, innerPath, exitRects };
+  }
+
+  // Unified dispatch — ALL shapes go through vector pipeline
+  function buildVectorPath() {
+    if (VECTOR_SHAPES.includes(state.shape)) return buildPureVectorPath();
+    return buildGridVectorPath();
+  }
+
+  function renderVectorMode(ctx, pal){
+    const T = ts();
+    const built = buildVectorPath();
+    const outerPath = built.outerPath;
+    const innerPath = built.innerPath;
+    ctx.clearRect(0,0,T,T);
+
+    if (state.bgMode === 'texture') {
+      ctx.save();
+      ctx.fillStyle = getCachedPattern(ctx, 'bg', pal);
+      ctx.fillRect(0,0,T,T);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fill(outerPath);
+      ctx.restore();
+    }
+
+    if (state.floorMode === 'solid' || state.textures.floor.img) {
+      ctx.save();
+      ctx.fillStyle = getCachedPattern(ctx, 'floor', pal);
+      ctx.fill(innerPath);
+      ctx.restore();
+    }
+
+    const wallCanvas = document.createElement('canvas');
+    wallCanvas.width = T; wallCanvas.height = T;
+    const wctx = wallCanvas.getContext('2d');
+    const overlayWt = 2;
+
+    // Filled wall ring = outer union minus inner union.
+    wctx.save();
+    wctx.fillStyle = getCachedPattern(wctx, 'wall', pal);
+    wctx.fill(outerPath);
+    wctx.globalCompositeOperation = 'destination-out';
+    wctx.fill(innerPath);
+    wctx.restore();
+
+    // Subtle outline must be masked to the actual wall ring.
+    // Otherwise the stroke leaks half a pixel into the transparent interior and creates hairlines.
+    const strokeCanvas = document.createElement('canvas');
+    strokeCanvas.width = T; strokeCanvas.height = T;
+    const sctx = strokeCanvas.getContext('2d');
+    sctx.save();
+    sctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    sctx.lineWidth = overlayWt;
+    sctx.lineJoin = 'round';
+    sctx.lineCap = 'round';
+    sctx.stroke(outerPath);
+    sctx.stroke(innerPath);
+    sctx.restore();
+    // keep only the stroke pixels that overlap the already rendered wall body
+    sctx.globalCompositeOperation = 'destination-in';
+    sctx.drawImage(wallCanvas, 0, 0);
+    sctx.globalCompositeOperation = 'source-over';
+    wctx.drawImage(strokeCanvas, 0, 0);
+
+    // Transparent-floor mode must not leave any residual inner seam pixels.
+    // Use a slightly wider destination-out stroke to fully clear the inner edge.
+    if (state.floorMode === 'transparent' && !state.textures.floor.img) {
+      wctx.save();
+      wctx.globalCompositeOperation = 'destination-out';
+      wctx.strokeStyle = 'rgba(0,0,0,1)';
+      wctx.lineJoin = 'round';
+      wctx.lineCap = 'round';
+      // Wider stroke ensures no semi-transparent fringe pixels remain
+      wctx.lineWidth = Math.max(3, overlayWt * 1.6);
+      wctx.stroke(innerPath);
+      wctx.restore();
+    }
+
+    ctx.drawImage(wallCanvas, 0, 0);
+  }
+
+  function renderTile(){
+    const T = ts();
+    const ctx = els.canvas.getContext('2d');
+    els.canvas.width = T; els.canvas.height = T;
+    ctx.clearRect(0,0,T,T);
+    const pal = PALETTES[state.palette];
+    renderVectorMode(ctx, pal);
+  }
+
+  // --- DOM-reuse: create preview cells once, update backgrounds only ---
+  let _exitCells = [];
+  let _exitGoldBars = {N:null,S:null,E:null,W:null};
+  function initExitPreview(){
+    for(let i=0;i<64;i++){ const d=document.createElement('div'); d.className='exit-cell'; els.exitPreview.appendChild(d); _exitCells.push(d); }
+    for(const dir of ['N','S','E','W']){ const d=document.createElement('div'); d.className='goldbar hidden'; els.exitPreview.appendChild(d); _exitGoldBars[dir]=d; }
+  }
+  function renderExitPreview(){
+    const G = BASE_GRID;
+    const base = state.shape === 'Custom Paint' ? deepCopyGrid(state.customGrid) : (state.shape === 'Round Room' || state.shape === 'Round Hub' ? circleMaskPreview() : deepCopyGrid(GRID_SHAPES[state.shape] || GRID_SHAPES['Full Room']));
+    const grid = applyExitsPreview(base);
+    for(let y=0;y<G;y++) for(let x=0;x<G;x++) _exitCells[y*G+x].style.background = grid[y][x] ? '#8e9478' : '#13131c';
+    // Gold bars
+    for(const dir of ['N','S','E','W']){
+      const bar = _exitGoldBars[dir];
+      if(!state.exits[dir]){ bar.classList.add('hidden'); continue; }
+      bar.classList.remove('hidden');
+      const span=previewExitSpan(state.exitWidths[dir]);
+      if(dir==='N') bar.style.cssText=`position:absolute;background:var(--accent);box-shadow:0 0 8px rgba(212,168,83,.35);top:0;left:${(span.start/G)*100}%;width:${(span.width/G)*100}%;height:4px`;
+      if(dir==='S') bar.style.cssText=`position:absolute;background:var(--accent);box-shadow:0 0 8px rgba(212,168,83,.35);bottom:0;left:${(span.start/G)*100}%;width:${(span.width/G)*100}%;height:4px`;
+      if(dir==='W') bar.style.cssText=`position:absolute;background:var(--accent);box-shadow:0 0 8px rgba(212,168,83,.35);left:0;top:${(span.start/G)*100}%;width:4px;height:${(span.width/G)*100}%`;
+      if(dir==='E') bar.style.cssText=`position:absolute;background:var(--accent);box-shadow:0 0 8px rgba(212,168,83,.35);right:0;top:${(span.start/G)*100}%;width:4px;height:${(span.width/G)*100}%`;
+    }
+    const ae = Object.entries(state.exits).filter(([,v])=>v).map(([k]) => `${k}(${state.exitWidths[k]||2})`);
+    els.exitText.textContent = ae.length ? `Exits: ${ae.join(', ')}` : 'Enclosed room';
+    document.querySelectorAll('.exit-btn').forEach(btn => btn.classList.toggle('active', !!state.exits[btn.dataset.dir]));
+  }
+
+  function previewExitSpan(width){ const w=Math.max(2,Math.min(8,Number(width)||2)); const start=Math.floor((8-w)/2); return {start, end:start+w-1, width:w}; }
+  function circleMaskPreview(){
+    const m = Array.from({length:8},()=>Array(8).fill(0));
+    for(let y=0;y<8;y++) for(let x=0;x<8;x++) if (Math.hypot(x-3.5,y-3.5) <= 3.1) m[y][x]=1;
+    return m;
+  }
+  function applyExitsPreview(base){
+    const g=deepCopyGrid(base);
+    for(const dir of ['N','S','E','W']){
+      if(!state.exits[dir]) continue;
+      const span=previewExitSpan(state.exitWidths[dir]);
+      if(dir==='N'){ for(let y=0;y<8;y++){ for(let x=span.start;x<=span.end;x++) g[y][x]=1; let hit=false; for(let x=span.start;x<=span.end;x++) if(base[y][x]) hit=true; if(hit && y>0) break; } }
+      if(dir==='S'){ for(let y=7;y>=0;y--){ for(let x=span.start;x<=span.end;x++) g[y][x]=1; let hit=false; for(let x=span.start;x<=span.end;x++) if(base[y][x]) hit=true; if(hit && y<7) break; } }
+      if(dir==='W'){ for(let x=0;x<8;x++){ for(let y=span.start;y<=span.end;y++) g[y][x]=1; let hit=false; for(let y=span.start;y<=span.end;y++) if(base[y][x]) hit=true; if(hit && x>0) break; } }
+      if(dir==='E'){ for(let x=7;x>=0;x--){ for(let y=span.start;y<=span.end;y++) g[y][x]=1; let hit=false; for(let y=span.start;y<=span.end;y++) if(base[y][x]) hit=true; if(hit && x<7) break; } }
+    }
+    return g;
+  }
+
+  // --- DOM-reuse: paint grid cells created once ---
+  let _paintCells = [];
+  function initPaintGrid(){
+    els.paintGrid.style.gridTemplateColumns = `repeat(${BASE_GRID},1fr)`;
+    for(let y=0;y<BASE_GRID;y++) for(let x=0;x<BASE_GRID;x++){
+      const c = document.createElement('div'); c.className='paint-cell';
+      const cy=y, cx=x; // closure capture
+      c.addEventListener('pointerdown', (e)=>{ e.preventDefault(); state.painting=true; if(state.shape==='Custom Paint'){ state.customGrid[cy][cx] = state.customGrid[cy][cx] ? 0 : 1; renderAll(); } });
+      c.addEventListener('pointerenter', ()=>{ if(state.painting && state.shape==='Custom Paint'){ state.customGrid[cy][cx] = state.paintMode; renderAll(); } });
+      els.paintGrid.appendChild(c);
+      _paintCells.push(c);
+    }
+  }
+  function renderPaintGrid(){
+    for(let y=0;y<BASE_GRID;y++) for(let x=0;x<BASE_GRID;x++)
+      _paintCells[y*BASE_GRID+x].style.background = state.customGrid[y][x] ? '#8e9478' : '#222';
+  }
+
+  window.addEventListener('pointerup', ()=> state.painting=false);
+  els.paintGrid.addEventListener('pointerleave', ()=> state.painting=false);
+
+  function syncUI(){
+    els.paintBox.classList.toggle('hidden', state.shape !== 'Custom Paint');
+    els.bgTextureMode.classList.toggle('active', state.bgMode === 'texture');
+    els.bgTransparentMode.classList.toggle('active', state.bgMode === 'transparent');
+    els.floorSolidMode.classList.toggle('active', state.floorMode === 'solid');
+    els.floorTransparentMode.classList.toggle('active', state.floorMode === 'transparent');
+    els.wallWidthLabel.textContent = `Wall Width: ${scaledWallWidth()}px fixed`; 
+    els.cornerRadiusLabel.textContent = `Corner Radius: ${state.cornerRadius}%`;
+    els.seed.value = state.seed; els.wallWidth.value = state.wallWidth; els.cornerRadius.value = state.cornerRadius; els.sizeClass.value = String(state.sizeClass);
+    els.paintModeBtn.textContent = `Mode: ${state.paintMode ? 'Draw' : 'Erase'}`;
+    els.floorColor.value = state.colors.floor; els.wallColor.value = state.colors.wall; els.bgColor.value = state.colors.bg;
+    document.querySelectorAll('[data-width-dir]').forEach(sel => sel.value = String(state.exitWidths[sel.dataset.widthDir] || 2));
+    document.querySelectorAll('[data-palette]').forEach(btn => btn.classList.toggle('active', btn.dataset.palette === state.palette));
+    els.canvasShell.style.background = state.bgMode === 'transparent' ? 'repeating-conic-gradient(#1a1a1a 0% 25%,#222 0% 50%) 0 0/16px 16px' : '#0a0a0f';
+    els.exportSizeInfo.textContent = `Export ${ts()}×${ts()}`;
+    els.gridInfo.textContent = VECTOR_SHAPES.includes(state.shape) ? `Vector` : `Vector (${gridSize()}×${gridSize()} grid)`;
+    els.previewNote.textContent = `Preview is scaled in the browser. Export follows size class ${state.sizeClass} (${ts()}×${ts()}).`;
+    updateTextureUI('floor'); updateTextureUI('wall'); updateTextureUI('bg');
+  }
+
+  function setStatus(msg, isError=false){ els.status.textContent = msg; els.status.style.color = isError ? '#ef9d9d' : 'var(--muted)'; }
+  async function loadTexture(kind, file){ if(!file) return; const url=URL.createObjectURL(file); const img=new Image(); img.onload=()=>{ if(state.textures[kind].url) URL.revokeObjectURL(state.textures[kind].url); state.textures[kind]={img,url,name:file.name}; invalidatePatterns(); updateTextureUI(kind); renderAll(); setStatus(`${kind.toUpperCase()} texture loaded.`); }; img.onerror=()=>{ URL.revokeObjectURL(url); setStatus(`Could not load ${kind} texture.`, true); }; img.src=url; }
+  function clearTexture(kind){ if(state.textures[kind].url) URL.revokeObjectURL(state.textures[kind].url); state.textures[kind]={img:null,url:null,name:null}; invalidatePatterns(); updateTextureUI(kind); renderAll(); }
+  function updateTextureUI(kind){ const pal=PALETTES[state.palette]; const tex=state.textures[kind]; const thumb=els[`${kind}Thumb`]; const name=els[`${kind}Name`]; const clearBtn=document.querySelector(`[data-clear="${kind}"]`); thumb.style.backgroundImage = tex.url ? `url("${tex.url}")` : 'none'; if(!tex.url){ thumb.style.backgroundColor = state.colors[kind === 'floor' ? 'floor' : kind === 'wall' ? 'wall' : 'bg'] || pal[kind === 'floor' ? 'floor' : kind === 'wall' ? 'wall' : 'bg']; } else thumb.style.backgroundColor='transparent'; name.textContent = tex.name || 'Procedural'; clearBtn.classList.toggle('hidden', !tex.img); }
+
+  function exportFilename(ext='png'){ const ae=Object.entries(state.exits).filter(([,v])=>v).map(([k]) => `${k}${state.exitWidths[k]||2}`); const safeShape=state.shape.replace(/\s+/g,'-'); return `bonz-${safeShape}-${state.sizeClass}x-${ae.join('') || 'closed'}.${ext}`; }
+  function metadata(){ return { tool:'BONZOOKAA Tile Forge v6-allvector', shape:state.shape, sizeClass:state.sizeClass, exportSize:ts(), grid: VECTOR_SHAPES.includes(state.shape) ? null : gridSize(), renderMode:'vector', wallWidthPx: scaledWallWidth(), wallWidthMode:'fixed_export_px', cornerRadiusPercent: state.cornerRadius, exits: structuredClone(state.exits), exitWidths: structuredClone(state.exitWidths), floorMode: state.floorMode, bgMode: state.bgMode, palette: state.palette, colors: structuredClone(state.colors), textures: { floor: state.textures.floor.name || null, wall: state.textures.wall.name || null, bg: state.textures.bg.name || null } }; }
+
+  function downloadBlob(blob, filename){ const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 1500); }
+  function downloadPng(){ try { renderTile(); const filename=exportFilename('png'); if (els.canvas.toBlob) { els.canvas.toBlob((blob)=>{ if(!blob){ downloadBlob(dataURLToBlob(els.canvas.toDataURL('image/png')), filename); return; } downloadBlob(blob, filename); setStatus(`Exported ${filename}.`); }, 'image/png'); } else { downloadBlob(dataURLToBlob(els.canvas.toDataURL('image/png')), filename); setStatus(`Exported ${filename}.`); } } catch(err){ console.error(err); setStatus('PNG export failed. See console.', true); } }
+  function dataURLToBlob(dataURL){ const [header, base64] = dataURL.split(','); const mime = header.match(/:(.*?);/)[1]; const bin = atob(base64); const arr = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i); return new Blob([arr], {type:mime}); }
+  function downloadMetadata(){ const blob = new Blob([JSON.stringify(metadata(), null, 2)], {type:'application/json'}); downloadBlob(blob, exportFilename('json')); setStatus('Exported metadata JSON.'); }
+
+  function applyPalette(name){ const pal = PALETTES[name]; state.palette = name; state.colors = { floor:pal.floor, wall:pal.wall, bg:pal.bg }; invalidatePatterns(); }
+
+  const PRESET_DEFS = {
+    cor_straight:    { shape:'Corridor H',    sizeClass:1, exits:{N:false,S:false,E:true,W:true},  exitWidths:{N:2,S:2,E:4,W:4} },
+    cor_corner:      { shape:'L-NorthEast',   sizeClass:1, exits:{N:true,S:false,E:true,W:false},  exitWidths:{N:4,S:2,E:4,W:2} },
+    cor_tjunction:   { shape:'T-North',       sizeClass:1, exits:{N:true,S:false,E:true,W:true},   exitWidths:{N:4,S:2,E:4,W:4} },
+    cor_cross:       { shape:'Cross',         sizeClass:1, exits:{N:true,S:true,E:true,W:true},    exitWidths:{N:4,S:4,E:4,W:4} },
+    dead_end_pocket: { shape:'Rounded Rect',  sizeClass:2, exits:{N:true,S:false,E:false,W:false}, exitWidths:{N:4,S:2,E:2,W:2}, cornerRadius:28 },
+    room_medium:     { shape:'Rounded Rect',  sizeClass:3, exits:{N:true,S:false,E:true,W:true},   exitWidths:{N:4,S:2,E:4,W:4}, cornerRadius:24 },
+    room_objective:  { shape:'Octagon',       sizeClass:4, exits:{N:true,S:false,E:false,W:false}, exitWidths:{N:6,S:2,E:2,W:2}, cornerRadius:26 },
+    round_hub:       { shape:'Round Hub',     sizeClass:3, exits:{N:true,S:true,E:true,W:true},    exitWidths:{N:4,S:4,E:4,W:4}, cornerRadius:34 },
+  };
+
+  function applyPreset(name){
+    const p = PRESET_DEFS[name];
+    if (!p) return;
+    state.floorMode = 'transparent';
+    state.bgMode = 'texture';
+    state.shape = p.shape;
+    state.sizeClass = p.sizeClass;
+    state.exits = { ...p.exits };
+    state.exitWidths = { ...p.exitWidths };
+    if (p.cornerRadius !== undefined) state.cornerRadius = p.cornerRadius;
+    invalidatePatterns();
+    renderAll(); setStatus(`Applied preset ${name}.`);
+  }
+
+  const BATCH_PRESETS = ['cor_straight','cor_corner','cor_tjunction','cor_cross','dead_end_pocket'];
+  async function batchExport(){
+    const snapshot = JSON.stringify(state);
+    setStatus('Batch exporting…');
+    for (const preset of BATCH_PRESETS) {
+      applyPreset(preset);
+      renderTile();
+      // Wait for PNG blob before moving to next preset
+      await new Promise(resolve => {
+        const done = (blob) => { if(blob) downloadBlob(blob, exportFilename('png')); resolve(); };
+        if (els.canvas.toBlob) els.canvas.toBlob(done, 'image/png');
+        else { downloadBlob(dataURLToBlob(els.canvas.toDataURL('image/png')), exportFilename('png')); resolve(); }
+      });
+      downloadBlob(new Blob([JSON.stringify(metadata(),null,2)],{type:'application/json'}), exportFilename('json'));
+      // Small delay so browser can process each download
+      await new Promise(r => setTimeout(r, 200));
+    }
+    Object.assign(state, JSON.parse(snapshot));
+    renderAll();
+    setStatus('Batch export complete — core family exported.');
+  }
+
+  function renderAll(){ syncUI(); renderExitPreview(); renderPaintGrid(); renderTile(); }
+  function initShapes(){ [...Object.keys(GRID_SHAPES), ...VECTOR_SHAPES].forEach(name => { const opt=document.createElement('option'); opt.value=name; opt.textContent=name; els.shape.appendChild(opt); }); els.shape.value=state.shape; }
+  function initPalettes(){ Object.keys(PALETTES).forEach(name => { const btn=document.createElement('button'); btn.className='small-btn'; btn.dataset.palette=name; btn.textContent=name; btn.addEventListener('click', ()=>{ applyPalette(name); renderAll(); }); els.paletteWrap.appendChild(btn); }); }
+  function bind(){
+    els.shape.addEventListener('change', ()=>{ state.shape=els.shape.value; renderAll(); });
+    els.sizeClass.addEventListener('change', ()=>{ state.sizeClass = Number(els.sizeClass.value)||1; renderAll(); });
+    document.querySelectorAll('.exit-btn').forEach(btn => btn.addEventListener('click', ()=>{ const d=btn.dataset.dir; state.exits[d]=!state.exits[d]; renderAll(); }));
+    document.querySelectorAll('[data-width-dir]').forEach(sel => sel.addEventListener('change', ()=>{ state.exitWidths[sel.dataset.widthDir]=Number(sel.value)||2; renderAll(); }));
+    document.querySelectorAll('.preset-exits').forEach(btn => btn.addEventListener('click', ()=>{ const p=btn.dataset.preset; if(p==='all') state.exits={N:true,S:true,E:true,W:true}; if(p==='none') state.exits={N:false,S:false,E:false,W:false}; if(p==='ns') state.exits={N:true,S:true,E:false,W:false}; if(p==='ew') state.exits={N:false,S:false,E:true,W:true}; renderAll(); }));
+    document.querySelectorAll('.preset-btn').forEach(btn => btn.addEventListener('click', ()=> applyPreset(btn.dataset.preset)));
+    els.bgTextureMode.addEventListener('click', ()=>{ state.bgMode='texture'; renderAll(); });
+    els.bgTransparentMode.addEventListener('click', ()=>{ state.bgMode='transparent'; renderAll(); });
+    els.floorSolidMode.addEventListener('click', ()=>{ state.floorMode='solid'; renderAll(); });
+    els.floorTransparentMode.addEventListener('click', ()=>{ state.floorMode='transparent'; renderAll(); });
+    els.floorColor.addEventListener('input', ()=>{ state.colors.floor=els.floorColor.value; invalidatePatterns(); updateTextureUI('floor'); renderAll(); });
+    els.wallColor.addEventListener('input', ()=>{ state.colors.wall=els.wallColor.value; invalidatePatterns(); updateTextureUI('wall'); renderAll(); });
+    els.bgColor.addEventListener('input', ()=>{ state.colors.bg=els.bgColor.value; invalidatePatterns(); updateTextureUI('bg'); renderAll(); });
+    els.seed.addEventListener('change', ()=>{ state.seed=Number(els.seed.value)||1; invalidatePatterns(); renderAll(); });
+    els.dice.addEventListener('click', ()=>{ state.seed=Math.floor(Math.random()*999999); invalidatePatterns(); renderAll(); });
+    els.wallWidth.addEventListener('input', ()=>{ state.wallWidth=Number(els.wallWidth.value)||20; renderAll(); });
+    els.cornerRadius.addEventListener('input', ()=>{ state.cornerRadius=Number(els.cornerRadius.value)||0; renderAll(); });
+    $('paintFill').addEventListener('click', ()=>{ state.customGrid = Array.from({length:BASE_GRID},()=>Array(BASE_GRID).fill(1)); renderAll(); });
+    $('paintClear').addEventListener('click', ()=>{ state.customGrid = Array.from({length:BASE_GRID},()=>Array(BASE_GRID).fill(0)); renderAll(); });
+    els.paintModeBtn.addEventListener('click', ()=>{ state.paintMode = state.paintMode ? 0 : 1; renderAll(); });
+    els.downloadBtn.addEventListener('click', downloadPng);
+    els.metadataBtn.addEventListener('click', downloadMetadata);
+    els.batchBtn.addEventListener('click', batchExport);
+    document.querySelectorAll('[data-upload]').forEach(btn => btn.addEventListener('click', ()=> els[`${btn.dataset.upload}Input`].click()));
+    els.floorInput.addEventListener('change', e=>{ loadTexture('floor', e.target.files && e.target.files[0]); e.target.value=''; });
+    els.wallInput.addEventListener('change', e=>{ loadTexture('wall', e.target.files && e.target.files[0]); e.target.value=''; });
+    els.bgInput.addEventListener('change', e=>{ loadTexture('bg', e.target.files && e.target.files[0]); e.target.value=''; });
+    document.querySelectorAll('[data-clear]').forEach(btn => btn.addEventListener('click', ()=> clearTexture(btn.dataset.clear)));
+  }
+
+  initShapes(); initPalettes(); applyPalette(state.palette); initExitPreview(); initPaintGrid(); bind(); renderAll();
+
+  // Cleanup texture object URLs on page unload
+  window.addEventListener('beforeunload', () => {
+    ['floor','wall','bg'].forEach(k => { if(state.textures[k].url) URL.revokeObjectURL(state.textures[k].url); });
+  });
+})();
+</script>
+</body>
+</html>

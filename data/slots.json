@@ -1,0 +1,47 @@
+{
+  "weapon": {
+    "name": "Primary Weapon",
+    "icon": "\ud83d\udd2b",
+    "description": "Main offensive armament"
+  },
+  "secondary": {
+    "name": "Secondary Weapon",
+    "icon": "\ud83d\ude80",
+    "description": "Support weapon system"
+  },
+  "shield": {
+    "name": "Shield Generator",
+    "icon": "\ud83d\udee1\ufe0f",
+    "description": "Defensive barrier system"
+  },
+  "engine": {
+    "name": "Engine",
+    "icon": "\u26a1",
+    "description": "Propulsion and mobility"
+  },
+  "reactor": {
+    "name": "Reactor Core",
+    "icon": "\u2622\ufe0f",
+    "description": "Power generation"
+  },
+  "module1": {
+    "name": "Module Slot 1",
+    "icon": "\ud83d\udd27",
+    "description": "Enhancement module"
+  },
+  "module2": {
+    "name": "Module Slot 2",
+    "icon": "\ud83d\udd29",
+    "description": "Enhancement module"
+  },
+  "module3": {
+    "name": "Module Slot 3",
+    "icon": "\u2699\ufe0f",
+    "description": "Enhancement module"
+  },
+  "drone": {
+    "name": "Drone Bay",
+    "icon": "\ud83e\udd16",
+    "description": "Companion drone"
+  }
+}

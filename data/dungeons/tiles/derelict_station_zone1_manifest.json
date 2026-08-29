@@ -1,0 +1,63 @@
+{
+  "version": "v2166A30",
+  "family": "derelict_station_zone1",
+  "tileSemantics": {
+    "transparent": "walkable_floor",
+    "black_background": "solid_void",
+    "opaque_shell": "solid_structure"
+  },
+  "storage": {
+    "assetRoot": "assets/instances/derelict_tiles/zone1",
+    "note": "Runtime-served canonical location for PNG+JSON tile pairs."
+  },
+  "pairs": [
+    {
+      "id": "bonz-Corridor-H-1x-E4W2",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-Corridor-H-1x-E4W2.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-Corridor-H-1x-E4W2.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-Corridor-H-1x-N2E4W4",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-Corridor-H-1x-N2E4W4.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-Corridor-H-1x-N2E4W4.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-Corridor-V-1x-S2",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-Corridor-V-1x-S2.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-Corridor-V-1x-S2.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-Corridor-V-4x-N4S6E2",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-Corridor-V-4x-N4S6E2.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-Corridor-V-4x-N4S6E2.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-Cross-1x-N4S4E4W4",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-Cross-1x-N4S4E4W4.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-Cross-1x-N4S4E4W4.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-L-NorthEast-1x-N4E4",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-L-NorthEast-1x-N4E4.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-L-NorthEast-1x-N4E4.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-Round-Room-4x-S2",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-Round-Room-4x-S2.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-Round-Room-4x-S2.json",
+      "jsonExists": true
+    },
+    {
+      "id": "bonz-T-North-1x-N4E4W4",
+      "png": "assets/instances/derelict_tiles/zone1/bonz-T-North-1x-N4E4W4.png",
+      "json": "assets/instances/derelict_tiles/zone1/bonz-T-North-1x-N4E4W4.json",
+      "jsonExists": true
+    }
+  ]
+}

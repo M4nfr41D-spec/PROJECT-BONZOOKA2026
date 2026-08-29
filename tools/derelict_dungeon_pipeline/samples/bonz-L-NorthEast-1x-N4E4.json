@@ -1,0 +1,36 @@
+{
+  "tool": "BONZOOKAA Tile Forge v5h",
+  "shape": "L-NorthEast",
+  "sizeClass": 1,
+  "exportSize": 1024,
+  "grid": 8,
+  "vectorShape": false,
+  "wallWidthPx": 8,
+  "wallWidthMode": "fixed_export_px",
+  "cornerRadiusPercent": 34,
+  "exits": {
+    "N": true,
+    "S": false,
+    "E": true,
+    "W": false
+  },
+  "exitWidths": {
+    "N": 4,
+    "S": 2,
+    "E": 4,
+    "W": 2
+  },
+  "floorMode": "transparent",
+  "bgMode": "texture",
+  "palette": "Dungeon Stone",
+  "colors": {
+    "floor": "#8e9478",
+    "wall": "#5a554b",
+    "bg": "#645f55"
+  },
+  "textures": {
+    "floor": null,
+    "wall": null,
+    "bg": "land_steel_plate.jpeg"
+  }
+}

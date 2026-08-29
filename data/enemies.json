@@ -1,0 +1,416 @@
+{
+  "basic": {
+    "grunt": {
+      "name": "Grunt",
+      "icon": "👾",
+      "hp": 40,
+      "damage": 8,
+      "speed": 70,
+      "score": 10,
+      "xp": 5,
+      "pattern": "straight",
+      "color": "#44aa44",
+      "shootInterval": 2.5
+    },
+    "scout": {
+      "name": "Scout",
+      "icon": "🛸",
+      "hp": 25,
+      "damage": 5,
+      "speed": 110,
+      "score": 15,
+      "xp": 7,
+      "pattern": "zigzag",
+      "color": "#44aaff",
+      "shootInterval": 2
+    },
+    "diver": {
+      "name": "Diver",
+      "icon": "🔻",
+      "hp": 35,
+      "damage": 12,
+      "speed": 140,
+      "score": 20,
+      "xp": 10,
+      "pattern": "dive",
+      "color": "#ff4444",
+      "shootInterval": 1.8
+    },
+    "tank": {
+      "name": "Tank",
+      "icon": "🔷",
+      "hp": 100,
+      "damage": 15,
+      "speed": 35,
+      "score": 30,
+      "xp": 15,
+      "pattern": "straight",
+      "color": "#888888",
+      "shootInterval": 1.5
+    },
+    "corrupted": {
+      "name": "Corrupted Spawn",
+      "icon": "☣️",
+      "hp": 45,
+      "damage": 4,
+      "speed": 55,
+      "score": 55,
+      "xp": 28,
+      "pattern": "strafe",
+      "color": "#c6a24a",
+      "shootInterval": 0.45,
+      "abilities": [
+        "corruptDot"
+      ],
+      "dot": {
+        "duration": 4,
+        "tick": 0.5,
+        "dpsPctMaxHp": 0.01
+      }
+    },
+    "repair_drone": {
+      "name": "Repair Drone",
+      "icon": "🛠️",
+      "hp": 25,
+      "damage": 0,
+      "speed": 90,
+      "score": 15,
+      "xp": 8,
+      "pattern": "orbit",
+      "color": "#66ddff",
+      "shootInterval": 9999,
+      "abilities": [
+        "repairTether"
+      ],
+      "repair": {
+        "range": 260,
+        "healPctMaxHpPerSec": 0.03,
+        "capPctMaxHpPerSec": 0.04
+      }
+    },
+    "bomber": {
+      "name": "Bomber",
+      "icon": "💣",
+      "hp": 55,
+      "damage": 6,
+      "speed": 50,
+      "score": 45,
+      "xp": 25,
+      "pattern": "wander",
+      "color": "#ff6633",
+      "shootInterval": 3.0,
+      "abilities": [
+        "layMines"
+      ],
+      "mineInterval": 2.5,
+      "mineCount": 1,
+      "mineDamage": 12,
+      "mineLife": 15
+    },
+    "cloaker": {
+      "name": "Cloaker",
+      "icon": "👻",
+      "hp": 30,
+      "damage": 18,
+      "speed": 95,
+      "score": 60,
+      "xp": 30,
+      "pattern": "strafe",
+      "color": "#8844cc",
+      "shootInterval": 1.8,
+      "abilities": [
+        "cloak"
+      ],
+      "cloakRange": 250,
+      "uncloakRange": 120,
+      "cloakAlpha": 0.08
+    },
+    "summoner": {
+      "name": "Summoner",
+      "icon": "✨",
+      "hp": 65,
+      "damage": 5,
+      "speed": 40,
+      "score": 70,
+      "xp": 35,
+      "pattern": "static",
+      "color": "#cc44ff",
+      "shootInterval": 2.0,
+      "abilities": [
+        "summon"
+      ],
+      "summonInterval": 6,
+      "summonType": "grunt",
+      "summonMax": 3
+    },
+    "turret": {
+      "name": "Turret",
+      "icon": "🏯",
+      "hp": 80,
+      "damage": 20,
+      "speed": 0,
+      "score": 50,
+      "xp": 28,
+      "pattern": "static",
+      "color": "#ccaa33",
+      "shootInterval": 1.2,
+      "abilities": [
+        "stationary",
+        "rapidFire"
+      ],
+      "burstCount": 3,
+      "burstDelay": 0.15
+    },
+    "shielder": {
+      "name": "Shielder",
+      "icon": "🛡️",
+      "hp": 50,
+      "damage": 6,
+      "speed": 55,
+      "score": 55,
+      "xp": 30,
+      "pattern": "circle",
+      "color": "#33aacc",
+      "shootInterval": 2.5,
+      "abilities": [
+        "projectBarrier"
+      ],
+      "barrierRadius": 100,
+      "barrierArc": 1.2,
+      "barrierHP": 40
+    }
+  },
+  "elite": {
+    "commander": {
+      "name": "Commander",
+      "icon": "⭐",
+      "hp": 150,
+      "damage": 20,
+      "speed": 50,
+      "score": 100,
+      "xp": 50,
+      "pattern": "command",
+      "color": "#ffaa00",
+      "shootInterval": 1.2,
+      "abilities": [
+        "summon",
+        "shield"
+      ]
+    },
+    "berserker": {
+      "name": "Berserker",
+      "icon": "💢",
+      "hp": 120,
+      "damage": 30,
+      "speed": 90,
+      "score": 120,
+      "xp": 60,
+      "pattern": "charge",
+      "color": "#ff2222",
+      "shootInterval": 0.8,
+      "abilities": [
+        "enrage"
+      ]
+    },
+    "sniper": {
+      "name": "Sniper",
+      "icon": "🎯",
+      "hp": 60,
+      "damage": 40,
+      "speed": 25,
+      "score": 80,
+      "xp": 40,
+      "pattern": "strafe",
+      "color": "#aa44ff",
+      "shootInterval": 2.5,
+      "abilities": [
+        "aimShot"
+      ]
+    }
+  },
+  "bosses": {
+    "sentinel": {
+      "name": "Sentinel Alpha",
+      "icon": "👑",
+      "hp": 800,
+      "damage": 25,
+      "speed": 35,
+      "score": 500,
+      "xp": 200,
+      "pattern": "boss_sentinel",
+      "color": "#ff8800",
+      "shootInterval": 0.6,
+      "phases": 3,
+      "abilities": [
+        "laser_sweep",
+        "spawn_adds",
+        "shield_phase"
+      ]
+    },
+    "collector": {
+      "name": "The Collector",
+      "icon": "🕷️",
+      "hp": 1200,
+      "damage": 30,
+      "speed": 45,
+      "score": 800,
+      "xp": 350,
+      "pattern": "boss_collector",
+      "color": "#aa00ff",
+      "shootInterval": 0.5,
+      "phases": 4,
+      "abilities": [
+        "tractor_beam",
+        "drone_swarm",
+        "teleport"
+      ]
+    },
+    "harbinger": {
+      "name": "Harbinger",
+      "icon": "💀",
+      "hp": 2000,
+      "damage": 45,
+      "speed": 55,
+      "score": 1200,
+      "xp": 500,
+      "pattern": "boss_harbinger",
+      "color": "#ff0044",
+      "shootInterval": 0.4,
+      "phases": 5,
+      "abilities": [
+        "void_beam",
+        "meteor_shower",
+        "time_slow",
+        "rage_mode"
+      ]
+    }
+  },
+  "patterns": {
+    "straight": {
+      "description": "Move straight down",
+      "movement": [
+        {
+          "dy": 1,
+          "duration": -1
+        }
+      ]
+    },
+    "zigzag": {
+      "description": "Zigzag left and right",
+      "movement": [
+        {
+          "dx": 1,
+          "dy": 0.3,
+          "duration": 0.5
+        },
+        {
+          "dx": -1,
+          "dy": 0.3,
+          "duration": 0.5
+        }
+      ],
+      "loop": true
+    },
+    "dive": {
+      "description": "Slow then fast dive",
+      "movement": [
+        {
+          "dy": 0.3,
+          "duration": 1.5
+        },
+        {
+          "dy": 2,
+          "duration": 1
+        }
+      ]
+    },
+    "snake": {
+      "description": "S-curve pattern",
+      "movement": [
+        {
+          "dx": 0.8,
+          "dy": 0.5,
+          "duration": 0.8
+        },
+        {
+          "dx": -0.8,
+          "dy": 0.5,
+          "duration": 0.8
+        }
+      ],
+      "loop": true
+    },
+    "charge": {
+      "description": "Wait then charge at player",
+      "movement": [
+        {
+          "dy": 0.2,
+          "duration": 1
+        },
+        {
+          "target": "player",
+          "speed": 2,
+          "duration": 2
+        }
+      ]
+    },
+    "strafe": {
+      "description": "Move to side, stop and shoot",
+      "movement": [
+        {
+          "dx": 1,
+          "dy": 0.3,
+          "duration": 1.5
+        },
+        {
+          "stop": true,
+          "shoot": true,
+          "duration": 2
+        },
+        {
+          "dx": -1,
+          "dy": 0.3,
+          "duration": 1.5
+        }
+      ],
+      "loop": true
+    }
+  },
+  "waveCompositions": {
+    "1-5": {
+      "pool": ["grunt"],
+      "count": [4, 6],
+      "eliteChance": 0
+    },
+    "6-10": {
+      "pool": ["grunt", "scout"],
+      "count": [5, 8],
+      "eliteChance": 0.05
+    },
+    "11-20": {
+      "pool": ["grunt", "scout", "diver", "repair_drone"],
+      "count": [6, 10],
+      "eliteChance": 0.1
+    },
+    "21-30": {
+      "pool": ["grunt", "scout", "diver", "tank", "turret"],
+      "count": [8, 12],
+      "eliteChance": 0.15
+    },
+    "31-50": {
+      "pool": ["scout", "diver", "tank", "bomber", "cloaker", "turret"],
+      "count": [10, 15],
+      "eliteChance": 0.2
+    },
+    "51-100": {
+      "pool": ["diver", "tank", "bomber", "cloaker", "summoner", "turret", "shielder"],
+      "count": [12, 18],
+      "eliteChance": 0.25
+    },
+    "101+": {
+      "pool": ["tank", "bomber", "cloaker", "summoner", "turret", "shielder", "corrupted"],
+      "count": [14, 22],
+      "eliteChance": 0.3
+    }
+  }
+}

@@ -1,0 +1,1243 @@
+{
+  "prefixes": {
+    "damage": [
+      {
+        "id": "sharp",
+        "name": "Sharp",
+        "stat": "damage",
+        "range": [
+          2,
+          5
+        ],
+        "tiers": [
+          "common",
+          "uncommon"
+        ],
+        "tags": [
+          "offense"
+        ]
+      },
+      {
+        "id": "deadly",
+        "name": "Deadly",
+        "stat": "damage",
+        "range": [
+          5,
+          10
+        ],
+        "tiers": [
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "offense"
+        ]
+      },
+      {
+        "id": "vicious",
+        "name": "Vicious",
+        "stat": "damage",
+        "range": [
+          10,
+          18
+        ],
+        "tiers": [
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "offense",
+          "glass_cannon"
+        ]
+      },
+      {
+        "id": "brutal",
+        "name": "Brutal",
+        "stat": "damage",
+        "range": [
+          18,
+          28
+        ],
+        "tiers": [
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "offense",
+          "glass_cannon"
+        ]
+      },
+      {
+        "id": "annihilating",
+        "name": "Annihilating",
+        "stat": "damage",
+        "range": [
+          28,
+          40
+        ],
+        "tiers": [
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "offense",
+          "glass_cannon"
+        ]
+      }
+    ],
+    "fireRate": [
+      {
+        "id": "quick",
+        "name": "Quick",
+        "stat": "fireRate",
+        "range": [
+          0.3,
+          0.6
+        ],
+        "tiers": [
+          "common",
+          "uncommon"
+        ],
+        "tags": [
+          "speed"
+        ]
+      },
+      {
+        "id": "rapid",
+        "name": "Rapid",
+        "stat": "fireRate",
+        "range": [
+          0.6,
+          1.0
+        ],
+        "tiers": [
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "speed"
+        ]
+      },
+      {
+        "id": "furious",
+        "name": "Furious",
+        "stat": "fireRate",
+        "range": [
+          1.0,
+          1.5
+        ],
+        "tiers": [
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "speed",
+          "frenzy"
+        ]
+      },
+      {
+        "id": "frenzied",
+        "name": "Frenzied",
+        "stat": "fireRate",
+        "range": [
+          1.5,
+          2.5
+        ],
+        "tiers": [
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "speed",
+          "frenzy"
+        ]
+      }
+    ],
+    "crit": [
+      {
+        "id": "keen",
+        "name": "Keen",
+        "stat": "critChance",
+        "range": [
+          3,
+          6
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "precision"
+        ]
+      },
+      {
+        "id": "precise",
+        "name": "Precise",
+        "stat": "critChance",
+        "range": [
+          6,
+          10
+        ],
+        "tiers": [
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "precision"
+        ]
+      },
+      {
+        "id": "lethal",
+        "name": "Lethal",
+        "stat": "critChance",
+        "range": [
+          10,
+          15
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "precision",
+          "assassin"
+        ]
+      }
+    ],
+    "special": [
+      {
+        "id": "vampiric",
+        "name": "Vampiric",
+        "stat": "lifesteal",
+        "range": [
+          1,
+          3
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "sustain"
+        ]
+      },
+      {
+        "id": "ethereal",
+        "name": "Ethereal",
+        "stat": "piercing",
+        "range": [
+          1,
+          1
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "penetration"
+        ]
+      },
+      {
+        "id": "quantum",
+        "name": "Quantum",
+        "stat": "projectiles",
+        "range": [
+          1,
+          1
+        ],
+        "tiers": [
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "multishot"
+        ]
+      },
+      {
+        "id": "berserker",
+        "name": "Berserker",
+        "stat": "berserkDamage",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "glass_cannon",
+          "frenzy"
+        ]
+      }
+    ],
+    "defense": [
+      {
+        "id": "reinforced",
+        "name": "Reinforced",
+        "stat": "shieldCap",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "tank"
+        ]
+      },
+      {
+        "id": "fortified",
+        "name": "Fortified",
+        "stat": "shieldCap",
+        "range": [
+          25,
+          45
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "tank"
+        ]
+      },
+      {
+        "id": "hardened",
+        "name": "Hardened",
+        "stat": "maxHP",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "tank"
+        ]
+      },
+      {
+        "id": "stalwart",
+        "name": "Stalwart",
+        "stat": "maxHP",
+        "range": [
+          25,
+          50
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "tank",
+          "juggernaut"
+        ]
+      }
+    ],
+    "elemental": [
+      {
+        "id": "scorching",
+        "name": "Scorching",
+        "stat": "fireDamage",
+        "range": [
+          5,
+          12
+        ],
+        "tiers": [
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "fire",
+          "elemental"
+        ]
+      },
+      {
+        "id": "blazing",
+        "name": "Blazing",
+        "stat": "fireDamage",
+        "range": [
+          12,
+          25
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "fire",
+          "elemental"
+        ]
+      },
+      {
+        "id": "freezing",
+        "name": "Freezing",
+        "stat": "coldDamage",
+        "range": [
+          4,
+          10
+        ],
+        "tiers": [
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "cold",
+          "elemental"
+        ]
+      },
+      {
+        "id": "glacial",
+        "name": "Glacial",
+        "stat": "coldDamage",
+        "range": [
+          10,
+          22
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "cold",
+          "elemental",
+          "crowd_control"
+        ]
+      },
+      {
+        "id": "shocking",
+        "name": "Shocking",
+        "stat": "lightningDamage",
+        "range": [
+          6,
+          14
+        ],
+        "tiers": [
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "lightning",
+          "elemental"
+        ]
+      },
+      {
+        "id": "thunderous",
+        "name": "Thunderous",
+        "stat": "lightningDamage",
+        "range": [
+          14,
+          30
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "lightning",
+          "elemental",
+          "chain"
+        ]
+      }
+    ],
+    "sustain": [
+      {
+        "id": "regenerating",
+        "name": "Regenerating",
+        "stat": "hpRegen",
+        "range": [
+          1,
+          3
+        ],
+        "tiers": [
+          "uncommon",
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "sustain"
+        ]
+      },
+      {
+        "id": "absorbing",
+        "name": "Absorbing",
+        "stat": "damageReduction",
+        "range": [
+          2,
+          6
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "tank",
+          "sustain"
+        ]
+      },
+      {
+        "id": "leaching",
+        "name": "Leaching",
+        "stat": "energyOnKill",
+        "range": [
+          3,
+          8
+        ],
+        "tiers": [
+          "uncommon",
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "sustain",
+          "economy"
+        ]
+      }
+    ],
+    "utility": [
+      {
+        "id": "explosive",
+        "name": "Explosive",
+        "stat": "aoeOnKill",
+        "range": [
+          30,
+          60
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "aoe",
+          "offense"
+        ]
+      },
+      {
+        "id": "chaining",
+        "name": "Chaining",
+        "stat": "chainCount",
+        "range": [
+          1,
+          2
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "chain",
+          "multishot"
+        ]
+      },
+      {
+        "id": "magnetic",
+        "name": "Magnetic",
+        "stat": "pickupRadius",
+        "range": [
+          20,
+          50
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "economy",
+          "fortune"
+        ]
+      }
+    ]
+  },
+  "suffixes": {
+    "defense": [
+      {
+        "id": "of_protection",
+        "name": "of Protection",
+        "stat": "shieldCap",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "common",
+          "uncommon"
+        ],
+        "tags": [
+          "tank"
+        ]
+      },
+      {
+        "id": "of_the_fortress",
+        "name": "of the Fortress",
+        "stat": "shieldCap",
+        "range": [
+          25,
+          50
+        ],
+        "tiers": [
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "tank",
+          "juggernaut"
+        ]
+      },
+      {
+        "id": "of_invincibility",
+        "name": "of Invincibility",
+        "stat": "shieldCap",
+        "range": [
+          50,
+          80
+        ],
+        "tiers": [
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "tank",
+          "juggernaut"
+        ]
+      }
+    ],
+    "speed": [
+      {
+        "id": "of_swiftness",
+        "name": "of Swiftness",
+        "stat": "speed",
+        "range": [
+          3,
+          8
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "speed"
+        ]
+      },
+      {
+        "id": "of_the_wind",
+        "name": "of the Wind",
+        "stat": "speed",
+        "range": [
+          8,
+          15
+        ],
+        "tiers": [
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "speed",
+          "evasion"
+        ]
+      },
+      {
+        "id": "of_light",
+        "name": "of Light",
+        "stat": "speed",
+        "range": [
+          15,
+          22
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "speed",
+          "evasion"
+        ]
+      }
+    ],
+    "luck": [
+      {
+        "id": "of_fortune",
+        "name": "of Fortune",
+        "stat": "luck",
+        "range": [
+          2,
+          5
+        ],
+        "tiers": [
+          "uncommon",
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "fortune"
+        ]
+      },
+      {
+        "id": "of_prosperity",
+        "name": "of Prosperity",
+        "stat": "scrapBonus",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "fortune",
+          "economy"
+        ]
+      },
+      {
+        "id": "of_the_collector",
+        "name": "of the Collector",
+        "stat": "dropBonus",
+        "range": [
+          5,
+          15
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "fortune",
+          "economy"
+        ]
+      }
+    ],
+    "vitality": [
+      {
+        "id": "of_vitality",
+        "name": "of Vitality",
+        "stat": "maxHP",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "sustain"
+        ]
+      },
+      {
+        "id": "of_the_titan",
+        "name": "of the Titan",
+        "stat": "maxHP",
+        "range": [
+          25,
+          50
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "sustain",
+          "juggernaut"
+        ]
+      },
+      {
+        "id": "of_immortality",
+        "name": "of Immortality",
+        "stat": "maxHP",
+        "range": [
+          50,
+          100
+        ],
+        "tiers": [
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "sustain",
+          "juggernaut"
+        ]
+      }
+    ],
+    "special": [
+      {
+        "id": "of_the_phoenix",
+        "name": "of the Phoenix",
+        "stat": "reviveChance",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "sustain",
+          "legendary_power"
+        ]
+      },
+      {
+        "id": "of_devastation",
+        "name": "of Devastation",
+        "stat": "critDamage",
+        "range": [
+          25,
+          50
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "precision",
+          "glass_cannon"
+        ]
+      },
+      {
+        "id": "of_infinity",
+        "name": "of Infinity",
+        "stat": "energyRegen",
+        "range": [
+          20,
+          40
+        ],
+        "tiers": [
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "sustain"
+        ]
+      },
+      {
+        "id": "of_the_void",
+        "name": "of the Void",
+        "stat": "voidDamage",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "mythic"
+        ],
+        "tags": [
+          "void",
+          "legendary_power"
+        ]
+      }
+    ],
+    "elemental": [
+      {
+        "id": "of_embers",
+        "name": "of Embers",
+        "stat": "fireDamage",
+        "range": [
+          3,
+          8
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "fire",
+          "elemental"
+        ]
+      },
+      {
+        "id": "of_the_inferno",
+        "name": "of the Inferno",
+        "stat": "fireDamage",
+        "range": [
+          8,
+          18
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "fire",
+          "elemental"
+        ]
+      },
+      {
+        "id": "of_frost",
+        "name": "of Frost",
+        "stat": "coldDamage",
+        "range": [
+          3,
+          8
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "cold",
+          "elemental"
+        ]
+      },
+      {
+        "id": "of_the_blizzard",
+        "name": "of the Blizzard",
+        "stat": "coldDamage",
+        "range": [
+          8,
+          18
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "cold",
+          "elemental",
+          "crowd_control"
+        ]
+      },
+      {
+        "id": "of_sparks",
+        "name": "of Sparks",
+        "stat": "lightningDamage",
+        "range": [
+          3,
+          8
+        ],
+        "tiers": [
+          "common",
+          "uncommon",
+          "rare"
+        ],
+        "tags": [
+          "lightning",
+          "elemental"
+        ]
+      },
+      {
+        "id": "of_the_storm",
+        "name": "of the Storm",
+        "stat": "lightningDamage",
+        "range": [
+          8,
+          18
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "lightning",
+          "elemental",
+          "chain"
+        ]
+      }
+    ],
+    "build": [
+      {
+        "id": "of_the_berserker",
+        "name": "of the Berserker",
+        "stat": "damageAtLowHP",
+        "range": [
+          15,
+          35
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "glass_cannon",
+          "frenzy"
+        ]
+      },
+      {
+        "id": "of_the_sentinel",
+        "name": "of the Sentinel",
+        "stat": "thornsDamage",
+        "range": [
+          5,
+          15
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "tank",
+          "retaliation"
+        ]
+      },
+      {
+        "id": "of_the_hunter",
+        "name": "of the Hunter",
+        "stat": "eliteDamage",
+        "range": [
+          10,
+          25
+        ],
+        "tiers": [
+          "rare",
+          "epic",
+          "legendary"
+        ],
+        "tags": [
+          "precision",
+          "boss_killer"
+        ]
+      },
+      {
+        "id": "of_annihilation",
+        "name": "of Annihilation",
+        "stat": "aoeRadius",
+        "range": [
+          15,
+          40
+        ],
+        "tiers": [
+          "epic",
+          "legendary",
+          "mythic"
+        ],
+        "tags": [
+          "aoe",
+          "offense"
+        ]
+      },
+      {
+        "id": "of_the_miser",
+        "name": "of the Miser",
+        "stat": "scrapOnKill",
+        "range": [
+          2,
+          8
+        ],
+        "tiers": [
+          "uncommon",
+          "rare",
+          "epic"
+        ],
+        "tags": [
+          "economy",
+          "fortune"
+        ]
+      }
+    ]
+  },
+  "synergies": {
+    "_comment": "When 3+ equipped items share a tag, the synergy bonus activates. 4+ = enhanced bonus.",
+    "glass_cannon": {
+      "3": {
+        "damageBonus": 15,
+        "maxHP": -10
+      },
+      "4": {
+        "damageBonus": 30,
+        "maxHP": -20,
+        "critDamage": 20
+      }
+    },
+    "tank": {
+      "3": {
+        "maxHP": 20,
+        "shieldCap": 15
+      },
+      "4": {
+        "maxHP": 40,
+        "shieldCap": 30,
+        "damageReduction": 5
+      }
+    },
+    "juggernaut": {
+      "3": {
+        "maxHP": 30,
+        "speed": -5
+      },
+      "4": {
+        "maxHP": 60,
+        "shieldCap": 20,
+        "speed": -10
+      }
+    },
+    "precision": {
+      "3": {
+        "critChance": 5,
+        "critDamage": 15
+      },
+      "4": {
+        "critChance": 10,
+        "critDamage": 30
+      }
+    },
+    "frenzy": {
+      "3": {
+        "fireRate": 1.5,
+        "damageBonus": 5
+      },
+      "4": {
+        "fireRate": 3.0,
+        "damageBonus": 10,
+        "speed": 10
+      }
+    },
+    "speed": {
+      "3": {
+        "speed": 12,
+        "acceleration": 100
+      },
+      "4": {
+        "speed": 25,
+        "acceleration": 200
+      }
+    },
+    "evasion": {
+      "3": {
+        "dodgeChance": 5,
+        "speed": 8
+      },
+      "4": {
+        "dodgeChance": 10,
+        "speed": 15
+      }
+    },
+    "sustain": {
+      "3": {
+        "hpRegen": 2,
+        "lifesteal": 1
+      },
+      "4": {
+        "hpRegen": 4,
+        "lifesteal": 2,
+        "shieldRegen": 1
+      }
+    },
+    "fortune": {
+      "3": {
+        "luck": 5,
+        "scrapBonus": 10
+      },
+      "4": {
+        "luck": 10,
+        "scrapBonus": 20,
+        "dropBonus": 5
+      }
+    },
+    "economy": {
+      "3": {
+        "scrapBonus": 15,
+        "cellBonus": 10
+      },
+      "4": {
+        "scrapBonus": 30,
+        "cellBonus": 20
+      }
+    },
+    "fire": {
+      "3": {
+        "fireDamage": 10,
+        "burnChance": 8
+      },
+      "4": {
+        "fireDamage": 20,
+        "burnChance": 15
+      }
+    },
+    "cold": {
+      "3": {
+        "coldDamage": 10,
+        "slowChance": 8
+      },
+      "4": {
+        "coldDamage": 20,
+        "slowChance": 15,
+        "freezeChance": 3
+      }
+    },
+    "lightning": {
+      "3": {
+        "lightningDamage": 10,
+        "shockChance": 8
+      },
+      "4": {
+        "lightningDamage": 20,
+        "shockChance": 15,
+        "chainCount": 1
+      }
+    },
+    "elemental": {
+      "3": {
+        "allElementalDamage": 8
+      },
+      "4": {
+        "allElementalDamage": 18
+      }
+    },
+    "multishot": {
+      "3": {
+        "projectiles": 1
+      },
+      "4": {
+        "projectiles": 2
+      }
+    },
+    "aoe": {
+      "3": {
+        "aoeRadius": 15
+      },
+      "4": {
+        "aoeRadius": 30,
+        "aoeOnKill": 20
+      }
+    },
+    "chain": {
+      "3": {
+        "chainCount": 1
+      },
+      "4": {
+        "chainCount": 2
+      }
+    },
+    "legendary_power": {
+      "3": {
+        "allStats": 5
+      },
+      "4": {
+        "allStats": 10,
+        "critChance": 3
+      }
+    }
+  }
+}

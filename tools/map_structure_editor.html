@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BONZOOKAA — Zone Editor v2</title>
+<style>
+:root{--bg:#080a12;--surface:#0e1120;--panel:#141828;--border:#1a2040;--text:#c0c8d8;--dim:#556;--cyan:#00ffcc;--gold:#ffcc00;--red:#ff4455;--purple:#aa44ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Courier New',monospace;display:flex;height:100vh;overflow:hidden;user-select:none;}
+#toolPanel{width:300px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.sec{padding:10px 12px;border-bottom:1px solid var(--border);}
+.sec-title{font-size:10px;color:var(--cyan);font-weight:bold;letter-spacing:2px;margin-bottom:6px;}
+.row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.lbl{font-size:10px;color:var(--dim);width:65px;flex-shrink:0;}
+.btn{padding:5px 10px;background:var(--panel);border:1px solid var(--border);border-radius:3px;color:var(--text);cursor:pointer;font-size:10px;font-family:inherit;transition:all .15s;}
+.btn:hover{border-color:var(--cyan);color:#fff;}
+.btn.on{background:rgba(0,255,200,.12);border-color:var(--cyan);color:var(--cyan);}
+.btn.red{border-color:var(--red);color:var(--red);}
+select,input[type=number],input[type=text]{background:var(--panel);border:1px solid var(--border);color:var(--text);padding:4px 6px;border-radius:3px;font-family:inherit;font-size:10px;width:100%;}
+input[type=range]{width:100%;accent-color:var(--cyan);}
+input[type=file]{font-size:9px;color:var(--dim);}
+#tilePalette{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;max-height:200px;overflow-y:auto;margin-top:6px;}
+.tile-thumb{width:100%;aspect-ratio:1;border:2px solid transparent;border-radius:3px;cursor:pointer;object-fit:contain;background:var(--panel);}
+.tile-thumb.sel{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,255,200,.4);}
+.tile-thumb:hover{border-color:rgba(255,255,255,.3);}
+.tile-none{display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--dim);aspect-ratio:1;border:2px solid transparent;border-radius:3px;cursor:pointer;background:var(--panel);}
+.tile-none.sel{border-color:var(--cyan);}
+#entityList{max-height:180px;overflow-y:auto;margin-top:6px;}
+.ent-item{display:flex;align-items:center;gap:6px;padding:3px 6px;margin-bottom:2px;background:var(--panel);border-radius:3px;font-size:10px;cursor:pointer;}
+.ent-item:hover{background:rgba(255,255,255,.05);}
+.ent-del{margin-left:auto;color:var(--red);cursor:pointer;}
+#canvasWrap{flex:1;position:relative;background:var(--bg);overflow:hidden;}
+canvas{cursor:crosshair;display:block;}
+#coords{position:absolute;bottom:8px;left:8px;font-size:10px;color:var(--dim);}
+#zoneInfo{position:absolute;top:8px;left:8px;font-size:10px;color:var(--dim);}
+#hint{position:absolute;bottom:8px;right:8px;font-size:10px;color:var(--dim);}
+#propPanel{width:240px;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;padding:10px 12px;}
+</style>
+</head>
+<body>
+<div id="toolPanel">
+  <div class="sec">
+    <div class="sec-title">ZONE SETTINGS</div>
+    <div class="row"><span class="lbl">Width</span><input type="number" id="zoneW" value="5000" min="2000" max="20000" step="500"></div>
+    <div class="row"><span class="lbl">Height</span><input type="number" id="zoneH" value="5000" min="2000" max="20000" step="500"></div>
+    <div class="row"><span class="lbl">Biome</span><select id="zoneBiome"><option>asteroid</option><option>nebula</option><option>void</option><option>derelict</option><option>blackhole</option></select></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">DRAW MODE</div>
+    <div class="row" style="flex-wrap:wrap;gap:4px;">
+      <button class="btn on" data-mode="structure" onclick="setMode('structure')">Structure</button>
+      <button class="btn" data-mode="entity" onclick="setMode('entity')">Entity</button>
+      <button class="btn" data-mode="select" onclick="setMode('select')">Select</button>
+      <button class="btn" data-mode="erase" onclick="setMode('erase')">Erase</button>
+    </div>
+  </div>
+  <div class="sec" id="structureTools">
+    <div class="sec-title">STRUCTURE</div>
+    <div class="row"><span class="lbl">Material</span><select id="matSelect"><option>rock</option><option>metal</option><option>crystal</option><option>debris</option><option>alien</option><option>ice</option></select></div>
+    <div class="row"><span class="lbl">Size</span><input type="range" id="segSize" min="20" max="120" value="40"><span id="segSizeVal" style="font-size:10px;width:30px;">40</span></div>
+    <div class="row"><span class="lbl">Collision</span><input type="checkbox" id="segCollision" checked></div>
+  </div>
+  <div class="sec" id="tileSection">
+    <div class="sec-title">TILE PALETTE</div>
+    <div class="row"><span class="lbl">Upload</span><input type="file" id="tileUpload" accept="image/png" multiple></div>
+    <div class="row"><button class="btn" onclick="loadBuiltin()">Load Built-in Tiles</button></div>
+    <div id="tilePalette"></div>
+    <div style="font-size:9px;color:var(--dim);margin-top:4px;">Tile: <span id="selTileName">none</span></div>
+  </div>
+  <div class="sec" id="entityTools" style="display:none;">
+    <div class="sec-title">ENTITY TYPE</div>
+    <div class="row" style="flex-wrap:wrap;gap:4px;">
+      <button class="btn on" data-et="elite_spawn" onclick="setET('elite_spawn')">Elite</button>
+      <button class="btn" data-et="loot_crate" onclick="setET('loot_crate')">Loot</button>
+      <button class="btn" data-et="ambush_trigger" onclick="setET('ambush_trigger')">Ambush</button>
+      <button class="btn" data-et="spawn_point" onclick="setET('spawn_point')">Spawn</button>
+      <button class="btn" data-et="exit_point" onclick="setET('exit_point')">Exit</button>
+      <button class="btn" data-et="boss_arena" onclick="setET('boss_arena')">Boss</button>
+    </div>
+    <div class="row" style="margin-top:6px;"><span class="lbl">Rarity</span><select id="entRarity"><option>common</option><option>rare</option><option>epic</option><option>legendary</option></select></div>
+    <div class="row"><span class="lbl">Enemies</span><input type="number" id="entCount" value="6" min="1" max="30" style="width:60px;"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">PLACED</div>
+    <div id="entityList"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">FILE</div>
+    <div class="row" style="gap:4px;"><button class="btn" onclick="doExport()" style="flex:1;">Export JSON</button><button class="btn" onclick="doImport()" style="flex:1;">Import</button></div>
+    <div class="row"><button class="btn red" onclick="doClear()">Clear All</button></div>
+    <input type="file" id="impFile" accept=".json" style="display:none;">
+  </div>
+</div>
+<div id="canvasWrap">
+  <canvas id="cv"></canvas>
+  <div id="coords">0, 0</div>
+  <div id="zoneInfo">5000 x 5000</div>
+  <div id="hint">LMB: Place | RMB: Pan | Scroll: Zoom | Del: Remove</div>
+</div>
+<div id="propPanel">
+  <div class="sec-title">PROPERTIES</div>
+  <div id="props" style="font-size:10px;color:var(--dim);">Select an item</div>
+</div>
+<script>
+const cv=document.getElementById('cv'),cx=cv.getContext('2d'),wrap=document.getElementById('canvasWrap');
+const S={mode:'structure',et:'elite_spawn',tile:null,selIdx:null,selType:null,segs:[],ents:[],tiles:[],cam:{x:2500,y:2500,z:.15},zW:5000,zH:5000,bio:'asteroid',drag:false,ds:null};
+const EI={elite_spawn:'\u{1F480}',loot_crate:'\u{1F4E6}',ambush_trigger:'\u26A0\uFE0F',spawn_point:'\u{1F7E2}',exit_point:'\u{1F534}',boss_arena:'\u{1F451}'};
+const EC={elite_spawn:'#ff4455',loot_crate:'#ffcc00',ambush_trigger:'#ff8800',spawn_point:'#00ff88',exit_point:'#ff0044',boss_arena:'#aa44ff'};
+const MC={rock:'#6b5d4f',metal:'#555560',crystal:'#4a5580',debris:'#4a4035',alien:'#302050',ice:'#4a7590'};
+function resize(){cv.width=wrap.clientWidth;cv.height=wrap.clientHeight;draw();}
+window.addEventListener('resize',resize);
+function s2w(sx,sy){return{x:(sx-cv.width/2)/S.cam.z+S.cam.x,y:(sy-cv.height/2)/S.cam.z+S.cam.y};}
+function w2s(wx,wy){return{x:(wx-S.cam.x)*S.cam.z+cv.width/2,y:(wy-S.cam.y)*S.cam.z+cv.height/2};}
+function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  const tl=w2s(0,0),br=w2s(S.zW,S.zH);
+  cx.fillStyle='#0a0e18';cx.fillRect(tl.x,tl.y,br.x-tl.x,br.y-tl.y);
+  cx.strokeStyle='#1a2040';cx.lineWidth=2;cx.strokeRect(tl.x,tl.y,br.x-tl.x,br.y-tl.y);
+  cx.strokeStyle='rgba(255,255,255,0.03)';cx.lineWidth=1;
+  for(let g=0;g<=S.zW;g+=500){const p=w2s(g,0),p2=w2s(g,S.zH);cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(p2.x,p2.y);cx.stroke();}
+  for(let g=0;g<=S.zH;g+=500){const p=w2s(0,g),p2=w2s(S.zW,g);cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(p2.x,p2.y);cx.stroke();}
+  for(let i=0;i<S.segs.length;i++){
+    const seg=S.segs[i],p=w2s(seg.x,seg.y),r=seg.r*S.cam.z,sel=S.selType==='seg'&&S.selIdx===i;
+    if(seg.tImg&&seg.tImg.complete&&seg.tImg.naturalWidth>0){
+      cx.save();cx.translate(p.x,p.y);if(seg.a)cx.rotate(seg.a);cx.drawImage(seg.tImg,-r,-r,r*2,r*2);cx.restore();
+    }else{cx.fillStyle=MC[seg.mat]||'#555';cx.globalAlpha=.85;cx.beginPath();cx.arc(p.x,p.y,r,0,Math.PI*2);cx.fill();cx.globalAlpha=1;}
+    if(seg.col){cx.strokeStyle=sel?'#00ffcc':'rgba(255,80,80,0.3)';cx.lineWidth=sel?2:1;cx.setLineDash(sel?[]:[4,4]);cx.beginPath();cx.arc(p.x,p.y,r+2,0,Math.PI*2);cx.stroke();cx.setLineDash([]);}
+    if(sel){cx.strokeStyle='#00ffcc';cx.lineWidth=2;cx.beginPath();cx.arc(p.x,p.y,r+6,0,Math.PI*2);cx.stroke();}
+  }
+  for(let i=0;i<S.ents.length;i++){
+    const e=S.ents[i],p=w2s(e.x,e.y),sel=S.selType==='ent'&&S.selIdx===i,c=EC[e.type]||'#888';
+    cx.shadowColor=c;cx.shadowBlur=sel?16:8;cx.fillStyle=c+'40';cx.beginPath();cx.arc(p.x,p.y,18,0,Math.PI*2);cx.fill();cx.shadowBlur=0;
+    cx.strokeStyle=sel?'#fff':c;cx.lineWidth=sel?2:1;cx.beginPath();cx.arc(p.x,p.y,18,0,Math.PI*2);cx.stroke();
+    cx.font='16px sans-serif';cx.textAlign='center';cx.textBaseline='middle';cx.fillStyle='#fff';cx.fillText(EI[e.type]||'?',p.x,p.y);
+    cx.font='9px Courier New';cx.fillStyle=c;cx.fillText(e.type.replace('_',' '),p.x,p.y+28);
+    if(e.type==='ambush_trigger'){cx.strokeStyle=c+'30';cx.setLineDash([6,6]);cx.beginPath();cx.arc(p.x,p.y,120*S.cam.z,0,Math.PI*2);cx.stroke();cx.setLineDash([]);}
+    if(e.type==='boss_arena'){cx.strokeStyle=c+'25';cx.setLineDash([8,8]);cx.beginPath();cx.arc(p.x,p.y,300*S.cam.z,0,Math.PI*2);cx.stroke();cx.setLineDash([]);}
+  }
+}
+cv.addEventListener('wheel',e=>{e.preventDefault();S.cam.z=Math.max(.03,Math.min(2,S.cam.z*(e.deltaY>0?.9:1.1)));draw();});
+cv.addEventListener('mousedown',e=>{
+  if(e.button===2||e.button===1){S.drag=true;S.ds={x:e.clientX,y:e.clientY};return;}
+  const r=cv.getBoundingClientRect(),w=s2w(e.clientX-r.left,e.clientY-r.top);
+  if(S.mode==='structure'){
+    const sz=+document.getElementById('segSize').value,mt=document.getElementById('matSelect').value,co=document.getElementById('segCollision').checked;
+    const seg={x:Math.round(w.x),y:Math.round(w.y),r:sz,mat:mt,col:co,a:0,tPath:null,tImg:null};
+    if(S.tile){seg.tPath=S.tile.path;seg.tImg=S.tile.img;}
+    S.segs.push(seg);S.selIdx=S.segs.length-1;S.selType='seg';upProps();upList();draw();
+  }else if(S.mode==='entity'){
+    S.ents.push({type:S.et,x:Math.round(w.x),y:Math.round(w.y),rarity:document.getElementById('entRarity').value,cnt:+document.getElementById('entCount').value||6});
+    S.selIdx=S.ents.length-1;S.selType='ent';upProps();upList();draw();
+  }else if(S.mode==='select'){selAt(w.x,w.y);}
+  else if(S.mode==='erase'){eraseAt(w.x,w.y);}
+});
+cv.addEventListener('mousemove',e=>{
+  const r=cv.getBoundingClientRect();
+  if(S.drag){S.cam.x-=(e.clientX-S.ds.x)/S.cam.z;S.cam.y-=(e.clientY-S.ds.y)/S.cam.z;S.ds={x:e.clientX,y:e.clientY};draw();}
+  const w=s2w(e.clientX-r.left,e.clientY-r.top);document.getElementById('coords').textContent=Math.round(w.x)+', '+Math.round(w.y);
+});
+cv.addEventListener('mouseup',()=>{S.drag=false;});
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if(e.key==='Delete'||e.key==='Backspace'){
+    if(S.selType==='seg'&&S.selIdx!=null)S.segs.splice(S.selIdx,1);
+    else if(S.selType==='ent'&&S.selIdx!=null)S.ents.splice(S.selIdx,1);
+    S.selIdx=null;S.selType=null;upProps();upList();draw();
+  }
+});
+function selAt(wx,wy){
+  for(let i=S.ents.length-1;i>=0;i--){if(Math.hypot(S.ents[i].x-wx,S.ents[i].y-wy)<40){S.selIdx=i;S.selType='ent';upProps();draw();return;}}
+  for(let i=S.segs.length-1;i>=0;i--){if(Math.hypot(S.segs[i].x-wx,S.segs[i].y-wy)<S.segs[i].r+10){S.selIdx=i;S.selType='seg';upProps();draw();return;}}
+  S.selIdx=null;S.selType=null;upProps();draw();
+}
+function eraseAt(wx,wy){
+  for(let i=S.ents.length-1;i>=0;i--){if(Math.hypot(S.ents[i].x-wx,S.ents[i].y-wy)<40){S.ents.splice(i,1);upList();draw();return;}}
+  for(let i=S.segs.length-1;i>=0;i--){if(Math.hypot(S.segs[i].x-wx,S.segs[i].y-wy)<S.segs[i].r+10){S.segs.splice(i,1);upList();draw();return;}}
+}
+function setMode(m){S.mode=m;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));document.getElementById('structureTools').style.display=m==='structure'?'':'none';document.getElementById('tileSection').style.display=m==='structure'?'':'none';document.getElementById('entityTools').style.display=m==='entity'?'':'none';}
+function setET(t){S.et=t;document.querySelectorAll('[data-et]').forEach(b=>b.classList.toggle('on',b.dataset.et===t));}
+document.getElementById('segSize').addEventListener('input',e=>{document.getElementById('segSizeVal').textContent=e.target.value;});
+['zoneW','zoneH','zoneBiome'].forEach(id=>{document.getElementById(id).addEventListener('change',()=>{S.zW=+document.getElementById('zoneW').value;S.zH=+document.getElementById('zoneH').value;S.bio=document.getElementById('zoneBiome').value;document.getElementById('zoneInfo').textContent=S.zW+' x '+S.zH+' '+S.bio;draw();});});
+function upProps(){
+  const el=document.getElementById('props');
+  if(!S.selType||S.selIdx==null){el.innerHTML='Select an item';return;}
+  if(S.selType==='seg'){const s=S.segs[S.selIdx];el.innerHTML='<div style="color:var(--cyan);margin-bottom:6px;">SEGMENT #'+S.selIdx+'</div><div class="row"><span class="lbl">X</span><input type="number" value="'+s.x+'" onchange="S.segs['+S.selIdx+'].x=+this.value;draw()"></div><div class="row"><span class="lbl">Y</span><input type="number" value="'+s.y+'" onchange="S.segs['+S.selIdx+'].y=+this.value;draw()"></div><div class="row"><span class="lbl">Radius</span><input type="number" value="'+s.r+'" min="10" max="200" onchange="S.segs['+S.selIdx+'].r=+this.value;draw()"></div><div class="row"><span class="lbl">Angle</span><input type="range" min="0" max="6.28" step="0.1" value="'+(s.a||0)+'" oninput="S.segs['+S.selIdx+'].a=+this.value;draw()"></div><div class="row"><span class="lbl">Mat</span>'+s.mat+'</div><div class="row"><span class="lbl">Tile</span><span style="color:'+(s.tPath?'var(--cyan)':'var(--dim)')+'">'+(s.tPath||'none')+'</span></div>';}
+  else{const e=S.ents[S.selIdx];el.innerHTML='<div style="color:var(--gold);margin-bottom:6px;">'+(EI[e.type]||'')+' ENTITY #'+S.selIdx+'</div><div class="row"><span class="lbl">Type</span>'+e.type+'</div><div class="row"><span class="lbl">X</span><input type="number" value="'+e.x+'" onchange="S.ents['+S.selIdx+'].x=+this.value;draw()"></div><div class="row"><span class="lbl">Y</span><input type="number" value="'+e.y+'" onchange="S.ents['+S.selIdx+'].y=+this.value;draw()"></div>';}
+}
+function upList(){
+  const el=document.getElementById('entityList');let h='';
+  S.ents.forEach((e,i)=>{h+='<div class="ent-item" onclick="S.selIdx='+i+';S.selType=\'ent\';upProps();draw();">'+(EI[e.type]||'?')+' '+e.type+' ('+e.x+','+e.y+')<span class="ent-del" onclick="event.stopPropagation();S.ents.splice('+i+',1);upList();draw();">\u2715</span></div>';});
+  h+='<div style="font-size:9px;color:var(--dim);margin-top:4px;">'+S.segs.length+' structures, '+S.ents.length+' entities</div>';
+  el.innerHTML=h;
+}
+const BT=['asteroid_chunk','asteroid_small','rock_crystal_floor','rock_crystal_med','darkstone_rough','darkstone_wall','darkstone_column','darkstone_tall','metal_floor','metal_floor_dark','cross_junction','brick_wall_med','brick_wall_short','crate_hazard','crate_locked','crate_green','crate_teal','barrier_damaged','energy_panel_green','energy_panel_wide','concrete_pillar','stone_wall_mossy','chainlink_fence','rock_pile_sm'];
+function loadBuiltin(){BT.forEach(n=>{const img=new Image();img.src='../assets/tiles/'+n+'.png';img.onload=()=>{S.tiles.push({name:n,img:img,path:'assets/tiles/'+n+'.png'});renderPal();};});}
+document.getElementById('tileUpload').addEventListener('change',e=>{for(const f of e.target.files){const img=new Image(),n=f.name.replace('.png','');img.onload=()=>{S.tiles.push({name:n,img:img,path:'assets/tiles/'+n+'.png'});renderPal();};img.src=URL.createObjectURL(f);}});
+function renderPal(){
+  const el=document.getElementById('tilePalette');el.innerHTML='';
+  const none=document.createElement('div');none.className='tile-none'+(S.tile?'':' sel');none.textContent='NONE';none.onclick=()=>{S.tile=null;document.getElementById('selTileName').textContent='none';renderPal();};el.appendChild(none);
+  S.tiles.forEach(t=>{const th=document.createElement('img');th.className='tile-thumb'+(S.tile===t?' sel':'');th.src=t.img.src;th.title=t.name;th.onclick=()=>{S.tile=t;document.getElementById('selTileName').textContent=t.name;renderPal();};el.appendChild(th);});
+}
+function doExport(){
+  const o={zone:{width:S.zW,height:S.zH,biome:S.bio},structures:S.segs.map(s=>({type:'wall',x:s.x,y:s.y,angle:s.a||0,material:s.mat,collision:s.col,segments:[{x:s.x,y:s.y,r:s.r,collision:s.col,a:s.a||0}],tileReady:s.tPath?{materialId:s.mat,tileset:s.tPath}:{materialId:s.mat,tileset:null}})),entities:S.ents.map(e=>({type:e.type,x:e.x,y:e.y,...(e.type==='loot_crate'?{rarity:e.rarity}:{}),...(e.type==='ambush_trigger'?{enemyCount:e.cnt}:{})}))};
+  const b=new Blob([JSON.stringify(o,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='zone_'+S.bio+'_'+Date.now()+'.json';a.click();
+}
+function doImport(){document.getElementById('impFile').click();}
+document.getElementById('impFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.zone){S.zW=d.zone.width||5000;S.zH=d.zone.height||5000;S.bio=d.zone.biome||'asteroid';document.getElementById('zoneW').value=S.zW;document.getElementById('zoneH').value=S.zH;document.getElementById('zoneBiome').value=S.bio;}S.segs=[];for(const st of(d.structures||[]))for(const sg of(st.segments||[]))S.segs.push({x:sg.x,y:sg.y,r:sg.r||40,mat:st.material||'rock',col:sg.collision!==false,a:sg.a||0,tPath:st.tileReady?.tileset||null,tImg:st.tileReady?.tileset?(()=>{const i=new Image();i.src='../'+st.tileReady.tileset;return i;})():null});S.ents=(d.entities||[]).map(e=>({type:e.type,x:e.x,y:e.y,rarity:e.rarity||'common',cnt:e.enemyCount||6}));upList();draw();}catch(er){alert('Bad JSON: '+er.message);}};r.readAsText(f);});
+function doClear(){if(!confirm('Clear?'))return;S.segs=[];S.ents=[];S.selIdx=null;S.selType=null;upProps();upList();draw();}
+resize();renderPal();upList();
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+{
+  "_comment": "The Forge — high-end crafting sink using rare materials. Replaces flat vendor upgrades.",
+  "_version": "1.0.0",
+  
+  "recipes": {
+    "socket_weapon": {
+      "name": "Socket Weapon",
+      "icon": "💎",
+      "category": "augment",
+      "description": "Add an elemental socket to a weapon. Socket can hold one Elemental Core.",
+      "costs": { "voidShard": 3, "scrap": 500 },
+      "constraints": { "slotType": "weapon", "maxSockets": 1, "notUnique": false },
+      "result": "addSocket"
+    },
+    "socket_shield": {
+      "name": "Socket Shield",
+      "icon": "🔷",
+      "category": "augment",
+      "description": "Add a defense socket to a shield. Socket can hold one Shield Core.",
+      "costs": { "voidShard": 3, "scrap": 500 },
+      "constraints": { "slotType": "shield", "maxSockets": 1, "notUnique": false },
+      "result": "addSocket"
+    },
+
+    "core_fire": {
+      "name": "Inferno Core",
+      "icon": "🔥",
+      "category": "cores",
+      "description": "Insert into socket: +12 fire damage, 8% burn chance.",
+      "costs": { "voidShard": 2, "cosmicDust": 1 },
+      "constraints": { "requiresSocket": true },
+      "result": { "stats": { "fireDamage": 12, "burnChance": 8 } }
+    },
+    "core_frost": {
+      "name": "Glacier Core",
+      "icon": "❄️",
+      "category": "cores",
+      "description": "Insert into socket: +10 cold damage, 10% slow, 3% freeze.",
+      "costs": { "voidShard": 2, "cosmicDust": 1 },
+      "constraints": { "requiresSocket": true },
+      "result": { "stats": { "coldDamage": 10, "slowChance": 10, "freezeChance": 3 } }
+    },
+    "core_lightning": {
+      "name": "Storm Core",
+      "icon": "⚡",
+      "category": "cores",
+      "description": "Insert into socket: +10 lightning damage, +1 chain.",
+      "costs": { "voidShard": 2, "cosmicDust": 1 },
+      "constraints": { "requiresSocket": true },
+      "result": { "stats": { "lightningDamage": 10, "chainCount": 1 } }
+    },
+    "core_void": {
+      "name": "Void Core",
+      "icon": "🟣",
+      "category": "cores",
+      "description": "Insert into socket: +15 void damage, +2% lifesteal.",
+      "costs": { "cosmicDust": 3 },
+      "constraints": { "requiresSocket": true },
+      "result": { "stats": { "voidDamage": 15, "lifesteal": 2 } }
+    },
+    "core_shield": {
+      "name": "Bastion Core",
+      "icon": "🛡️",
+      "category": "cores",
+      "description": "Insert into shield socket: +30 shield, +3 shield regen, 3% DR.",
+      "costs": { "voidShard": 2, "cosmicDust": 1 },
+      "constraints": { "requiresSocket": true, "slotType": "shield" },
+      "result": { "stats": { "shieldCap": 30, "shieldRegen": 3, "damageReduction": 3 } }
+    },
+
+    "corrupt_item": {
+      "name": "Corrupt Item",
+      "icon": "☠️",
+      "category": "transform",
+      "description": "Gamble: randomly adds a powerful bonus OR a penalty. Cannot be undone.",
+      "costs": { "voidShard": 5 },
+      "constraints": { "minRarity": "rare", "notCorrupted": true },
+      "result": "corrupt",
+      "corruptPool": {
+        "positive": [
+          { "weight": 3, "effect": { "damageBonus": 15 }, "label": "+15% damage" },
+          { "weight": 3, "effect": { "critChance": 5 }, "label": "+5% crit" },
+          { "weight": 2, "effect": { "allElementalDamage": 10 }, "label": "+10 all elemental" },
+          { "weight": 2, "effect": { "projectiles": 1 }, "label": "+1 projectile" },
+          { "weight": 1, "effect": { "piercing": 1, "chainCount": 1 }, "label": "+1 pierce, +1 chain" },
+          { "weight": 2, "effect": { "maxHP": 30, "shieldCap": 20 }, "label": "+30 HP, +20 shield" },
+          { "weight": 2, "effect": { "lifesteal": 3 }, "label": "+3% lifesteal" },
+          { "weight": 1, "effect": { "luck": 10, "dropBonus": 10 }, "label": "+10 luck, +10% drops" }
+        ],
+        "negative": [
+          { "weight": 4, "effect": { "maxHP": -20 }, "label": "-20 HP" },
+          { "weight": 3, "effect": { "speed": -15 }, "label": "-15 speed" },
+          { "weight": 3, "effect": { "fireRate": -0.5 }, "label": "-0.5 fire rate" },
+          { "weight": 2, "effect": { "damageBonus": -10 }, "label": "-10% damage" },
+          { "weight": 1, "label": "BRICK — item destroyed" }
+        ],
+        "positiveChance": 0.65
+      }
+    },
+
+    "purify_item": {
+      "name": "Purify Corruption",
+      "icon": "✨",
+      "category": "transform",
+      "description": "Remove corruption from an item, restoring it to base state. Expensive.",
+      "costs": { "cosmicDust": 5, "scrap": 2000 },
+      "constraints": { "isCorrupted": true },
+      "result": "purify"
+    },
+
+    "fuse_upgrade": {
+      "name": "Fuse Mythic Shard",
+      "icon": "🌟",
+      "category": "endgame",
+      "description": "Sacrifice 3 legendary items to create 1 Mythic Shard. Shards upgrade any item to Mythic rarity.",
+      "costs": { "cosmicDust": 10, "legendaryItems": 3 },
+      "constraints": {},
+      "result": "mythicShard"
+    },
+
+    "reforge_unique": {
+      "name": "Reforge Unique",
+      "icon": "🔨",
+      "category": "endgame",
+      "description": "Reroll all fixed stats on a unique item within ±20% of original values.",
+      "costs": { "voidShard": 8, "cosmicDust": 3, "scrap": 3000 },
+      "constraints": { "isUnique": true },
+      "result": "reforgeUnique"
+    }
+  },
+
+  "categories": {
+    "augment": { "name": "Augmentation", "color": "#00ccff", "icon": "💎" },
+    "cores": { "name": "Elemental Cores", "color": "#ff8800", "icon": "🔮" },
+    "transform": { "name": "Transformation", "color": "#ff2255", "icon": "☠️" },
+    "endgame": { "name": "Endgame Forging", "color": "#aa44ff", "icon": "🌟" }
+  }
+}

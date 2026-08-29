@@ -1,0 +1,672 @@
+{
+  "_comment": "Paragon Tree — complex branching skill system. Points earned via leveling (replaces flat pilotStats).",
+  "_version": "1.0.0",
+  "pointsPerLevel": 1,
+  "startingPoints": 0,
+  "branches": {
+    "combat": {
+      "name": "Combat Systems",
+      "icon": "⚔️",
+      "color": "#ff4444",
+      "description": "Weapon damage, fire rate, critical strikes",
+      "nodes": [
+        {
+          "id": "c1",
+          "name": "Weapon Calibration",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "damage": 3
+          },
+          "cost": 3,
+          "requires": [],
+          "description": "+3 flat damage"
+        },
+        {
+          "id": "c2",
+          "name": "Rapid Cycling",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "fireRate": 0.3
+          },
+          "cost": 3,
+          "requires": [
+            "c1"
+          ],
+          "description": "+0.3 fire rate"
+        },
+        {
+          "id": "c3",
+          "name": "Targeting Matrix",
+          "tier": 2,
+          "type": "stat",
+          "effect": {
+            "critChance": 3
+          },
+          "cost": 6,
+          "requires": [
+            "c2"
+          ],
+          "description": "+3% crit chance"
+        },
+        {
+          "id": "c4a",
+          "name": "Glass Cannon",
+          "tier": 3,
+          "type": "choice",
+          "group": "c4",
+          "effect": {
+            "damageBonus": 20,
+            "maxHP": -15
+          },
+          "cost": 12,
+          "requires": [
+            "c3"
+          ],
+          "description": "+20% damage, -15% HP. Commit to pure offense."
+        },
+        {
+          "id": "c4b",
+          "name": "Sustained Fire",
+          "tier": 3,
+          "type": "choice",
+          "group": "c4",
+          "effect": {
+            "fireRate": 1.0,
+            "heatReduction": 15
+          },
+          "cost": 12,
+          "requires": [
+            "c3"
+          ],
+          "description": "+1.0 fire rate, -15% heat generation. Steady pressure."
+        },
+        {
+          "id": "c5",
+          "name": "Armor Piercing",
+          "tier": 4,
+          "type": "stat",
+          "effect": {
+            "piercing": 1
+          },
+          "cost": 12,
+          "requires": [
+            "c4a|c4b"
+          ],
+          "description": "+1 pierce (bullets pass through enemies)"
+        },
+        {
+          "id": "c6",
+          "name": "Lethal Precision",
+          "tier": 5,
+          "type": "stat",
+          "effect": {
+            "critDamage": 30,
+            "critChance": 2
+          },
+          "cost": 20,
+          "requires": [
+            "c5"
+          ],
+          "description": "+30% crit damage, +2% crit chance"
+        },
+        {
+          "id": "c7a",
+          "name": "Chain Lightning",
+          "tier": 6,
+          "type": "choice",
+          "group": "c7",
+          "effect": {
+            "chainCount": 1,
+            "lightningDamage": 8
+          },
+          "cost": 25,
+          "requires": [
+            "c6"
+          ],
+          "description": "Kills chain to 1 nearby enemy. +8 lightning damage."
+        },
+        {
+          "id": "c7b",
+          "name": "Explosive Rounds",
+          "tier": 6,
+          "type": "choice",
+          "group": "c7",
+          "effect": {
+            "aoeOnKill": 50,
+            "fireDamage": 10
+          },
+          "cost": 25,
+          "requires": [
+            "c6"
+          ],
+          "description": "Kills explode for 50px AoE. +10 fire damage."
+        },
+        {
+          "id": "c7c",
+          "name": "Sniper Protocol",
+          "tier": 6,
+          "type": "choice",
+          "group": "c7",
+          "effect": {
+            "critDamage": 60,
+            "fireRate": -0.5,
+            "eliteDamage": 15
+          },
+          "cost": 25,
+          "requires": [
+            "c6"
+          ],
+          "description": "+60% crit damage, -0.5 fire rate, +15% vs elites. One shot, one kill."
+        },
+        {
+          "id": "c8",
+          "name": "Annihilator Core",
+          "tier": 7,
+          "type": "capstone",
+          "effect": {
+            "damageBonus": 10,
+            "projectiles": 1
+          },
+          "cost": 36,
+          "requires": [
+            "c7a|c7b|c7c"
+          ],
+          "description": "CAPSTONE: +10% damage, +1 projectile. Maximum firepower."
+        }
+      ]
+    },
+    "defense": {
+      "name": "Hull & Shield",
+      "icon": "🛡️",
+      "color": "#0088ff",
+      "description": "Survivability, shields, regeneration",
+      "nodes": [
+        {
+          "id": "d1",
+          "name": "Reinforced Hull",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "maxHP": 15
+          },
+          "cost": 3,
+          "requires": [],
+          "description": "+15 max HP"
+        },
+        {
+          "id": "d2",
+          "name": "Shield Capacitor",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "shieldCap": 12
+          },
+          "cost": 3,
+          "requires": [
+            "d1"
+          ],
+          "description": "+12 shield capacity"
+        },
+        {
+          "id": "d3",
+          "name": "Auto-Repair",
+          "tier": 2,
+          "type": "stat",
+          "effect": {
+            "hpRegen": 1.5
+          },
+          "cost": 6,
+          "requires": [
+            "d2"
+          ],
+          "description": "+1.5 HP/sec regeneration"
+        },
+        {
+          "id": "d4a",
+          "name": "Juggernaut",
+          "tier": 3,
+          "type": "choice",
+          "group": "d4",
+          "effect": {
+            "maxHP": 40,
+            "damageReduction": 5,
+            "speed": -20
+          },
+          "cost": 12,
+          "requires": [
+            "d3"
+          ],
+          "description": "+40 HP, 5% DR, -20 speed. Immovable object."
+        },
+        {
+          "id": "d4b",
+          "name": "Phase Armor",
+          "tier": 3,
+          "type": "choice",
+          "group": "d4",
+          "effect": {
+            "dodgeChance": 8,
+            "speed": 15
+          },
+          "cost": 12,
+          "requires": [
+            "d3"
+          ],
+          "description": "8% dodge chance, +15 speed. Never get hit."
+        },
+        {
+          "id": "d5",
+          "name": "Shield Overdrive",
+          "tier": 4,
+          "type": "stat",
+          "effect": {
+            "shieldCap": 25,
+            "shieldRegen": 2
+          },
+          "cost": 12,
+          "requires": [
+            "d4a|d4b"
+          ],
+          "description": "+25 shield, +2 shield regen/sec"
+        },
+        {
+          "id": "d6",
+          "name": "Damage Reflection",
+          "tier": 5,
+          "type": "stat",
+          "effect": {
+            "thornsDamage": 10,
+            "shieldCap": 10
+          },
+          "cost": 20,
+          "requires": [
+            "d5"
+          ],
+          "description": "Reflect 10 damage when hit. +10 shield."
+        },
+        {
+          "id": "d7a",
+          "name": "Last Stand",
+          "tier": 6,
+          "type": "choice",
+          "group": "d7",
+          "effect": {
+            "damageAtLowHP": 40,
+            "hpRegen": 3
+          },
+          "cost": 25,
+          "requires": [
+            "d6"
+          ],
+          "description": "+40% damage below 30% HP. +3 HP regen. Berserker tank."
+        },
+        {
+          "id": "d7b",
+          "name": "Fortress Protocol",
+          "tier": 6,
+          "type": "choice",
+          "group": "d7",
+          "effect": {
+            "shieldCap": 50,
+            "damageReduction": 8,
+            "fireRate": -0.3
+          },
+          "cost": 25,
+          "requires": [
+            "d6"
+          ],
+          "description": "+50 shield, 8% DR, -0.3 fire rate. Unkillable fortress."
+        },
+        {
+          "id": "d8",
+          "name": "Immortal Frame",
+          "tier": 7,
+          "type": "capstone",
+          "effect": {
+            "maxHP": 25,
+            "shieldCap": 20,
+            "reviveChance": 10
+          },
+          "cost": 36,
+          "requires": [
+            "d7a|d7b"
+          ],
+          "description": "CAPSTONE: +25 HP, +20 shield, 10% chance to revive on death."
+        }
+      ]
+    },
+    "utility": {
+      "name": "Systems & Navigation",
+      "icon": "⚡",
+      "color": "#00ddff",
+      "description": "Speed, pickups, cooldowns, economy",
+      "nodes": [
+        {
+          "id": "u1",
+          "name": "Thruster Boost",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "speed": 15
+          },
+          "cost": 3,
+          "requires": [],
+          "description": "+15 movement speed"
+        },
+        {
+          "id": "u2",
+          "name": "Magnetic Hull",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "pickupRadius": 25
+          },
+          "cost": 3,
+          "requires": [
+            "u1"
+          ],
+          "description": "+25 pickup radius"
+        },
+        {
+          "id": "u3",
+          "name": "Salvage Expert",
+          "tier": 2,
+          "type": "stat",
+          "effect": {
+            "scrapBonus": 10,
+            "scrapOnKill": 2
+          },
+          "cost": 6,
+          "requires": [
+            "u2"
+          ],
+          "description": "+10% scrap, +2 scrap per kill"
+        },
+        {
+          "id": "u4a",
+          "name": "Speed Demon",
+          "tier": 3,
+          "type": "choice",
+          "group": "u4",
+          "effect": {
+            "speed": 30,
+            "dodgeChance": 4,
+            "maxHP": -10
+          },
+          "cost": 12,
+          "requires": [
+            "u3"
+          ],
+          "description": "+30 speed, 4% dodge, -10 HP. Velocity is defense."
+        },
+        {
+          "id": "u4b",
+          "name": "Fortune Hunter",
+          "tier": 3,
+          "type": "choice",
+          "group": "u4",
+          "effect": {
+            "luck": 8,
+            "dropBonus": 8,
+            "scrapBonus": 15
+          },
+          "cost": 12,
+          "requires": [
+            "u3"
+          ],
+          "description": "+8 luck, +8% drops, +15% scrap. Treasure magnet."
+        },
+        {
+          "id": "u5",
+          "name": "Overcharge Systems",
+          "tier": 4,
+          "type": "stat",
+          "effect": {
+            "cooldownReduction": 12
+          },
+          "cost": 12,
+          "requires": [
+            "u4a|u4b"
+          ],
+          "description": "12% ability cooldown reduction"
+        },
+        {
+          "id": "u6",
+          "name": "Combat Scanner",
+          "tier": 5,
+          "type": "stat",
+          "effect": {
+            "eliteDamage": 10,
+            "luck": 3
+          },
+          "cost": 20,
+          "requires": [
+            "u5"
+          ],
+          "description": "+10% damage to elites, +3 luck"
+        },
+        {
+          "id": "u7a",
+          "name": "Warp Engine",
+          "tier": 6,
+          "type": "choice",
+          "group": "u7",
+          "effect": {
+            "speed": 40,
+            "dashCharges": 1,
+            "acceleration": 200
+          },
+          "cost": 25,
+          "requires": [
+            "u6"
+          ],
+          "description": "+40 speed, +1 dash charge, +200 accel. Maximum mobility."
+        },
+        {
+          "id": "u7b",
+          "name": "Quantum Scavenger",
+          "tier": 6,
+          "type": "choice",
+          "group": "u7",
+          "effect": {
+            "luck": 12,
+            "dropBonus": 15,
+            "cellBonus": 20,
+            "pickupRadius": 50
+          },
+          "cost": 25,
+          "requires": [
+            "u6"
+          ],
+          "description": "+12 luck, +15% drops, +20% cells, +50 pickup range. Everything drops."
+        },
+        {
+          "id": "u8",
+          "name": "Hyperspace Core",
+          "tier": 7,
+          "type": "capstone",
+          "effect": {
+            "speed": 20,
+            "cooldownReduction": 15,
+            "luck": 5
+          },
+          "cost": 36,
+          "requires": [
+            "u7a|u7b"
+          ],
+          "description": "CAPSTONE: +20 speed, 15% CDR, +5 luck. Systems maximized."
+        }
+      ]
+    },
+    "mastery": {
+      "name": "Mastery & Elements",
+      "icon": "🔮",
+      "color": "#aa44ff",
+      "description": "Elemental damage, advanced mechanics, endgame power",
+      "nodes": [
+        {
+          "id": "m1",
+          "name": "Energy Attunement",
+          "tier": 1,
+          "type": "stat",
+          "effect": {
+            "allElementalDamage": 3
+          },
+          "cost": 3,
+          "requires": [],
+          "description": "+3 to all elemental damage"
+        },
+        {
+          "id": "m2",
+          "name": "Elemental Focus",
+          "tier": 2,
+          "type": "stat",
+          "effect": {
+            "burnChance": 5,
+            "slowChance": 5,
+            "shockChance": 5
+          },
+          "cost": 6,
+          "requires": [
+            "m1"
+          ],
+          "description": "+5% burn/slow/shock chance"
+        },
+        {
+          "id": "m3a",
+          "name": "Pyromancer",
+          "tier": 3,
+          "type": "choice",
+          "group": "m3",
+          "effect": {
+            "fireDamage": 15,
+            "burnChance": 10,
+            "aoeOnKill": 30
+          },
+          "cost": 12,
+          "requires": [
+            "m2"
+          ],
+          "description": "+15 fire, +10% burn, kills explode 30px. Fire path."
+        },
+        {
+          "id": "m3b",
+          "name": "Cryomancer",
+          "tier": 3,
+          "type": "choice",
+          "group": "m3",
+          "effect": {
+            "coldDamage": 12,
+            "slowChance": 15,
+            "freezeChance": 5
+          },
+          "cost": 12,
+          "requires": [
+            "m2"
+          ],
+          "description": "+12 cold, +15% slow, 5% freeze. Control path."
+        },
+        {
+          "id": "m3c",
+          "name": "Stormcaller",
+          "tier": 3,
+          "type": "choice",
+          "group": "m3",
+          "effect": {
+            "lightningDamage": 12,
+            "shockChance": 12,
+            "chainCount": 1
+          },
+          "cost": 12,
+          "requires": [
+            "m2"
+          ],
+          "description": "+12 lightning, +12% shock, +1 chain. Chain path."
+        },
+        {
+          "id": "m4",
+          "name": "Elemental Mastery",
+          "tier": 4,
+          "type": "stat",
+          "effect": {
+            "allElementalDamage": 8
+          },
+          "cost": 12,
+          "requires": [
+            "m3a|m3b|m3c"
+          ],
+          "description": "+8 to all elemental damage"
+        },
+        {
+          "id": "m5",
+          "name": "Void Attunement",
+          "tier": 5,
+          "type": "stat",
+          "effect": {
+            "voidDamage": 10,
+            "lifesteal": 2
+          },
+          "cost": 20,
+          "requires": [
+            "m4"
+          ],
+          "description": "+10 void damage, +2% lifesteal"
+        },
+        {
+          "id": "m6a",
+          "name": "Elemental Convergence",
+          "tier": 6,
+          "type": "choice",
+          "group": "m6",
+          "effect": {
+            "allElementalDamage": 15,
+            "burnChance": 8,
+            "slowChance": 8,
+            "shockChance": 8
+          },
+          "cost": 25,
+          "requires": [
+            "m5"
+          ],
+          "description": "+15 all elemental, +8% all status. Master of all."
+        },
+        {
+          "id": "m6b",
+          "name": "Void Singularity",
+          "tier": 6,
+          "type": "choice",
+          "group": "m6",
+          "effect": {
+            "voidDamage": 25,
+            "lifesteal": 4,
+            "damageReduction": 5
+          },
+          "cost": 25,
+          "requires": [
+            "m5"
+          ],
+          "description": "+25 void, +4% lifesteal, 5% DR. Dark power."
+        },
+        {
+          "id": "m7",
+          "name": "Transcendence",
+          "tier": 7,
+          "type": "capstone",
+          "effect": {
+            "allElementalDamage": 10,
+            "allStats": 5,
+            "critChance": 3
+          },
+          "cost": 36,
+          "requires": [
+            "m6a|m6b"
+          ],
+          "description": "CAPSTONE: +10 all elemental, +5 all stats, +3% crit. True mastery."
+        }
+      ]
+    }
+  },
+  "maxTotalUnlocks": 20
+}

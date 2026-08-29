@@ -1,0 +1,314 @@
+{
+  "_comment": "Ship skins — palette swaps for canvas-drawn ship. Unlock via prestige, achievements, or zone depth.",
+  "default": {
+    "name": "Standard Issue",
+    "icon": "🚀",
+    "description": "Regulation fleet colors.",
+    "unlock": "always",
+    "hull": [
+      "#00ffcc",
+      "#00bb99",
+      "#005544"
+    ],
+    "hullStroke": "#00ffaa",
+    "wing": [
+      "#003344",
+      "#006677",
+      "#003344"
+    ],
+    "wingStroke": "rgba(0,136,153,0.4)",
+    "wingAccent": "rgba(0,200,255,0.3)",
+    "cockpit": "rgba(0,255,220,{pulse})",
+    "cockpitGlow": "#00ffcc",
+    "engine": "#00ddff",
+    "engineGlow": "#00ccff",
+    "exhaust": [
+      "rgba(0,220,255,0.9)",
+      "rgba(0,120,255,0.5)",
+      "rgba(0,60,200,0)"
+    ],
+    "exhaustEdge": "rgba(200,240,255,0.7)",
+    "navLeft": "#ff3333",
+    "navRight": "#33ff33"
+  },
+  "crimson": {
+    "name": "Crimson Viper",
+    "icon": "🔴",
+    "description": "Blood-red hull. Unlocked at Prestige 1.",
+    "unlock": {
+      "type": "prestige",
+      "level": 1
+    },
+    "hull": [
+      "#ff4444",
+      "#cc2222",
+      "#661111"
+    ],
+    "hullStroke": "#ff6644",
+    "wing": [
+      "#330011",
+      "#661122",
+      "#330011"
+    ],
+    "wingStroke": "rgba(153,34,34,0.4)",
+    "wingAccent": "rgba(255,100,80,0.3)",
+    "cockpit": "rgba(255,100,60,{pulse})",
+    "cockpitGlow": "#ff4444",
+    "engine": "#ff6633",
+    "engineGlow": "#ff4400",
+    "exhaust": [
+      "rgba(255,140,60,0.9)",
+      "rgba(255,80,20,0.5)",
+      "rgba(200,40,0,0)"
+    ],
+    "exhaustEdge": "rgba(255,200,160,0.7)",
+    "navLeft": "#ff8800",
+    "navRight": "#ff2200",
+    "spriteEntity": "ship_default_alt"
+  },
+  "void": {
+    "name": "Void Stalker",
+    "icon": "🟣",
+    "description": "Dark matter hull. Reach Zone 100.",
+    "unlock": {
+      "type": "depth",
+      "zone": 100
+    },
+    "hull": [
+      "#bb66ff",
+      "#8833cc",
+      "#441166"
+    ],
+    "hullStroke": "#aa55ff",
+    "wing": [
+      "#110022",
+      "#332255",
+      "#110022"
+    ],
+    "wingStroke": "rgba(100,50,153,0.4)",
+    "wingAccent": "rgba(180,120,255,0.3)",
+    "cockpit": "rgba(200,140,255,{pulse})",
+    "cockpitGlow": "#bb66ff",
+    "engine": "#cc88ff",
+    "engineGlow": "#aa55ff",
+    "exhaust": [
+      "rgba(180,100,255,0.9)",
+      "rgba(120,50,200,0.5)",
+      "rgba(60,20,120,0)"
+    ],
+    "exhaustEdge": "rgba(220,180,255,0.7)",
+    "navLeft": "#ff33ff",
+    "navRight": "#8833ff",
+    "spriteEntity": "ship_void"
+  },
+  "gold": {
+    "name": "Golden Sovereign",
+    "icon": "👑",
+    "description": "Royal gold plating. Reach Zone 300.",
+    "unlock": {
+      "type": "depth",
+      "zone": 300
+    },
+    "hull": [
+      "#ffdd44",
+      "#cc9900",
+      "#664400"
+    ],
+    "hullStroke": "#ffcc00",
+    "wing": [
+      "#332200",
+      "#665500",
+      "#332200"
+    ],
+    "wingStroke": "rgba(153,120,34,0.4)",
+    "wingAccent": "rgba(255,220,100,0.3)",
+    "cockpit": "rgba(255,230,100,{pulse})",
+    "cockpitGlow": "#ffcc00",
+    "engine": "#ffcc44",
+    "engineGlow": "#ffaa00",
+    "exhaust": [
+      "rgba(255,200,60,0.9)",
+      "rgba(200,150,30,0.5)",
+      "rgba(120,80,0,0)"
+    ],
+    "exhaustEdge": "rgba(255,240,180,0.7)",
+    "navLeft": "#ff8800",
+    "navRight": "#ffcc00",
+    "spriteEntity": "ship_gold"
+  },
+  "phantom": {
+    "name": "Phantom",
+    "icon": "👻",
+    "description": "Near-invisible stealth hull. 10 Flawless Zones.",
+    "unlock": {
+      "type": "achievement",
+      "id": "flawless_10"
+    },
+    "hull": [
+      "#aabbcc",
+      "#667788",
+      "#334455"
+    ],
+    "hullStroke": "rgba(150,180,200,0.5)",
+    "wing": [
+      "#1a2233",
+      "#334455",
+      "#1a2233"
+    ],
+    "wingStroke": "rgba(80,100,120,0.3)",
+    "wingAccent": "rgba(150,180,220,0.15)",
+    "cockpit": "rgba(180,200,220,{pulse})",
+    "cockpitGlow": "rgba(150,180,200,0.5)",
+    "engine": "rgba(150,200,255,0.6)",
+    "engineGlow": "rgba(100,150,200,0.4)",
+    "exhaust": [
+      "rgba(150,200,255,0.5)",
+      "rgba(100,140,200,0.25)",
+      "rgba(60,80,120,0)"
+    ],
+    "exhaustEdge": "rgba(180,210,240,0.4)",
+    "navLeft": "rgba(255,80,80,0.4)",
+    "navRight": "rgba(80,255,80,0.4)",
+    "spriteEntity": "ship_phantom"
+  },
+  "inferno": {
+    "name": "Inferno",
+    "icon": "🔥",
+    "description": "Flame-forged hull. Prestige 3.",
+    "unlock": {
+      "type": "prestige",
+      "level": 3
+    },
+    "hull": [
+      "#ff8800",
+      "#dd5500",
+      "#882200"
+    ],
+    "hullStroke": "#ff6600",
+    "wing": [
+      "#331100",
+      "#663300",
+      "#331100"
+    ],
+    "wingStroke": "rgba(153,80,20,0.4)",
+    "wingAccent": "rgba(255,160,60,0.3)",
+    "cockpit": "rgba(255,180,60,{pulse})",
+    "cockpitGlow": "#ff8800",
+    "engine": "#ff9944",
+    "engineGlow": "#ff7700",
+    "exhaust": [
+      "rgba(255,160,40,0.9)",
+      "rgba(255,100,20,0.5)",
+      "rgba(180,50,0,0)"
+    ],
+    "exhaustEdge": "rgba(255,220,160,0.7)",
+    "navLeft": "#ff4400",
+    "navRight": "#ffaa00",
+    "spriteEntity": "ship_inferno"
+  },
+  "glacier": {
+    "name": "Glacier",
+    "icon": "❄️",
+    "description": "Cryo-forged hull. Reach Zone 200.",
+    "unlock": {
+      "type": "depth",
+      "zone": 200
+    },
+    "hull": [
+      "#88ddff",
+      "#4499cc",
+      "#225577"
+    ],
+    "hullStroke": "#66ccff",
+    "wing": [
+      "#0a1a2a",
+      "#1a3355",
+      "#0a1a2a"
+    ],
+    "wingStroke": "rgba(50,100,153,0.4)",
+    "wingAccent": "rgba(120,200,255,0.3)",
+    "cockpit": "rgba(140,220,255,{pulse})",
+    "cockpitGlow": "#88ddff",
+    "engine": "#88ccff",
+    "engineGlow": "#55aaff",
+    "exhaust": [
+      "rgba(140,210,255,0.9)",
+      "rgba(80,160,220,0.5)",
+      "rgba(30,80,140,0)"
+    ],
+    "exhaustEdge": "rgba(200,230,255,0.7)",
+    "navLeft": "#4488ff",
+    "navRight": "#88eeff",
+    "spriteEntity": "ship_glacier"
+  },
+  "mythic": {
+    "name": "Mythic Ascendant",
+    "icon": "✨",
+    "description": "Transcendent hull. Prestige 5+.",
+    "unlock": {
+      "type": "prestige",
+      "level": 5
+    },
+    "hull": [
+      "#ff88cc",
+      "#dd44aa",
+      "#881166"
+    ],
+    "hullStroke": "#ff66bb",
+    "wing": [
+      "#220022",
+      "#442255",
+      "#220022"
+    ],
+    "wingStroke": "rgba(130,50,100,0.4)",
+    "wingAccent": "rgba(255,140,200,0.3)",
+    "cockpit": "rgba(255,160,220,{pulse})",
+    "cockpitGlow": "#ff88cc",
+    "engine": "#ff88dd",
+    "engineGlow": "#ff55cc",
+    "exhaust": [
+      "rgba(255,140,200,0.9)",
+      "rgba(200,80,160,0.5)",
+      "rgba(120,30,80,0)"
+    ],
+    "exhaustEdge": "rgba(255,200,230,0.7)",
+    "navLeft": "#ff44aa",
+    "navRight": "#ff88ff",
+    "spriteEntity": "ship_stealth"
+  },
+  "toxic": {
+    "name": "Toxic Reactor",
+    "icon": "☢️",
+    "description": "Radioactive green exhaust. Reach Zone 150.",
+    "unlock": {
+      "type": "depth",
+      "zone": 150
+    },
+    "spriteEntity": "ship_toxic",
+    "hull": [
+      "#44aa44",
+      "#228822",
+      "#114411"
+    ],
+    "hullStroke": "#33ff33",
+    "wing": [
+      "#112211",
+      "#224422",
+      "#112211"
+    ],
+    "wingStroke": "rgba(34,100,34,0.4)",
+    "wingAccent": "rgba(100,255,100,0.3)",
+    "cockpit": "rgba(100,255,100,{pulse})",
+    "cockpitGlow": "#44ff44",
+    "engine": "#44ff44",
+    "engineGlow": "#22cc22",
+    "exhaust": [
+      "rgba(80,255,80,0.9)",
+      "rgba(40,180,40,0.5)",
+      "rgba(20,80,20,0)"
+    ],
+    "exhaustEdge": "rgba(160,255,160,0.7)",
+    "navLeft": "#ff4400",
+    "navRight": "#44ff44"
+  }
+}

@@ -5,8 +5,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BONZOOKAA! - Desktop Edition</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BONZOOKAA">
+<meta name="theme-color" content="#0a0e14">
+<title>BONZOOKAA! A60</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect fill='%2300d4ff' width='16' height='16' rx='2'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&family=Audiowide&display=swap" rel="stylesheet">
 <style>
@@ -54,6 +62,52 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ================================================================
+   A55 TOUCH HARDENING — kills text-selection/callout hang, bounce,
+   double-tap zoom. Global + safe for desktop (game UI isn't selectable).
+   ================================================================ */
+html, body {
+  -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+/* allow selection only inside real text inputs, if any */
+input, textarea { -webkit-user-select: text; user-select: text; }
+
+/* Touch-only refinements (class set by TouchControls when a touch device is active) */
+html.touch { overflow: hidden; }
+/* A56 FIX: inventory/menu modals were cut off on iPad (90vh = large viewport, centered, no scroll).
+   Make the overlay scroll from the top and let the box use the *visible* viewport height. */
+html.touch .combat-modal-overlay { align-items: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px; }
+html.touch .combat-modal-box { width: 100%; max-height: none; }
+html.touch .inv-modal-grid { grid-template-columns: 1fr; min-height: 0; gap: 10px; }
+html.touch .combat-modal-header { flex-wrap: wrap; gap: 6px; row-gap: 6px; } /* A57: keep VERKAUF-MODUS button visible on narrow screens */
+html.touch .modal-overlay { align-items: flex-start; overflow-y: auto; }
+/* A56: SELL-MODE — fast bulk selling: toggle on, then tap items to sell instantly */
+/* A60: sell-mode marker keeps the rarity border intact (don't recolor every item) — just a red ✕ tag + hover glow */
+body.sell-mode .stash-slot.filled { cursor: pointer; }
+body.sell-mode .stash-slot.filled::after { content: '✕'; position: absolute; top: -1px; right: 3px; font-size: 13px; font-weight: 900; color: #ff4455; text-shadow: 0 0 3px #000, 0 0 2px #000; pointer-events: none; z-index: 2; }
+body.sell-mode .stash-slot.filled:hover { box-shadow: 0 0 10px rgba(255,68,85,.75); }
+#invSellModeBtn.active, #loadoutSellModeBtn.active { background: var(--gold) !important; color: #1a1200 !important; box-shadow: 0 0 12px rgba(255,204,0,.6); }
+/* bigger tap targets in menus */
+html.touch button,
+html.touch .stash-slot,
+html.touch .equip-slot,
+html.touch .skill-node,
+html.touch .craft-slot,
+html.touch [data-action],
+html.touch .tab,
+html.touch .menu-btn { min-width: 44px; min-height: 44px; }
+/* make menu panels actually scrollable under a finger */
+html.touch .scrollable,
+html.touch .stash-grid,
+html.touch .skill-tree,
+html.touch .panel-inner,
+html.touch .menu-scroll,
+html.touch .craft-list { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
 
 html, body {
   width: 100%; height: 100%;
@@ -194,7 +248,7 @@ html, body {
   display: grid;
   grid-template-columns: 195px 1fr 210px;
   grid-template-rows: 56px 1fr;
-  height: 100vh;
+  height: 100vh; height: 100dvh; /* A56: dvh = visible viewport, fixes mobile cut-off */
   gap: 0;
   background: 
     radial-gradient(ellipse at 20% 20%, rgba(0,100,120,0.1) 0%, transparent 50%),
@@ -279,6 +333,138 @@ html, body {
   transition: width 0.3s;
 }
 .xp-text { font-size: 10px; color: var(--text-dim); margin-top: 3px; text-align: center; }
+
+/* ================================================================
+   COMBAT FULLSCREEN MODE — panels hidden, canvas full-width
+   ================================================================ */
+#app.combat-fullscreen {
+  grid-template-columns: 1fr !important;
+}
+#app.combat-fullscreen #leftPanel,
+#app.combat-fullscreen #rightPanel {
+  display: none !important;
+}
+#app.combat-fullscreen #gameContainer {
+  grid-column: 1 !important;
+  border-left: none; border-right: none;
+}
+
+/* Combat overlay modals */
+.combat-modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 7000;
+  background: rgba(0,10,20,0.92); align-items: center; justify-content: center;
+  padding: 20px;
+}
+.combat-modal-overlay.active { display: flex; }
+.combat-modal-box {
+  background: var(--surface, #0e1120); border: 1px solid rgba(0,212,255,0.3);
+  border-radius: 10px; width: 95%; max-width: 900px; max-height: 90vh; max-height: 90dvh;
+  overflow-y: auto; padding: 0;
+}
+.combat-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; border-bottom: 1px solid rgba(0,212,255,0.15);
+  background: rgba(0,212,255,0.04); position: sticky; top: 0; z-index: 1;
+}
+.combat-modal-header h3 { font-size: 15px; color: var(--cyan, #00ffcc); letter-spacing: 2px; margin: 0; }
+.combat-modal-close {
+  background: none; border: 1px solid rgba(255,255,255,0.15); color: #aaa;
+  padding: 6px 16px; border-radius: 4px; cursor: pointer; font-family: inherit; font-size: 12px;
+}
+.combat-modal-close:hover { border-color: var(--cyan); color: #fff; }
+.combat-modal-body { padding: 16px 18px; }
+
+/* Inventory modal: 3-column layout */
+.inv-modal-grid {
+  display: grid; 
+  grid-template-columns: 220px 1fr 180px; 
+  gap: 16px; 
+  min-height: 400px;
+}
+.inv-equip-col { }
+.inv-equip-col .equipment-grid { gap: 4px !important; }
+.inv-equip-col .equip-slot { padding: 8px 10px !important; font-size: 12px !important; }
+.inv-equip-col .slot-icon { font-size: 20px !important; }
+.inv-stash-col { }
+.inv-stash-col .stash-grid { 
+  grid-template-columns: repeat(6, 1fr) !important; 
+  gap: 4px !important; 
+  max-height: 350px !important;
+  overflow-y: auto;
+}
+.inv-stash-col .stash-slot { width: auto !important; height: 50px !important; font-size: 20px !important; }
+
+/* Ship stats column in inventory modal */
+.inv-stats-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 6px;
+  border: 1px solid rgba(0,212,255,0.1);
+  overflow-y: auto;
+  font-size: 10px;
+}
+.inv-stats-col > div { margin-bottom: 2px; }
+
+/* Stats section inside inventory */
+.inv-stats-bar {
+  display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 0; border-top: 1px solid #223;
+  margin-top: 12px;
+}
+.inv-stats-bar .stat-pill {
+  padding: 3px 10px; background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 4px; font-size: 11px; color: #aab;
+}
+.inv-stats-bar .stat-pill span { color: #00ffcc; font-weight: bold; }
+
+/* Paragon modal: full-width 4-column grid */
+.paragon-modal-grid {
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 12px; 
+  min-height: 450px;
+  max-height: 550px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+@media (max-width: 1000px) { 
+  .paragon-modal-grid { grid-template-columns: repeat(3, 1fr); min-height: 350px; }
+}
+@media (max-width: 700px) { 
+  .paragon-modal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.paragon-branch {
+  padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.paragon-branch-title {
+  font-size: 13px; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;
+  color: var(--text-bright);
+}
+.paragon-node {
+  display: flex; align-items: center; gap: 8px; padding: 8px; margin-bottom: 6px;
+  border-radius: 5px; cursor: default; transition: all 0.15s; font-size: 11px;
+}
+.paragon-node.can-unlock { cursor: pointer; }
+.paragon-node.can-unlock:hover { background: rgba(255,255,255,0.08); transform: translateX(2px); }
+.paragon-node .node-badge { width: 24px; height: 24px; border-radius: 4px; display: flex; 
+  align-items: center; justify-content: center; font-size: 11px; font-weight: bold; flex-shrink: 0; }
+.paragon-node .node-info { flex: 1; }
+.paragon-node .node-name { font-size: 12px; font-weight: 600; }
+.paragon-node .node-desc { font-size: 9px; color: #999; margin-top: 1px; }
+.paragon-node .node-cost { font-size: 9px; white-space: nowrap; color: #666; font-family: monospace; }
+
+/* Skill tree modal: vertical layout with collapsible trees */
+.skill-tree-modal-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
 
 /* ================================================================
    SIDE PANELS
@@ -1293,9 +1479,318 @@ html, body {
 .craft-stash-item.selected { border-color: var(--gold); box-shadow: 0 0 8px rgba(255,200,0,0.3); }
 .craft-stash-item .item-ilvl { position: absolute; bottom: 1px; right: 2px; font-size: 7px; color: var(--text-dim); }
 
+
+
+/* ================================================================
+   SERVICE MODAL — purpose-built meta management layer
+   ================================================================ */
+.service-modal {
+  width: min(1360px, 96vw);
+  max-width: min(1360px, 96vw);
+  min-height: min(820px, 90vh);
+  max-height: min(820px, 90vh);
+}
+.service-modal .panel,
+.service-modal .panel-inner {
+  height: 100%;
+}
+.service-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: min(760px, 82vh);
+  max-height: min(760px, 82vh);
+}
+.service-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.service-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.service-title-wrap .eyebrow {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.service-title-wrap h2 {
+  margin: 0;
+  font-size: 24px;
+}
+.service-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.service-pill {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  font-size: 11px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.service-pill strong {
+  color: var(--cyan);
+  margin-left: 6px;
+  font-family: 'Orbitron', sans-serif;
+}
+.service-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.service-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-dim);
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.service-tab:hover {
+  border-color: rgba(0,255,204,0.35);
+  color: var(--text-bright);
+  transform: translateY(-1px);
+}
+.service-tab.active {
+  color: #081018;
+  border-color: rgba(0,255,204,0.60);
+  background: linear-gradient(135deg, rgba(0,255,204,0.92), rgba(0,162,255,0.72));
+  box-shadow: 0 10px 28px rgba(0,255,204,0.18);
+}
+.service-panels {
+  flex: 1;
+  min-height: 0;
+}
+.service-panel {
+  display: none;
+  min-height: 0;
+  height: 100%;
+}
+.service-panel.active {
+  display: block;
+}
+.service-grid-inventory {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(420px, 1.25fr) minmax(290px, 0.9fr);
+  gap: 14px;
+  min-height: 0;
+  height: 100%;
+}
+.service-grid-single {
+  display: block;
+  min-height: 0;
+  height: 100%;
+}
+.service-card {
+  min-height: 0;
+  height: 100%;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(18,24,31,0.96), rgba(9,13,19,0.94));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 14px 30px rgba(0,0,0,0.22);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.service-card-header {
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.service-card-header h3 {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 1.3px;
+  color: var(--text-bright);
+}
+.service-card-header .service-card-note {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+.service-card-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px;
+}
+#serviceEquipmentHost .equipment-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+#serviceStashHost .stash-grid {
+  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+  gap: 6px;
+  align-content: start;
+}
+#serviceStashHost .stash-slot {
+  min-height: 58px;
+  font-size: 19px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}
+#serviceStatsHost .stats-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+#serviceStatsHost .stat-item {
+  padding: 7px 9px;
+  font-size: 11px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+#serviceStatsHost .stat-item.highlight {
+  grid-column: span 2;
+}
+#serviceParagonHost,
+#serviceSkillsHost {
+  height: 100%;
+}
+#serviceParagonHost .paragon-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+#serviceParagonHost .paragon-branch {
+  min-height: 0;
+}
+#serviceSkillsHost .skill-tree-container,
+#serviceSkillsHost .skill-tree-modal-grid {
+  max-height: none;
+  height: auto;
+}
+.service-empty {
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  min-height: 220px;
+  text-align: center;
+  font-size: 12px;
+}
+.stash-slot .slot-badge-stack {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.stash-slot .slot-badge {
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5,8,13,0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 9px;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+}
+.stash-slot .slot-badge.socket { color: #57d4ff; border-color: rgba(87,212,255,0.32); }
+.stash-slot .slot-badge.gem { color: #ffd44d; border-color: rgba(255,212,77,0.34); }
+.stash-slot .slot-badge.corrupt { color: #ff6f8b; border-color: rgba(255,111,139,0.34); }
+.stash-slot .slot-badge.forge { color: #c7a0ff; border-color: rgba(199,160,255,0.34); }
+.vendor-modal,
+.craft-modal {
+  width: min(1240px, 96vw);
+  max-width: min(1240px, 96vw);
+  min-height: min(780px, 88vh);
+  max-height: min(780px, 88vh);
+}
+.vendor-modal .panel,
+.craft-modal .panel,
+.vendor-modal .panel-inner,
+.craft-modal .panel-inner {
+  height: 100%;
+}
+.vendor-layout,
+.craft-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(360px, 0.95fr);
+  gap: 14px;
+  min-height: 0;
+  height: min(600px, 64vh);
+}
+.vendor-grid-grouped,
+.vendor-detail,
+.craft-item-panel,
+.craft-recipe-panel,
+.craft-recipes,
+.craft-result,
+.craft-stash-pick {
+  min-height: 0;
+}
+.vendor-grid-grouped,
+.vendor-detail,
+.craft-item-panel,
+.craft-recipe-panel {
+  overflow: auto;
+}
+.vendor-detail {
+  width: auto;
+  border-left: 1px solid #1a2535;
+}
+.craft-item-panel {
+  width: auto;
+  padding-right: 2px;
+}
+.craft-item-card {
+  min-height: 180px;
+}
+.craft-stash-pick {
+  grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+  max-height: 250px;
+}
+@media (max-width: 1180px) {
+  .service-grid-inventory,
+  .vendor-layout,
+  .craft-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .service-modal,
+  .vendor-modal,
+  .craft-modal {
+    min-height: min(860px, 92vh);
+    max-height: min(860px, 92vh);
+  }
+  .service-shell {
+    min-height: 0;
+    max-height: none;
+  }
+  .service-tabs {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 </head>
 <body>
+<div id="buildStamp" style="position:fixed;left:6px;bottom:4px;z-index:99999;font:700 11px/1 monospace;color:#83e84f;background:rgba(0,0,0,.45);padding:3px 7px;border-radius:5px;pointer-events:none;letter-spacing:1px;">BONZOOKAA A60</div>
 
 <div id="app">
   <!-- TOP BAR -->
@@ -1312,7 +1807,7 @@ html, body {
     </div>
     
     <div class="top-section">
-      <div class="wave-display" id="waveDisplay">WAVE 0</div>
+      <div class="wave-display" id="waveDisplay">HUB</div>
     </div>
     
     <div class="top-section">
@@ -1372,10 +1867,10 @@ html, body {
     </div>
     
     <div class="panel">
-      <div class="panel-header"><h3>&#x1F396;&#xFE0F; Pilot Stats</h3></div>
+      <div class="panel-header"><h3>🔮 Paragon</h3></div>
       <div class="panel-inner">
         <div class="points-badge stat-points">Points: <span class="points-num" id="statPointsNum">0</span></div>
-        <div class="pilot-stats-list" id="pilotStats"></div>
+        <div class="pilot-stats-list" id="pilotStats" style="max-height:300px;overflow-y:auto;"></div>
       </div>
     </div>
     
@@ -1384,6 +1879,100 @@ html, body {
       <div class="panel-inner">
         <div class="points-badge">Points: <span class="points-num" id="skillPointsNum">0</span></div>
         <div class="skill-tree-container" id="skillTrees"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMBAT INVENTORY MODAL (I key) -->
+<div class="combat-modal-overlay" id="combatInventoryModal">
+  <div class="combat-modal-box">
+    <div class="combat-modal-header">
+      <h3>📦 INVENTORY</h3>
+      <button id="invSellModeBtn" onclick="UI.toggleSellMode()" style="background:rgba(255,204,0,.08);border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:7px 12px;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;">🏷️ VERKAUF-MODUS</button>
+      <button class="combat-modal-close" onclick="Game.closeCombatModal('combatInventoryModal')">CLOSE [I]</button>
+    </div>
+    <div class="combat-modal-body">
+      <div class="inv-modal-grid">
+        <div class="inv-equip-col">
+          <div style="font-size:11px;color:var(--cyan);font-weight:bold;letter-spacing:1px;margin-bottom:6px;">⚔️ EQUIPMENT</div>
+          <div class="equipment-grid" id="combatEquipmentGrid"></div>
+        </div>
+        <div class="inv-stash-col">
+          <div style="font-size:11px;color:var(--gold);font-weight:bold;letter-spacing:1px;margin-bottom:6px;">📦 STASH</div>
+          <div class="stash-grid" id="combatStashGrid"></div>
+        </div>
+        <div class="inv-stats-col" id="combatQuickStats">
+          <div style="font-size:11px;color:var(--cyan);font-weight:bold;letter-spacing:1px;margin-bottom:6px;">⚡ STATS</div>
+          <div id="combatQuickStatsContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARAGON MODAL (P key) -->
+<div class="combat-modal-overlay" id="combatParagonModal">
+  <div class="combat-modal-box" style="max-width:950px;">
+    <div class="combat-modal-header">
+      <h3>🔮 PARAGON TREE</h3>
+      <span style="font-size:11px;color:#888;">PAUSED · Points: <span id="paragonPointsNum" style="color:#aa44ff;">0</span></span>
+      <button class="combat-modal-close" onclick="Game.closeCombatModal('combatParagonModal')">CLOSE [P]</button>
+    </div>
+    <div class="combat-modal-body">
+      <div class="paragon-modal-grid" id="combatPilotStats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILL TREE MODAL (S key) -->
+<div class="combat-modal-overlay" id="combatSkillModal">
+  <div class="combat-modal-box" style="max-width:650px;">
+    <div class="combat-modal-header">
+      <h3>⚔️ SKILL TREE</h3>
+      <span style="font-size:11px;color:#888;">PAUSED · Points: <span id="skillModalPointsNum" style="color:#ffcc00;">0</span></span>
+      <button class="combat-modal-close" onclick="Game.closeCombatModal('combatSkillModal')">CLOSE [S]</button>
+    </div>
+    <div class="combat-modal-body">
+      <div class="skill-tree-modal-grid" id="combatSkillTrees"></div>
+    </div>
+  </div>
+</div>
+
+<!-- COMBAT STATS MODAL (separate from inventory, paragon, skills) -->
+<div class="combat-modal-overlay" id="combatStatsModal">
+  <div class="combat-modal-box">
+    <div class="combat-modal-header">
+      <h3>📊 SHIP STATS</h3>
+      <span style="font-size:11px;color:#888;">PAUSED</span>
+      <button class="combat-modal-close" onclick="Game.closeCombatModal('combatStatsModal')">CLOSE</button>
+    </div>
+    <div class="combat-modal-body">
+      <div class="stats-grid" id="combatShipStats" style="font-size:11px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- OLD LAYOUT (kept for backwards compatibility, hidden by default) -->
+<div class="combat-modal-overlay" id="combatStatsModalOld" style="display:none;">
+  <div class="combat-modal-box">
+    <div class="combat-modal-header">
+      <h3>🔮 SHIP & PARAGON (OLD)</h3>
+      <span style="font-size:11px;color:#888;">PAUSED · Points: <span id="combatStatPointsNum" style="color:#00ffcc;">0</span></span>
+      <button class="combat-modal-close" onclick="Game.closeCombatModal('combatStatsModalOld')">CLOSE [P]</button>
+    </div>
+    <div class="combat-modal-body">
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;color:var(--cyan);font-weight:bold;letter-spacing:1px;margin-bottom:8px;">📊 SHIP STATS</div>
+        <div class="stats-grid" id="combatShipStatsOld" style="font-size:11px;"></div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;color:#aa44ff;font-weight:bold;letter-spacing:1px;margin-bottom:8px;">🔮 PARAGON TREE</div>
+        <div class="paragon-modal-grid" id="combatPilotStatsOld"></div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:#ff4444;font-weight:bold;letter-spacing:1px;margin-bottom:8px;">⚔️ SKILLS · Points: <span id="combatSkillPointsNum" style="color:#ffcc00;">0</span></div>
+        <div class="skill-tree-container" id="combatSkillTreesOld"></div>
       </div>
     </div>
   </div>
@@ -1426,25 +2015,30 @@ html, body {
           <div class="hub-services">
             <div class="section-label">STATION SERVICES</div>
             <div class="hub-nav-buttons">
-              <button class="hub-nav-btn" onclick="document.getElementById('sidePanel').classList.add('open')">
+              <button class="hub-nav-btn" data-action="open-inventory" data-tip="Equip gear, manage stash">
                 <span class="nav-icon">&#x1F4E6;</span>
                 <span class="nav-label">INVENTORY</span>
                 <kbd>I</kbd>
               </button>
-              <button class="hub-nav-btn" onclick="Game.openCrafting()">
+              <button class="hub-nav-btn" data-action="open-crafting" data-tip="Reroll affixes, upgrade rarity, enchant">
                 <span class="nav-icon">&#x2699;&#xFE0F;</span>
                 <span class="nav-label">CRAFTING</span>
                 <kbd>C</kbd>
               </button>
-              <button class="hub-nav-btn" onclick="Game.openVendor()">
-                <span class="nav-icon">&#x1F6D2;</span>
-                <span class="nav-label">VENDOR</span>
+              <button class="hub-nav-btn" data-action="open-vendor" data-tip="High-end crafting with rare materials">
+                <span class="nav-icon">🔨</span>
+                <span class="nav-label">FORGE</span>
                 <kbd>V</kbd>
               </button>
-              <button class="hub-nav-btn" onclick="document.getElementById('pilotPanel').classList.add('open')">
-                <span class="nav-icon">&#x1F468;&#x200D;&#x1F680;</span>
-                <span class="nav-label">PILOT</span>
+              <button class="hub-nav-btn" data-action="open-pilot" data-tip="Paragon tree: build-defining choices">
+                <span class="nav-icon">🔮</span>
+                <span class="nav-label">PARAGON</span>
                 <kbd>P</kbd>
+              </button>
+              <button class="hub-nav-btn" data-action="open-skills" data-tip="Spend skill points and define combat behavior">
+                <span class="nav-icon">⚔️</span>
+                <span class="nav-label">SKILLS</span>
+                <kbd>S</kbd>
               </button>
             </div>
             
@@ -1469,10 +2063,94 @@ html, body {
             </div>
             
             <div style="display:flex;gap:6px;margin-top:auto;">
-              <button class="btn small" onclick="Game.debugAddResources()">+Debug</button>
-              <button class="btn small" onclick="Game.debugUnlockAll()">&#x1F513;All</button>
+              <button class="btn small" data-action="debug-resources">+Debug</button>
+              <button class="btn small" data-action="debug-unlock">&#x1F513;All</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE MODAL (Hub meta management) -->
+<div class="modal-overlay" id="serviceModal">
+  <div class="modal service-modal">
+    <div class="panel" style="border-color:rgba(0,255,204,0.24)">
+      <div class="panel-inner">
+        <div class="service-shell">
+          <div class="service-header">
+            <div class="service-title-wrap">
+              <div class="eyebrow">station management layer</div>
+              <h2 id="serviceModalTitle">Loadout Command</h2>
+              <div class="service-card-note" id="serviceModalSubtitle">Equipment, stash, progression and build decisions.</div>
+            </div>
+            <div class="service-summary">
+              <div class="service-pill">Scrap <strong id="serviceSummaryScrap">0</strong></div>
+              <div class="service-pill">Cells <strong id="serviceSummaryCells">0</strong></div>
+              <div class="service-pill">Level <strong id="serviceSummaryLevel">1</strong></div>
+              <div class="service-pill">DPS <strong id="serviceSummaryDps">0</strong></div>
+            </div>
+          </div>
+
+          <div class="service-tabs">
+            <button class="service-tab active" data-service-tab="inventory" onclick="Game.setServiceTab('inventory')">📦 LOADOUT</button>
+            <button class="service-tab" data-service-tab="paragon" onclick="Game.setServiceTab('paragon')">🔮 PARAGON</button>
+            <button class="service-tab" data-service-tab="skills" onclick="Game.setServiceTab('skills')">⚔️ SKILLS</button>
+          </div>
+
+          <div class="service-panels">
+            <div class="service-panel active" data-service-panel="inventory">
+              <div class="service-grid-inventory">
+                <section class="service-card">
+                  <div class="service-card-header">
+                    <h3>⚔️ EQUIPPED SYSTEMS</h3>
+                    <span class="service-card-note">Click to equip / unequip</span>
+                  </div>
+                  <div class="service-card-body" id="serviceEquipmentHost"></div>
+                </section>
+                <section class="service-card">
+                  <div class="service-card-header">
+                    <h3>📦 STASH HOLD</h3>
+                    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                      <button id="loadoutSellModeBtn" onclick="UI.toggleSellMode()" style="background:rgba(255,204,0,.08);border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer;">🏷️ SELL-MODE</button>
+                      <button id="autoSalvageBtn" onclick="UI.cycleAutoSalvage()" title="Auto-dismantle dropped loot below this rarity into scrap" style="background:rgba(0,212,255,.06);border:1px solid var(--cyan);color:var(--cyan);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer;">🗑️ AUTO-SALVAGE: OFF</button>
+                    </div>
+                  </div>
+                  <div class="service-card-body" id="serviceStashHost"></div>
+                </section>
+                <section class="service-card">
+                  <div class="service-card-header">
+                    <h3>📊 SHIP TELEMETRY</h3>
+                    <span class="service-card-note">Live stat stack from current loadout</span>
+                  </div>
+                  <div class="service-card-body" id="serviceStatsHost"></div>
+                </section>
+              </div>
+            </div>
+
+            <div class="service-panel" data-service-panel="paragon">
+              <section class="service-card service-grid-single">
+                <div class="service-card-header">
+                  <h3>🔮 PARAGON MATRIX</h3>
+                  <span class="service-card-note">Spend long-term progression points deliberately</span>
+                </div>
+                <div class="service-card-body" id="serviceParagonHost"></div>
+              </section>
+            </div>
+
+            <div class="service-panel" data-service-panel="skills">
+              <section class="service-card service-grid-single">
+                <div class="service-card-header">
+                  <h3>⚔️ SKILL DIRECTOR</h3>
+                  <span class="service-card-note">Branch specialization with persistent open-state</span>
+                </div>
+                <div class="service-card-body" id="serviceSkillsHost"></div>
+              </section>
+            </div>
+          </div>
+
+          <button class="btn primary" style="width:100%;margin-top:auto;" onclick="Game.closeServiceModal()">← BACK TO HUB</button>
         </div>
       </div>
     </div>
@@ -1505,10 +2183,9 @@ html, body {
   <div class="modal vendor-modal">
     <div class="panel" style="border-color:var(--gold-dim)">
       <div class="panel-header" style="background:linear-gradient(90deg,rgba(170,136,0,0.15),transparent)">
-        <h3 style="color:var(--gold)">&#x1F6D2; UPGRADE BAY</h3>
-        <div class="resource-box cells" style="margin:0;padding:6px 12px;font-size:12px;">
-          <span class="icon">&#x26A1;</span>
-          <span id="vendorCells">0</span>
+        <h3 style="color:var(--gold)">🔨 THE FORGE</h3>
+        <div class="resource-box cells" id="vendorCells" style="margin:0;padding:6px 12px;font-size:11px;white-space:nowrap;">
+          ⚙️0 · ⚡0 · 💠0 · ✨0
         </div>
       </div>
       <div class="panel-inner">
@@ -1525,7 +2202,7 @@ html, body {
             </div>
           </div>
         </div>
-        <button class="btn primary" style="margin-top:12px;width:100%;" onclick="Game.closeVendor()">CONTINUE &#x2192;</button>
+        <button class="btn primary" style="margin-top:12px;width:100%;" onclick="Game.closeVendor()">← BACK TO HUB</button>
       </div>
     </div>
   </div>
@@ -1574,7 +2251,7 @@ html, body {
         <!-- Item picker (hidden by default) -->
         <div class="craft-stash-pick" id="craftStashPick" style="display:none;"></div>
 
-        <button class="btn primary" style="margin-top:10px;width:100%;" onclick="Game.closeCrafting()">DONE</button>
+        <button class="btn primary" style="margin-top:10px;width:100%;" onclick="Game.closeCrafting()">← BACK TO HUB</button>
       </div>
     </div>
   </div>
@@ -1632,6 +2309,96 @@ html, body {
   </div>
 </div>
 
-<script type="module" src="main.js"></script>
+<!-- ═══ ONBOARDING OVERLAY ═══ -->
+<style>
+#tutorialOverlay {
+  position: fixed; inset: 0; z-index: 8000;
+  display: none; align-items: flex-end; justify-content: center;
+  padding-bottom: 80px; pointer-events: none;
+}
+#tutorialOverlay.active { display: flex; }
+.tut-box {
+  background: rgba(0,20,30,0.95); border: 1px solid rgba(0,212,255,0.4);
+  border-radius: 10px; padding: 16px 24px; max-width: 420px; text-align: center;
+  pointer-events: auto; animation: tutPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(0,212,255,0.15);
+}
+@keyframes tutPulse { 0%,100%{box-shadow:0 0 20px rgba(0,212,255,0.1)} 50%{box-shadow:0 0 35px rgba(0,212,255,0.25)} }
+.tut-title { font-size: 14px; font-weight: bold; color: #00ffcc; margin-bottom: 6px; letter-spacing: 2px; }
+.tut-body { font-size: 12px; color: #c0c8d8; line-height: 1.5; margin-bottom: 12px; }
+.tut-keys { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
+.tut-key { padding: 3px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; font-size: 11px; color: #fff; font-family: monospace; }
+.tut-key span { color: #00ffcc; font-weight: bold; }
+.tut-btn { padding: 8px 28px; background: #00ffcc; color: #080a12; border: none; border-radius: 6px; font-weight: bold; font-size: 12px; cursor: pointer; font-family: inherit; }
+.tut-btn:hover { background: #33ffd9; }
+.tut-step { font-size: 9px; color: #556; margin-top: 6px; }
+
+/* H key overlay */
+#controlsOverlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,10,20,0.92); display: none; align-items: center; justify-content: center;
+}
+#controlsOverlay.active { display: flex; }
+.controls-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px;
+  max-width: 500px; padding: 24px;
+}
+.ctrl-title { grid-column: 1/-1; font-size: 16px; font-weight: bold; color: #00ffcc; text-align: center; margin-bottom: 4px; letter-spacing: 3px; }
+.ctrl-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ctrl-label { font-size: 11px; color: #aab; }
+.ctrl-key { padding: 2px 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 3px; font-size: 11px; color: #fff; font-family: monospace; }
+.ctrl-close { grid-column: 1/-1; text-align: center; margin-top: 8px; }
+
+/* Hub tooltips */
+.hub-nav-btn { position: relative; }
+.hub-nav-btn[data-tip]::after {
+  content: attr(data-tip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  padding: 4px 10px; background: #111828; border: 1px solid #00ccff40; border-radius: 4px;
+  font-size: 9px; color: #aab; white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s; z-index: 100;
+}
+.hub-nav-btn[data-tip]:hover::after { opacity: 1; }
+
+
+</style>
+
+<div id="tutorialOverlay">
+  <div class="tut-box">
+    <div class="tut-title" id="tutTitle">WELCOME, PILOT</div>
+    <div class="tut-body" id="tutBody">Loading...</div>
+    <div class="tut-keys" id="tutKeys"></div>
+    <button class="tut-btn" id="tutBtn" onclick="Game.advanceTutorial()">GOT IT</button>
+    <div class="tut-step" id="tutStep"></div>
+  </div>
+</div>
+
+<div id="controlsOverlay" onclick="this.classList.remove('active')">
+  <div class="controls-grid" onclick="event.stopPropagation()">
+    <div class="ctrl-title">CONTROLS</div>
+    <div class="ctrl-row"><span class="ctrl-label">Move</span><span><span class="ctrl-key">W</span><span class="ctrl-key">A</span><span class="ctrl-key">S</span><span class="ctrl-key">D</span></span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Fire</span><span class="ctrl-key">MOUSE / HOLD</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Dash</span><span class="ctrl-key">Q</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Shield Burst</span><span class="ctrl-key">R</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Orbital Strike</span><span class="ctrl-key">F</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Interact</span><span class="ctrl-key">E</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Cycle Drone</span><span class="ctrl-key">G</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Target Lock</span><span class="ctrl-key">CLICK ENEMY</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Cycle Target</span><span class="ctrl-key">TAB</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Unlock Target</span><span class="ctrl-key">RIGHT CLICK</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Pause</span><span class="ctrl-key">ESC</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Controls</span><span class="ctrl-key">H</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Inventory</span><span class="ctrl-key">I</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">Settings</span><span class="ctrl-key">P</span></div>
+    <div class="ctrl-close"><button class="tut-btn" onclick="document.getElementById('controlsOverlay').classList.remove('active')">CLOSE</button></div>
+  </div>
+</div>
+
+<script>
+// ═══ BOOT ERROR CATCHER ═══
+window._bonzookaBooted = false;
+window.addEventListener('error', function(e) { if (!window._bonzookaBooted) console.error('[BOOT]', e.message, e.filename, e.lineno); });
+window.addEventListener('unhandledrejection', function(e) { if (!window._bonzookaBooted) console.error('[BOOT] Promise:', e.reason); });
+</script>
+<script type="module" src="main.js?v=2164"></script>
 </body>
 </html>

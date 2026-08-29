@@ -1,0 +1,413 @@
+{
+  "_version": "1.0.0",
+  "_comment": "Unique items have FIXED stats and identities. They enable specific builds. Chase items for endgame.",
+  "weapons": {
+    "void_reaper": {
+      "name": "Void Reaper",
+      "slot": "weapon",
+      "icon": "☠️",
+      "rarity": "legendary",
+      "minIlvl": 15,
+      "dropWeight": 1.0,
+      "description": "Shots pass through all enemies. Each pierce adds +8% damage.",
+      "fixedStats": {
+        "damage": 35,
+        "piercing": 99,
+        "pierceDamageBonus": 8
+      },
+      "flavor": "The void consumes all in its path.",
+      "weaponType": "railgun"
+    },
+    "supernova_catalyst": {
+      "name": "Supernova Catalyst",
+      "slot": "weapon",
+      "icon": "🌟",
+      "rarity": "mythic",
+      "minIlvl": 30,
+      "dropWeight": 0.3,
+      "description": "Every 5th shot explodes in a 200px AoE. Crit chance +15%.",
+      "fixedStats": {
+        "damage": 28,
+        "fireRate": 12,
+        "critChance": 15,
+        "aoeRadius": 200,
+        "aoeEveryNShots": 5
+      },
+      "flavor": "Stars die so that you may kill.",
+      "weaponType": "nova"
+    },
+    "phantom_gatling": {
+      "name": "Phantom Gatling",
+      "slot": "weapon",
+      "icon": "👻",
+      "rarity": "legendary",
+      "minIlvl": 20,
+      "dropWeight": 0.8,
+      "description": "Fire rate doubles when below 30% HP. +50% crit damage.",
+      "fixedStats": {
+        "damage": 12,
+        "fireRate": 18,
+        "critDamage": 50,
+        "lowHPFireRateMult": 2.0,
+        "lowHPThreshold": 30
+      },
+      "flavor": "Fear makes the gun faster.",
+      "weaponType": "gatling"
+    },
+    "mothership_cannon": {
+      "name": "Mothership Main Gun",
+      "slot": "weapon",
+      "icon": "💥",
+      "rarity": "mythic",
+      "minIlvl": 40,
+      "dropWeight": 0.15,
+      "bossOnly": true,
+      "bossPool": [
+        "harbinger"
+      ],
+      "description": "Massive beam hits all enemies in a line. +60% dmg, -40% fire rate.",
+      "fixedStats": {
+        "damage": 55,
+        "fireRate": -40,
+        "beamWidth": 40,
+        "beamLength": 800,
+        "beamHitsAll": true
+      },
+      "flavor": "Stripped from the Harbinger's bridge.",
+      "weaponType": "missile"
+    }
+  },
+  "shields": {
+    "aegis_of_eternity": {
+      "name": "Aegis of Eternity",
+      "slot": "shield",
+      "icon": "🛡️",
+      "rarity": "legendary",
+      "minIlvl": 15,
+      "dropWeight": 1.0,
+      "description": "Shield regenerates 3× faster. Taking fatal damage restores 25% shield (60s cooldown).",
+      "fixedStats": {
+        "shieldCap": 80,
+        "shieldRegenMult": 3.0,
+        "fatalSave": true,
+        "fatalSavePercent": 25,
+        "fatalSaveCooldown": 60
+      },
+      "flavor": "Time bends around the worthy."
+    },
+    "null_barrier": {
+      "name": "Null Barrier",
+      "slot": "shield",
+      "icon": "⬛",
+      "rarity": "mythic",
+      "minIlvl": 35,
+      "dropWeight": 0.25,
+      "description": "Absorb projectiles to charge. At full charge, release a damage nova. +120 shield.",
+      "fixedStats": {
+        "shieldCap": 120,
+        "absorbCharge": true,
+        "chargeNovaRadius": 250,
+        "chargeNovaDamage": 200
+      },
+      "flavor": "What they throw at you becomes your weapon."
+    }
+  },
+  "engines": {
+    "warp_drive_mk9": {
+      "name": "Warp Drive Mk.IX",
+      "slot": "engine",
+      "icon": "⚡",
+      "rarity": "legendary",
+      "minIlvl": 10,
+      "dropWeight": 1.2,
+      "description": "+45% speed. Leaves a damage trail that hurts enemies.",
+      "fixedStats": {
+        "speed": 45,
+        "damageTrail": true,
+        "trailDPS": 15,
+        "trailWidth": 30
+      },
+      "flavor": "The fastest ship in the sector... and the deadliest contrail."
+    },
+    "quantum_blink": {
+      "name": "Quantum Blink Engine",
+      "slot": "engine",
+      "icon": "💫",
+      "rarity": "mythic",
+      "minIlvl": 25,
+      "dropWeight": 0.35,
+      "description": "Dash makes you invulnerable for 0.5s. +30% speed, +10% dodge.",
+      "fixedStats": {
+        "speed": 30,
+        "dodgeChance": 10,
+        "dashInvuln": true,
+        "dashInvulnDuration": 0.5
+      },
+      "flavor": "You were here. Now you're not."
+    }
+  },
+  "reactors": {
+    "fusion_heart": {
+      "name": "Fusion Heart",
+      "slot": "reactor",
+      "icon": "💎",
+      "rarity": "legendary",
+      "minIlvl": 15,
+      "dropWeight": 1.0,
+      "description": "All damage +20%. Energy regen +30%. Overheats for 2s every 15s (no firing).",
+      "fixedStats": {
+        "damageMult": 20,
+        "energyRegen": 30,
+        "overheatCycle": 15,
+        "overheatDuration": 2
+      },
+      "flavor": "Infinite power has infinite consequences."
+    },
+    "dark_matter_core": {
+      "name": "Dark Matter Core",
+      "slot": "reactor",
+      "icon": "🔮",
+      "rarity": "mythic",
+      "minIlvl": 40,
+      "dropWeight": 0.2,
+      "description": "Enemies within 200px take 5% max HP/sec. You take 1% max HP/sec. +40% damage.",
+      "fixedStats": {
+        "damageMult": 40,
+        "proximityAura": true,
+        "auraRadius": 200,
+        "auraDPSPercent": 5,
+        "selfDPSPercent": 1
+      },
+      "flavor": "The abyss gives freely. It also takes."
+    }
+  },
+  "drones": {
+    "swarm_commander": {
+      "name": "Swarm Commander",
+      "slot": "drone",
+      "icon": "🐝",
+      "rarity": "legendary",
+      "minIlvl": 20,
+      "dropWeight": 0.8,
+      "description": "Spawns 3 mini-drones that orbit and fire. Each does 25% of your damage.",
+      "fixedStats": {
+        "droneCount": 3,
+        "droneDamagePct": 25,
+        "droneOrbitRadius": 120
+      },
+      "flavor": "The hive follows."
+    },
+    "sentinel_prime": {
+      "name": "Sentinel Prime",
+      "slot": "drone",
+      "icon": "🤖",
+      "rarity": "mythic",
+      "minIlvl": 30,
+      "dropWeight": 0.3,
+      "description": "AI drone that targets the strongest enemy. Crit chance 30%. Heals you 2% per kill.",
+      "fixedStats": {
+        "droneDamagePct": 60,
+        "droneCritChance": 30,
+        "droneTargeting": "strongest",
+        "droneHealOnKill": 2
+      },
+      "flavor": "Loyalty beyond programming."
+    }
+  },
+  "modules": {
+    "lucky_star_chip": {
+      "name": "Lucky Star Chip",
+      "slot": "module",
+      "icon": "🍀",
+      "rarity": "legendary",
+      "minIlvl": 10,
+      "dropWeight": 1.2,
+      "description": "+25 luck. Rarity floor raised to Uncommon. +15% scrap bonus.",
+      "fixedStats": {
+        "luck": 25,
+        "rarityFloor": "uncommon",
+        "scrapBonus": 15
+      },
+      "flavor": "Fortune favors the prepared... and the chippy."
+    },
+    "berserker_matrix": {
+      "name": "Berserker Matrix",
+      "slot": "module",
+      "icon": "🔥",
+      "rarity": "legendary",
+      "minIlvl": 20,
+      "dropWeight": 0.9,
+      "description": "Damage scales with missing HP: up to +80% at 1 HP. -20% max shield.",
+      "fixedStats": {
+        "berserkMaxBonus": 80,
+        "shieldCap": -20
+      },
+      "flavor": "Pain is the ultimate amplifier."
+    },
+    "temporal_loop": {
+      "name": "Temporal Loop",
+      "slot": "module",
+      "icon": "⏳",
+      "rarity": "mythic",
+      "minIlvl": 35,
+      "dropWeight": 0.2,
+      "description": "On death, rewind 5 seconds (once per zone). +10% to all stats.",
+      "fixedStats": {
+        "deathRewind": true,
+        "rewindSeconds": 5,
+        "rewindUsesPerZone": 1,
+        "allStatBonus": 10
+      },
+      "flavor": "This already happened. Or hasn't yet."
+    },
+    "infinity_chip": {
+      "name": "Infinity Chip",
+      "slot": "module",
+      "icon": "♾️",
+      "rarity": "mythic",
+      "minIlvl": 50,
+      "minDepth": 500,
+      "dropWeight": 0.08,
+      "description": "All stats +15%. XP +30%. Item drops +1 rarity tier.",
+      "fixedStats": {
+        "allStatBonus": 15,
+        "xpMult": 30,
+        "rarityUpgrade": 1
+      },
+      "flavor": "The final optimization."
+    }
+  },
+  "sets": {
+    "void_walker": {
+      "name": "Void Walker Set",
+      "icon": "🌌",
+      "pieces": {
+        "void_walker_cannon": {
+          "name": "Void Walker Cannon",
+          "slot": "weapon",
+          "rarity": "legendary",
+          "minIlvl": 20,
+          "dropWeight": 0.6,
+          "description": "Fires void-infused bolts. +20% damage, +1 pierce.",
+          "fixedStats": {
+            "damage": 25,
+            "piercing": 1,
+            "damageMult": 20
+          },
+          "weaponType": "plasma"
+        },
+        "void_walker_shield": {
+          "name": "Void Walker Barrier",
+          "slot": "shield",
+          "rarity": "legendary",
+          "minIlvl": 20,
+          "dropWeight": 0.6,
+          "description": "Shield absorbs void energy. +60 shield, +15% regen.",
+          "fixedStats": {
+            "shieldCap": 60,
+            "shieldRegenMult": 1.15
+          }
+        },
+        "void_walker_core": {
+          "name": "Void Walker Core",
+          "slot": "reactor",
+          "rarity": "legendary",
+          "minIlvl": 20,
+          "dropWeight": 0.6,
+          "description": "Void energy fuels the ship. +15% all damage, +50 HP.",
+          "fixedStats": {
+            "damageMult": 15,
+            "hpBonus": 50
+          }
+        }
+      },
+      "bonuses": {
+        "2": {
+          "label": "Void Resonance",
+          "description": "+25% damage to enemies within 150px",
+          "stats": {
+            "proximityDamageBonus": 25,
+            "proximityRange": 150
+          }
+        },
+        "3": {
+          "label": "Void Mastery",
+          "description": "+40% all damage. Kills explode for AoE.",
+          "stats": {
+            "damageMult": 40,
+            "killExplosion": true,
+            "killExplosionRadius": 80,
+            "killExplosionDamagePct": 100
+          }
+        }
+      }
+    },
+    "chrono_pilot": {
+      "name": "Chrono Pilot Set",
+      "icon": "⏱️",
+      "pieces": {
+        "chrono_gatling": {
+          "name": "Chrono Gatling",
+          "slot": "weapon",
+          "rarity": "legendary",
+          "minIlvl": 25,
+          "dropWeight": 0.5,
+          "description": "Fire rate ramps in combat (up to +50%).",
+          "fixedStats": {
+            "damage": 14,
+            "fireRate": 15,
+            "fireRateRampPerSec": 2,
+            "fireRateRampCap": 50
+          },
+          "weaponType": "gatling"
+        },
+        "chrono_engine": {
+          "name": "Chrono Drive",
+          "slot": "engine",
+          "rarity": "legendary",
+          "minIlvl": 25,
+          "dropWeight": 0.5,
+          "description": "Speed ramps over 3s. +35% max speed, +8% dodge.",
+          "fixedStats": {
+            "speed": 35,
+            "dodgeChance": 8,
+            "speedRampTime": 3
+          }
+        },
+        "chrono_module": {
+          "name": "Chrono Matrix",
+          "slot": "module",
+          "rarity": "legendary",
+          "minIlvl": 25,
+          "dropWeight": 0.5,
+          "description": "Cooldowns reduce 1%/s in combat (max 30%).",
+          "fixedStats": {
+            "cooldownReductionPerSec": 1,
+            "cooldownReductionCap": 30
+          }
+        }
+      },
+      "bonuses": {
+        "2": {
+          "label": "Time Dilation",
+          "description": "After 10s: +20% fire rate, +15% speed.",
+          "stats": {
+            "combatRampFireRate": 20,
+            "combatRampSpeed": 15,
+            "combatRampDelay": 10
+          }
+        },
+        "3": {
+          "label": "Temporal Overdrive",
+          "description": "Every 30s: 5s double fire rate + invuln.",
+          "stats": {
+            "overdriveInterval": 30,
+            "overdriveDuration": 5,
+            "overdriveFireRateMult": 2,
+            "overdriveInvuln": true
+          }
+        }
+      }
+    }
+  }
+}

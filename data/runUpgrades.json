@@ -1,0 +1,169 @@
+{
+  "damage": {
+    "name": "Damage+",
+    "icon": "\ud83d\udd34",
+    "maxTier": 5,
+    "effect": {
+      "stat": "damage",
+      "perTier": 10
+    },
+    "costs": [
+      15,
+      40,
+      90,
+      200,
+      450
+    ],
+    "description": "+10% Damage per tier",
+    "category": "offense"
+  },
+  "fireRate": {
+    "name": "Fire Rate+",
+    "icon": "\u26a1",
+    "maxTier": 5,
+    "effect": {
+      "stat": "fireRate",
+      "perTier": 8
+    },
+    "costs": [
+      12,
+      35,
+      80,
+      170,
+      380
+    ],
+    "description": "+8% Fire Rate per tier",
+    "category": "offense"
+  },
+  "multishot": {
+    "name": "Multi-Shot",
+    "icon": "\ud83d\udd31",
+    "maxTier": 3,
+    "effect": {
+      "stat": "projectiles",
+      "perTier": 1
+    },
+    "costs": [
+      50,
+      150,
+      400
+    ],
+    "description": "+1 Projectile per tier",
+    "category": "offense"
+  },
+  "shield": {
+    "name": "Shield+",
+    "icon": "\ud83d\udee1\ufe0f",
+    "maxTier": 5,
+    "effect": {
+      "stat": "shieldCap",
+      "perTier": 20
+    },
+    "costs": [
+      18,
+      45,
+      100,
+      220,
+      480
+    ],
+    "description": "+20 Shield per tier",
+    "category": "defense"
+  },
+  "regen": {
+    "name": "Regen+",
+    "icon": "\ud83d\udc9a",
+    "maxTier": 3,
+    "effect": {
+      "stat": "hpRegen",
+      "perTier": 2
+    },
+    "costs": [
+      25,
+      80,
+      220
+    ],
+    "description": "+2 HP/sec per tier",
+    "category": "defense"
+  },
+  "speed": {
+    "name": "Speed+",
+    "icon": "\ud83d\udca8",
+    "maxTier": 3,
+    "effect": {
+      "stat": "speed",
+      "perTier": 5
+    },
+    "costs": [
+      15,
+      45,
+      120
+    ],
+    "description": "+5% Speed per tier",
+    "category": "utility"
+  },
+  "magnet": {
+    "name": "Magnet+",
+    "icon": "\ud83e\uddf2",
+    "maxTier": 3,
+    "effect": {
+      "stat": "pickupRadius",
+      "perTier": 35
+    },
+    "costs": [
+      10,
+      30,
+      80
+    ],
+    "description": "+35% Pickup Radius per tier",
+    "category": "utility"
+  },
+  "luck": {
+    "name": "Luck+",
+    "icon": "\ud83c\udf40",
+    "maxTier": 3,
+    "effect": {
+      "stat": "dropRate",
+      "perTier": 5
+    },
+    "costs": [
+      20,
+      70,
+      180
+    ],
+    "description": "+5% Drop Rate per tier",
+    "category": "utility"
+  },
+  "crit": {
+    "name": "Critical+",
+    "icon": "\ud83d\udca5",
+    "maxTier": 4,
+    "effect": {
+      "stat": "critChance",
+      "perTier": 3
+    },
+    "costs": [
+      25,
+      65,
+      160,
+      380
+    ],
+    "description": "+3% Crit Chance per tier",
+    "category": "offense"
+  },
+  "pierce": {
+    "name": "Pierce+",
+    "icon": "\ud83d\udccd",
+    "maxTier": 3,
+    "effect": {
+      "stat": "piercing",
+      "perTier": 1
+    },
+    "costs": [
+      35,
+      100,
+      280
+    ],
+    "description": "+1 Pierce per tier",
+    "category": "offense"
+  }
+}

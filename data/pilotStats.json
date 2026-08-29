@@ -1,0 +1,68 @@
+{
+  "power": {
+    "name": "Power",
+    "icon": "\ud83d\udcaa",
+    "color": "#ff4444",
+    "description": "+5% weapon damage per point",
+    "effect": {
+      "stat": "damage",
+      "perPoint": 5,
+      "type": "percent"
+    }
+  },
+  "vitality": {
+    "name": "Vitality",
+    "icon": "\u2764\ufe0f",
+    "color": "#00ff88",
+    "description": "+5% max hull HP per point",
+    "effect": {
+      "stat": "maxHP",
+      "perPoint": 5,
+      "type": "percent"
+    }
+  },
+  "agility": {
+    "name": "Agility",
+    "icon": "\ud83c\udfc3",
+    "color": "#00ddff",
+    "description": "+3% movement speed per point",
+    "effect": {
+      "stat": "speed",
+      "perPoint": 3,
+      "type": "percent"
+    }
+  },
+  "precision": {
+    "name": "Precision",
+    "icon": "\ud83c\udfaf",
+    "color": "#ffaa00",
+    "description": "+0.8% crit chance per point",
+    "effect": {
+      "stat": "critChance",
+      "perPoint": 0.8,
+      "type": "flat"
+    }
+  },
+  "fortitude": {
+    "name": "Fortitude",
+    "icon": "\ud83d\udee1\ufe0f",
+    "color": "#0088ff",
+    "description": "+4 shield capacity per point",
+    "effect": {
+      "stat": "shieldCap",
+      "perPoint": 4,
+      "type": "flat"
+    }
+  },
+  "luck": {
+    "name": "Luck",
+    "icon": "\ud83c\udf40",
+    "color": "#88ff00",
+    "description": "+2 luck per point (drop rate & quality)",
+    "effect": {
+      "stat": "luck",
+      "perPoint": 2,
+      "type": "flat"
+    }
+  }
+}

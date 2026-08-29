@@ -1,0 +1,25 @@
+# Operating-system and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local runtime output
+*.log
+coverage/
+dist/
+tmp/
+temp/
+node_modules/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Transfer packages are recovery inputs, not repository content
+*.zip
+

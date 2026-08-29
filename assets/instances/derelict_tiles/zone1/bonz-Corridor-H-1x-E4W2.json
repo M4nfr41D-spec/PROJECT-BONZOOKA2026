@@ -1,0 +1,36 @@
+{
+  "tool": "BONZOOKAA Tile Forge v6-allvector",
+  "shape": "Corridor H",
+  "sizeClass": 1,
+  "exportSize": 1024,
+  "grid": 8,
+  "renderMode": "vector",
+  "wallWidthPx": 20,
+  "wallWidthMode": "fixed_export_px",
+  "cornerRadiusPercent": 12,
+  "exits": {
+    "N": false,
+    "S": false,
+    "E": true,
+    "W": true
+  },
+  "exitWidths": {
+    "N": 2,
+    "S": 2,
+    "E": 4,
+    "W": 2
+  },
+  "floorMode": "transparent",
+  "bgMode": "texture",
+  "palette": "Sci-Fi Metal",
+  "colors": {
+    "floor": "#464b52",
+    "wall": "#282a30",
+    "bg": "#32343a"
+  },
+  "textures": {
+    "floor": null,
+    "wall": "DSC_TEXTURE_S_2.jpg",
+    "bg": "black-geometric-hexagonal-abstract-background-fut-2025-03-08-06-57-43-utc.jpg"
+  }
+}

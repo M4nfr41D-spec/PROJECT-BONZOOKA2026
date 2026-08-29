@@ -1,0 +1,14 @@
+{
+  "id": "derelict_instance_scaffold",
+  "enabled": true,
+  "spawnFromPoiTypes": [
+    "salvage_wreck"
+  ],
+  "assembly": "tile_first_inside_instance_only",
+  "runtime": {
+    "entry": "World.enterDerelictInstance(poi)",
+    "exit": "portal.destination=return_instance",
+    "directTileCoupling": true
+  },
+  "note": "A29 wires salvage wreck POIs into isolated derelict station instances using immediate tile-bound module rendering."
+}

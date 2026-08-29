@@ -1,0 +1,292 @@
+{
+  "_version": "1.0.0",
+  "_comment": "Crafting uses Scrap + Cells as currencies. Deterministic parts + stochastic parts. Costs escalate to prevent perfect items.",
+  "currencies": {
+    "scrap": {
+      "name": "Scrap",
+      "icon": "\u2699\ufe0f",
+      "description": "Salvaged parts from enemies and asteroids",
+      "maxStack": 999999
+    },
+    "cells": {
+      "name": "Energy Cells",
+      "icon": "\ud83d\udd0b",
+      "description": "Power cells from defeated foes",
+      "maxStack": 999999
+    },
+    "voidShard": {
+      "name": "Void Shard",
+      "icon": "\ud83d\udca0",
+      "description": "Rare material from depth 50+ bosses",
+      "maxStack": 999,
+      "minDepthDrop": 50,
+      "bossOnly": true,
+      "dropChance": 0.25
+    },
+    "cosmicDust": {
+      "name": "Cosmic Dust",
+      "icon": "\u2728",
+      "description": "Ultra-rare material from depth 100+ elites",
+      "maxStack": 99,
+      "minDepthDrop": 100,
+      "dropChance": 0.05
+    }
+  },
+  "recipes": {
+    "reroll_affixes": {
+      "name": "Reroll Affixes",
+      "description": "Randomize all affixes on an item (keeps base stats, rarity, base type)",
+      "icon": "\ud83c\udfb2",
+      "costs": {
+        "scrap": {
+          "base": 100,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 2,
+            "rare": 5,
+            "epic": 12,
+            "legendary": 30,
+            "mythic": 80
+          }
+        },
+        "cells": {
+          "base": 50,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 1,
+            "rare": 3,
+            "epic": 8,
+            "legendary": 20,
+            "mythic": 50
+          }
+        }
+      },
+      "escalation": {
+        "enabled": true,
+        "perUse": 1.15,
+        "maxMult": 5.0,
+        "resetsOn": "newItem"
+      },
+      "constraints": {
+        "minRarity": "uncommon",
+        "notUnique": true
+      }
+    },
+    "upgrade_rarity": {
+      "name": "Upgrade Rarity",
+      "description": "Attempt to raise item rarity by one tier. Success chance decreases with rarity.",
+      "icon": "\u2b06\ufe0f",
+      "costs": {
+        "scrap": {
+          "base": 500,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 3,
+            "rare": 8,
+            "epic": 20,
+            "legendary": 50
+          }
+        },
+        "cells": {
+          "base": 200,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 2,
+            "rare": 5,
+            "epic": 15,
+            "legendary": 40
+          }
+        },
+        "voidShard": {
+          "base": 0,
+          "perRarity": {
+            "common": 0,
+            "uncommon": 0,
+            "rare": 0,
+            "epic": 1,
+            "legendary": 3
+          }
+        }
+      },
+      "successChance": {
+        "common": 0.9,
+        "uncommon": 0.7,
+        "rare": 0.45,
+        "epic": 0.2,
+        "legendary": 0.05
+      },
+      "onFail": "keepItem",
+      "constraints": {
+        "maxRarity": "legendary",
+        "notUnique": true
+      }
+    },
+    "reroll_single_affix": {
+      "name": "Reroll Single Affix",
+      "description": "Reroll one specific affix on an item. Other affixes are preserved.",
+      "icon": "\ud83c\udfaf",
+      "costs": {
+        "scrap": {
+          "base": 200,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 2,
+            "rare": 4,
+            "epic": 10,
+            "legendary": 25,
+            "mythic": 60
+          }
+        },
+        "cells": {
+          "base": 100,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 1,
+            "rare": 2,
+            "epic": 6,
+            "legendary": 15,
+            "mythic": 40
+          }
+        }
+      },
+      "escalation": {
+        "enabled": true,
+        "perUse": 1.25,
+        "maxMult": 8.0,
+        "resetsOn": "newAffix"
+      },
+      "constraints": {
+        "minAffixes": 1,
+        "notUnique": true
+      }
+    },
+    "add_affix": {
+      "name": "Add Affix",
+      "description": "Add a random affix to an item that has room for more.",
+      "icon": "\u2795",
+      "costs": {
+        "scrap": {
+          "base": 400,
+          "perRarity": {
+            "common": 2,
+            "uncommon": 4,
+            "rare": 8,
+            "epic": 16,
+            "legendary": 35,
+            "mythic": 70
+          }
+        },
+        "cells": {
+          "base": 150,
+          "perRarity": {
+            "common": 1,
+            "uncommon": 2,
+            "rare": 4,
+            "epic": 10,
+            "legendary": 20,
+            "mythic": 45
+          }
+        },
+        "voidShard": {
+          "base": 0,
+          "perRarity": {
+            "common": 0,
+            "uncommon": 0,
+            "rare": 0,
+            "epic": 0,
+            "legendary": 1,
+            "mythic": 2
+          }
+        }
+      },
+      "constraints": {
+        "mustHaveRoom": true,
+        "notUnique": true
+      }
+    },
+    "salvage_advanced": {
+      "name": "Salvage for Materials",
+      "description": "Destroy an epic+ item to extract rare crafting materials.",
+      "icon": "\ud83d\udd28",
+      "costs": {},
+      "yields": {
+        "epic": {
+          "voidShard": [
+            0,
+            1
+          ],
+          "scrap": [
+            100,
+            200
+          ]
+        },
+        "legendary": {
+          "voidShard": [
+            1,
+            3
+          ],
+          "cosmicDust": [
+            0,
+            1
+          ],
+          "scrap": [
+            300,
+            500
+          ]
+        },
+        "mythic": {
+          "voidShard": [
+            3,
+            5
+          ],
+          "cosmicDust": [
+            1,
+            2
+          ],
+          "scrap": [
+            500,
+            1000
+          ]
+        }
+      },
+      "constraints": {
+        "minRarity": "epic",
+        "destroysItem": true
+      }
+    },
+    "enchant_boost": {
+      "name": "Enchant: Boost Stats",
+      "description": "Increase all base stat rolls by 10-20%. Can be applied 3 times max.",
+      "icon": "\ud83c\udf1f",
+      "costs": {
+        "scrap": {
+          "base": 800,
+          "perUse": 2.0
+        },
+        "cells": {
+          "base": 400,
+          "perUse": 2.0
+        },
+        "cosmicDust": {
+          "base": 1,
+          "perUse": 1
+        }
+      },
+      "maxUses": 3,
+      "boostRange": [
+        0.1,
+        0.2
+      ],
+      "constraints": {
+        "minRarity": "rare",
+        "notUnique": true
+      }
+    }
+  },
+  "antiExploit": {
+    "maxCraftsPerMinute": 10,
+    "maxRerollsPerItem": 50,
+    "costFloorPercent": 0.25,
+    "craftLogEnabled": true
+  }
+}

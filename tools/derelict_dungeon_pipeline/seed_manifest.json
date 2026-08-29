@@ -1,0 +1,29 @@
+{
+  "version": "v2166A30",
+  "intent": "Seed pack plus canonical asset-backed tile pairs for isolated derelict dungeon runtime.",
+  "principles": {
+    "main_world": "Keep current playable overworld baseline intact.",
+    "dungeon_instances": "Future derelict interiors must load as isolated POI/instance maps.",
+    "tile_semantics": {
+      "transparent": "walkable floor",
+      "black_background": "solid void / non-walkable"
+    }
+  },
+  "available_samples": [
+    "bonz-Corridor-H-1x-E4W2.json",
+    "bonz-Corridor-H-1x-E4W2.png",
+    "bonz-Corridor-H-1x-E4W4.json",
+    "bonz-Corridor-H-1x-N2E4W4.png",
+    "bonz-Corridor-V-1x-S2.png",
+    "bonz-Corridor-V-4x-N4S6E2.png",
+    "bonz-Cross-1x-N4S4E4W4.json",
+    "bonz-Cross-1x-N4S4E4W4.png",
+    "bonz-L-NorthEast-1x-N4E4.json",
+    "bonz-L-NorthEast-1x-N4E4.png",
+    "bonz-Round-Room-4x-S2.png",
+    "bonz-T-North-1x-N4E4W4.json",
+    "bonz-T-North-1x-N4E4W4.png"
+  ],
+  "canonical_asset_root": "assets/instances/derelict_tiles/zone1",
+  "project_data_manifest": "data/dungeons/tiles/derelict_station_zone1_manifest.json"
+}

@@ -1,0 +1,39 @@
+{
+  "version": "9A4",
+  "packChance": 0.7,
+  "packSizeMin": 3,
+  "packSizeMax": 5,
+  "maxPacksPerZone": 6,
+  "memberSpacing": 140,
+  "minDistFromSpawn": 350,
+  "minDistFromExit": 250,
+  "templates": [
+    {
+      "id": "pack_swarm",
+      "weight": 3,
+      "types": []
+    },
+    {
+      "id": "pack_mixed",
+      "weight": 2,
+      "types": []
+    },
+    {
+      "id": "pack_repair_escort",
+      "weight": 1.5,
+      "members": [
+        {
+          "type": "breacher",
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "repair_drone",
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "formation": "ring"
+    }
+  ]
+}

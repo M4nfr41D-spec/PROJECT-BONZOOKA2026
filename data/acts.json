@@ -1,0 +1,391 @@
+{
+  "tiers": [
+    {
+      "id": "tier1",
+      "name": "Asteroid Belt",
+      "description": "Navigate the treacherous asteroid fields",
+      "biome": "asteroid",
+      "zoneStart": 1,
+      "zoneEnd": 100,
+      "bossEvery": 5,
+      "generation": {
+        "width": [
+          3960,
+          5500
+        ],
+        "height": [
+          3960,
+          5500
+        ],
+        "enemyDensity": 3.58e-06,
+        "eliteDensity": 5.4e-07,
+        "obstacleDensity": 0.00025
+      },
+      "enemies": {
+        "pool": [
+          "grunt",
+          "scout",
+          "turret"
+        ],
+        "elitePool": [
+          "commander",
+          "shielder"
+        ],
+        "bossPool": [
+          "sentinel"
+        ]
+      },
+      "boss": {
+        "type": "sentinel",
+        "arenaWidth": 1200,
+        "arenaHeight": 1000
+      },
+      "parallax": {
+        "bgColor": "#080810",
+        "nebula": {
+          "enabled": true,
+          "count": 5,
+          "color": "#221144"
+        }
+      },
+      "hazards": [],
+      "enemyHPMult": 1.0,
+      "enemyDmgMult": 1.0,
+      "lootBonus": 1.0,
+      "xpMult": 1.0
+    },
+    {
+      "id": "tier2",
+      "name": "Nebula Depths",
+      "description": "Descend into the toxic nebula clouds",
+      "biome": "nebula",
+      "zoneStart": 101,
+      "zoneEnd": 250,
+      "bossEvery": 5,
+      "generation": {
+        "width": [
+          4400,
+          6600
+        ],
+        "height": [
+          4400,
+          6600
+        ],
+        "enemyDensity": 2.64e-06,
+        "eliteDensity": 4e-07,
+        "obstacleDensity": 0.0002
+      },
+      "enemies": {
+        "pool": [
+          "grunt",
+          "scout",
+          "diver",
+          "bomber",
+          "cloaker"
+        ],
+        "elitePool": [
+          "commander",
+          "sniper",
+          "shielder"
+        ],
+        "bossPool": [
+          "sentinel",
+          "collector"
+        ]
+      },
+      "boss": {
+        "type": "collector",
+        "arenaWidth": 1400,
+        "arenaHeight": 1100
+      },
+      "parallax": {
+        "bgColor": "#100818",
+        "nebula": {
+          "enabled": true,
+          "count": 8,
+          "color": "#442266"
+        }
+      },
+      "hazards": [
+        "toxic_clouds"
+      ],
+      "enemyHPMult": 1.2,
+      "enemyDmgMult": 1.15,
+      "lootBonus": 1.2,
+      "xpMult": 1.3
+    },
+    {
+      "id": "tier3",
+      "name": "The Void",
+      "description": "Endless darkness -- no turning back",
+      "biome": "void",
+      "zoneStart": 251,
+      "zoneEnd": null,
+      "bossEvery": 5,
+      "generation": {
+        "width": [
+          5500,
+          7700
+        ],
+        "height": [
+          5500,
+          7700
+        ],
+        "enemyDensity": 1.84e-06,
+        "eliteDensity": 2.8e-07,
+        "obstacleDensity": 0.00015
+      },
+      "enemies": {
+        "pool": [
+          "scout",
+          "diver",
+          "tank",
+          "bomber",
+          "cloaker",
+          "summoner"
+        ],
+        "elitePool": [
+          "commander",
+          "sniper",
+          "berserker",
+          "shielder"
+        ],
+        "bossPool": [
+          "collector",
+          "harbinger"
+        ]
+      },
+      "boss": {
+        "type": "harbinger",
+        "arenaWidth": 1600,
+        "arenaHeight": 1300
+      },
+      "parallax": {
+        "bgColor": "#050508",
+        "nebula": {
+          "enabled": true,
+          "count": 3,
+          "color": "#220033"
+        }
+      },
+      "hazards": [
+        "void_rifts"
+      ],
+      "enemyHPMult": 1.4,
+      "enemyDmgMult": 1.3,
+      "lootBonus": 1.4,
+      "xpMult": 1.5
+    },
+    {
+      "id": "tier4",
+      "name": "Derelict Fleet",
+      "description": "Shattered warships drifting in dead space",
+      "biome": "derelict",
+      "zoneStart": 401,
+      "zoneEnd": 600,
+      "bossEvery": 5,
+      "generation": {
+        "width": [
+          6160,
+          8360
+        ],
+        "height": [
+          6160,
+          8360
+        ],
+        "enemyDensity": 1.52e-06,
+        "eliteDensity": 2.3e-07,
+        "obstacleDensity": 0.00028
+      },
+      "enemies": {
+        "pool": [
+          "diver",
+          "tank",
+          "bomber",
+          "cloaker",
+          "summoner",
+          "turret"
+        ],
+        "elitePool": [
+          "sniper",
+          "berserker",
+          "shielder"
+        ],
+        "bossPool": [
+          "sentinel",
+          "collector",
+          "harbinger"
+        ]
+      },
+      "boss": {
+        "type": "harbinger",
+        "arenaWidth": 1600,
+        "arenaHeight": 1300
+      },
+      "parallax": {
+        "bgColor": "#0a0a12",
+        "nebula": {
+          "enabled": true,
+          "count": 4,
+          "color": "#332211"
+        }
+      },
+      "hazards": [
+        "radiation_pockets",
+        "debris_storm"
+      ],
+      "lootBonus": 1.6,
+      "xpMult": 1.8,
+      "enemyHPMult": 1.6,
+      "enemyDmgMult": 1.5
+    },
+    {
+      "id": "tier5",
+      "name": "Black Hole Approach",
+      "description": "Gravity warps space itself near the event horizon",
+      "biome": "blackhole",
+      "zoneStart": 601,
+      "zoneEnd": null,
+      "bossEvery": 5,
+      "generation": {
+        "width": [
+          6600,
+          9240
+        ],
+        "height": [
+          6600,
+          9240
+        ],
+        "enemyDensity": 1.28e-06,
+        "eliteDensity": 1.9e-07,
+        "obstacleDensity": 0.0002
+      },
+      "enemies": {
+        "pool": [
+          "tank",
+          "bomber",
+          "cloaker",
+          "summoner",
+          "turret",
+          "shielder"
+        ],
+        "elitePool": [
+          "sniper",
+          "berserker",
+          "shielder",
+          "commander"
+        ],
+        "bossPool": [
+          "collector",
+          "harbinger"
+        ]
+      },
+      "boss": {
+        "type": "harbinger",
+        "arenaWidth": 1800,
+        "arenaHeight": 1500
+      },
+      "parallax": {
+        "bgColor": "#020208",
+        "nebula": {
+          "enabled": true,
+          "count": 2,
+          "color": "#110022"
+        }
+      },
+      "hazards": [
+        "gravity_wells",
+        "void_rifts"
+      ],
+      "lootBonus": 2.0,
+      "xpMult": 2.5,
+      "enemyHPMult": 2.0,
+      "enemyDmgMult": 1.8
+    }
+  ],
+  "portals": [
+    {
+      "id": "portal1",
+      "name": "Asteroid Gate",
+      "startZone": 1,
+      "unlocked": true,
+      "tierId": "tier1",
+      "icon": "🪨"
+    },
+    {
+      "id": "portal2",
+      "name": "Nebula Rift",
+      "startZone": 101,
+      "unlocked": true,
+      "tierId": "tier2",
+      "icon": "🌌"
+    },
+    {
+      "id": "portal3",
+      "name": "Void Breach",
+      "startZone": 251,
+      "unlocked": true,
+      "tierId": "tier3",
+      "icon": "🕳️"
+    },
+    {
+      "id": "portal4",
+      "name": "Fleet Wreckage",
+      "tierId": "tier4",
+      "startZone": 401,
+      "unlocked": true,
+      "icon": "🛸"
+    },
+    {
+      "id": "portal5",
+      "name": "Event Horizon",
+      "tierId": "tier5",
+      "startZone": 601,
+      "unlocked": true,
+      "icon": "🌀"
+    }
+  ],
+  "_legacy_act1": {
+    "name": "Asteroid Belt",
+    "zones": 4,
+    "unlocked": true,
+    "generation": {
+      "width": [
+        1800,
+        2500
+      ],
+      "height": [
+        1800,
+        2500
+      ],
+      "enemyDensity": 0.0004,
+      "eliteDensity": 8e-05,
+      "obstacleDensity": 0.00025
+    },
+    "enemies": {
+      "pool": [
+        "grunt",
+        "scout"
+      ],
+      "elitePool": [
+        "commander"
+      ]
+    },
+    "boss": {
+      "type": "sentinel",
+      "arenaWidth": 1200,
+      "arenaHeight": 1000
+    },
+    "parallax": {
+      "bgColor": "#080810",
+      "nebula": {
+        "enabled": true,
+        "count": 5,
+        "color": "#221144"
+      }
+    },
+    "rewards": {
+      "completionScrap": 500
+    }
+  }
+}

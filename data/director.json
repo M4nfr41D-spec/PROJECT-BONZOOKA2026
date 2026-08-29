@@ -1,0 +1,47 @@
+{
+  "_comment": "AI Director — Encounter Pacing Config (v2.16.0)",
+  "_spec": "Controls peaks-and-valleys intensity cycling. All durations in seconds.",
+  
+  "buildDuration": [8, 15],
+  "peakDuration": [4, 8],
+  "relaxDuration": [5, 10],
+  "rewardDuration": [3, 5],
+  "ambushChance": 0.12,
+
+  "buildIntensity": { "spawnRate": 1.0, "eliteChance": 0.0, "hazardRate": 0.5 },
+  "peakIntensity":  { "spawnRate": 2.0, "eliteChance": 0.25, "hazardRate": 1.5 },
+  "relaxIntensity": { "spawnRate": 0.3, "eliteChance": 0.0, "hazardRate": 0.0 },
+  "rewardIntensity":{ "spawnRate": 0.1, "eliteChance": 0.0, "hazardRate": 0.0 },
+  "ambushIntensity":{ "spawnRate": 3.0, "eliteChance": 0.5, "hazardRate": 2.0 },
+
+  "adaptiveEnabled": true,
+  "stressDecayRate": 0.15,
+  "stressGainOnHit": 0.08,
+  "stressGainOnKill": -0.02,
+  "stressThresholdHigh": 0.8,
+  "stressThresholdLow": 0.2,
+
+  "rewardLootMultiplier": 1.8,
+  "rewardXPMultiplier": 1.5,
+  "rewardCellBonus": 0.3,
+
+  "depthSpeedScale": 0.002,
+  "depthIntensityScale": 0.003,
+  "maxDepthBonus": 2.0,
+
+  "difficultyOverrides": {
+    "risk": {
+      "peakIntensity": { "spawnRate": 2.5, "eliteChance": 0.35, "hazardRate": 2.0 },
+      "ambushChance": 0.18,
+      "rewardLootMultiplier": 2.2
+    },
+    "chaos": {
+      "peakIntensity": { "spawnRate": 3.5, "eliteChance": 0.6, "hazardRate": 3.0 },
+      "ambushChance": 0.25,
+      "ambushIntensity": { "spawnRate": 4.5, "eliteChance": 0.8, "hazardRate": 4.0 },
+      "rewardLootMultiplier": 3.0,
+      "buildDuration": [6, 12],
+      "peakDuration": [5, 10]
+    }
+  }
+}

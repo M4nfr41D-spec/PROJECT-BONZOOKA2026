@@ -1,0 +1,53 @@
+{
+  "common": {
+    "name": "Common",
+    "color": "#9090a0",
+    "weight": 60,
+    "powerMult": 1.0,
+    "maxAffixes": 1,
+    "sellMult": 1
+  },
+  "uncommon": {
+    "name": "Uncommon", 
+    "color": "#00dd44",
+    "weight": 25,
+    "powerMult": 1.3,
+    "maxAffixes": 2,
+    "sellMult": 2
+  },
+  "rare": {
+    "name": "Rare",
+    "color": "#2090ff",
+    "weight": 10,
+    "powerMult": 1.7,
+    "maxAffixes": 3,
+    "sellMult": 4
+  },
+  "epic": {
+    "name": "Epic",
+    "color": "#aa44ff",
+    "weight": 4,
+    "powerMult": 2.2,
+    "maxAffixes": 4,
+    "sellMult": 8
+  },
+  "legendary": {
+    "name": "Legendary",
+    "color": "#ff8800",
+    "weight": 0.9,
+    "powerMult": 3.0,
+    "maxAffixes": 5,
+    "sellMult": 20,
+    "glowEffect": true
+  },
+  "mythic": {
+    "name": "Mythic",
+    "color": "#ff2255",
+    "weight": 0.1,
+    "powerMult": 5.0,
+    "maxAffixes": 6,
+    "sellMult": 50,
+    "glowEffect": true,
+    "pulseAnimation": true
+  }
+}

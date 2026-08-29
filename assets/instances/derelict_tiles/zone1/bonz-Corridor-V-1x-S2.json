@@ -1,0 +1,36 @@
+{
+  "tool": "BONZOOKAA Tile Forge filename-inferred",
+  "exportSize": 1024,
+  "grid": 8,
+  "floorMode": "transparent",
+  "bgMode": "texture",
+  "wallWidthMode": "fixed_export_px",
+  "source": "filename_inferred",
+  "shape": "Corridor V",
+  "sizeClass": 1,
+  "renderMode": "vector",
+  "wallWidthPx": 20,
+  "cornerRadiusPercent": 12,
+  "exits": {
+    "N": false,
+    "S": true,
+    "E": false,
+    "W": false
+  },
+  "exitWidths": {
+    "N": 2,
+    "S": 2,
+    "E": 2,
+    "W": 2
+  },
+  "colors": {
+    "floor": "#464b52",
+    "wall": "#282a30",
+    "bg": "#32343a"
+  },
+  "textures": {
+    "floor": null,
+    "wall": null,
+    "bg": null
+  }
+}

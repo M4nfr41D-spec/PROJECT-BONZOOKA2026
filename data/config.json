@@ -1,0 +1,193 @@
+{
+  "version": "2.3.0",
+  "name": "BONZOOKAA!",
+  "player": {
+    "baseHP": 100,
+    "baseDamage": 8,
+    "baseSpeed": 320,
+    "baseFireRate": 3.5,
+    "baseCritChance": 5,
+    "baseCritDamage": 150,
+    "basePickupRadius": 60,
+    "bulletSpeed": 800,
+    "acceleration": 3000,
+    "friction": 0.65,
+    "deadzone": 0.1,
+    "shieldRegenRate": 5,
+    "shieldRegenDelay": 3
+  },
+  "progression": {
+    "baseXP": 100,
+    "xpScale": 1.15,
+    "maxLevel": 0,
+    "skillPerLevel": 1,
+    "statPerLevel": 3
+  },
+  "mastery": {
+    "baseXP": 500,
+    "xpScale": 1.08,
+    "enabled": true
+  },
+  "waves": {
+    "vendorInterval": 5,
+    "vendorStart": 3,
+    "bossInterval": 10,
+    "eliteChance": 0.12,
+    "baseEnemyCount": 4,
+    "enemyCountScale": 0.6,
+    "scaleMode": "exponential",
+    "scaleBase": 1.12,
+    "scaleLinear": 0.08,
+    "eliteHPMult": 2.5,
+    "bossHPMult": 8
+  },
+  "economy": {
+    "scrapPerKill": 5,
+    "cellsPerKill": 5,
+    "bossScrapMult": 10,
+    "eliteScrapMult": 3
+  },
+  "loot": {
+    "baseDropChance": 0.05,
+    "bossDropChance": 1.0,
+    "eliteDropChance": 0.3,
+    "uniqueDropChance": 0.005,
+    "pity": {
+      "enabled": true,
+      "rareGuarantee": 40,
+      "legendaryGuarantee": 200,
+      "uniqueGuarantee": 500,
+      "progressiveLuck": true,
+      "luckPerDryStreak": 0.005
+    },
+    "ilvlGating": {
+      "common": 1, "uncommon": 1, "rare": 3, "epic": 8, "legendary": 15, "mythic": 30
+    },
+    "depthScaling": {
+      "enabled": true,
+      "dropChancePerDepth": 0.0003,
+      "dropChanceCap": 0.18,
+      "rarityShiftPerDepth": 0.002,
+      "rarityShiftCap": 0.6
+    },
+    "lootExplosion": {
+      "enabled": true,
+      "bossBaseDrops": 2,
+      "bossMaxDrops": 5,
+      "bossExtraDropChance": 0.35,
+      "eliteBaseDrops": 1,
+      "eliteExtraDropChance": 0.20,
+      "depthBonusDropPer100": 0.10
+    },
+    "smartLoot": {
+      "enabled": true,
+      "emptySlotBias": 0.40,
+      "weakestSlotBias": 0.20,
+      "biasDecayPerItem": 0.02
+    }
+  },
+  "stash": {
+    "baseSlots": 56,
+    "maxSlots": 200
+  },
+  "antiExploit": {
+    "enabled": true,
+    "maxSeedReuse": 3,
+    "seedHistorySize": 50,
+    "resetCooldownMs": 30000,
+    "maxResetsPerHour": 10,
+    "evWindowMs": 300000,
+    "evScrapSpikeThresh": 5.0,
+    "evItemSpikeThresh": 4.0,
+    "scrapCapPerDepth": 2000
+  },
+  "effects": {
+    "damageNumbers": {
+      "baseSize": 16,
+      "critSize": 28,
+      "normalColor": "#ffffff",
+      "critColor": "#ffcc00",
+      "bigHitColor": "#ff6600",
+      "floatSpeed": 120,
+      "duration": 0.9,
+      "spread": 30
+    },
+    "screenShake": {
+      "enabled": true,
+      "killIntensity": 2,
+      "critIntensity": 4,
+      "bossIntensity": 10
+    }
+  },
+  "exploration": {
+    "bossEveryNZones": 10,
+    "mapScale": 2.0,
+    "enemyDensityMult": 0.55,
+    "eliteDensityMult": 0.7,
+    "maxEnemySpawnsPerZone": 60,
+    "maxEliteSpawnsPerZone": 5,
+    "enemySpawnMinDistBetween": 120,
+    "enemySpawnMinDistFromSpawn": 280,
+    "enemySpawnMinDistFromExit": 180,
+    "spawnViewMargin": 520,
+    "despawnViewMargin": 1600,
+    "portalInteractRadius": 75,
+    "enemyAggroRangeMult": 0.75,
+    "enemyFireIntervalMult": 1.75,
+    "maxStarsBackground": 800,
+    "maxStarsMidground": 500,
+    "maxDecorationsPerZone": 3000,
+    "maxObstaclesPerZone": 50
+  },
+  "asteroids": {
+    "enabled": true,
+    "maxPerZone": 30,
+    "playerCollisionDamagePct": 0.05,
+    "playerCollisionCooldown": 0.75,
+    "knockbackStrength": 280,
+    "scrapMin": 2,
+    "scrapMax": 6,
+    "spritePaths": [
+      "./assets/asteroids/asteroid_1.png",
+      "./assets/asteroids/asteroid_2.png"
+    ],
+    "minNearSpawn": 6,
+    "nearSpawnRadius": 1400
+  },
+  "background": {
+    "enabled": true,
+    "tileScale": 1.0,
+    "tileByAct": {
+      "act1": "./assets/backgrounds/tile_city_ruins.webp",
+      "act2": "./assets/backgrounds/tile_toxicity.webp",
+      "act3": "./assets/backgrounds/tile_void.webp"
+    },
+    "deco": {
+      "enabled": true,
+      "count": 6,
+      "scrollSpeed": 0.55,
+      "spritePaths": [
+        "./assets/asteroids_deco/asteroid_deco_1.png",
+        "./assets/asteroids_deco/asteroid_deco_2.png",
+        "./assets/asteroids_deco/asteroid_deco_3.png",
+        "./assets/asteroids_deco/asteroid_deco_4.png",
+        "./assets/asteroids_deco/asteroid_deco_big.png"
+      ],
+      "alphaMin": 0.25,
+      "alphaMax": 0.65,
+      "scaleMin": 0.35,
+      "scaleMax": 1.1
+    },
+    "fog": {
+      "enabled": true,
+      "count": 1,
+      "scrollSpeed": 0.12,
+      "driftSpeed": 32,
+      "paths": [
+        "./assets/fog/fog_1.png",
+        "./assets/fog/fog_5.png",
+        "./assets/fog/fog_14.png"
+      ]
+    }
+  }
+}
