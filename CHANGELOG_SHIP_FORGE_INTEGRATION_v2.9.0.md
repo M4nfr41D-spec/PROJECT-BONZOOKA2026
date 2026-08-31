@@ -80,6 +80,13 @@ Integrate Ship Forge into the existing BONZOOKA sprite production pipeline witho
   - absence of unseeded randomness
   - absence of runtime dependencies on Ship Forge or Three.js
 
+### Public HTTP smoke evidence
+
+- Exact remote commit tested: `aaeb65e18f2a0a06300a0f1792cbc1328272cea0`.
+- Ship Forge title and production-contract UI loaded from a commit-bound HTTP preview.
+- `assets/sprite_manifest.json` loaded as `repository baseline` with deterministic fingerprint `sf-3f0e06d9`.
+- The isolated cloud browser could not create a WebGL context, so no image/ZIP export gate is claimed from that environment.
+
 ## Recovery path
 
 The complete change is isolated from `main` and from the A60 recovery branch. Before merge, recovery is deletion of `integration/ship-forge-v2.9.0`. If accepted, squash-merge the candidate so one revert returns the recovery branch exactly to base commit `58b3482f1e739723af1663e851c59fb201bb3b84`.
@@ -89,7 +96,7 @@ The complete change is isolated from `main` and from the A60 recovery branch. Be
 - [x] Contract unit tests pass.
 - [x] Ship Forge integration validator passes.
 - [x] A60 baseline validator passes unchanged.
-- [ ] Tool loads the repository manifest over HTTP/GitHub Pages.
+- [x] Tool loads the repository manifest over HTTP/GitHub Pages.
 - [ ] One `runtime1` project bundle has canonical paths and a valid merged manifest.
 - [ ] One multi-frame bank or heading bundle has correct grid and sequence metadata.
 - [ ] A representative game boot/play path shows no regression.
