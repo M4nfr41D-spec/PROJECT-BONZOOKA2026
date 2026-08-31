@@ -466,3 +466,16 @@ bonzookaa/
 - **v2.16.1** — Director full stable implementation: canonical `Director.update()` loop wiring, data load, hooks, debug overlay, dynamic spawn pacing, reward multipliers, reset safety.
 - **v2.16.2B** — Phase 2 cosmetic baseline: player fire/hit state readiness, bullet sprite aliases, sprite studio preset alignment.
 - **v2.16.3** — **P0 FIX**: Director.update() was never called in updateCombat() — L4D pacing system was inert. Single-line fix activates full intensity cycling. Player fire/hit sprite manifest + placeholders added.
+
+## Candidate Tooling Track — Ship Forge v2.9.0
+
+- [x] Locate the implemented sprite-wiring architecture before integration: `recovery/a60-candidate` @ `58b3482f1e739723af1663e851c59fb201bb3b84`.
+- [x] Integrate Ship Forge under `tools/ship-forge/`, upstream of `assets/sprite_manifest.json` and `SpriteManager`.
+- [x] Preserve canonical output `assets/sprites/<category>/<entity>/<state>.png`.
+- [x] Merge generated states into the loaded authoritative manifest; do not export a second runtime manifest.
+- [x] Emit `file`, `cols`, `rows`, `frames`, `fps`, `loop`, and multi-frame sequence metadata.
+- [x] Preserve deterministic recipes, components, factions, skins, damage mapping, seeds, variation, heading, and bank profiles.
+- [x] Add automated contract and dependency-direction validation.
+- [ ] Complete browser tool export acceptance on the integration branch.
+- [ ] Complete representative game regression smoke test.
+- [ ] Owner acceptance before merge or baseline promotion.
