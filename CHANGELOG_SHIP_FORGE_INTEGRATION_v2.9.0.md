@@ -39,6 +39,7 @@ Integrate Ship Forge into the existing BONZOOKA sprite production pipeline witho
 
 - Production export loads or imports the existing `assets/sprite_manifest.json` baseline.
 - Production export is blocked if that baseline is absent, empty, or structurally invalid.
+- Manifest loading remains independent from WebGL startup so repository authority can be inspected even when the current browser cannot create a 3D context; render/export paths remain unavailable in that case.
 - Removed the former production behavior that emitted `assets/sprite_manifest_shipforge_fragment.json` as a separate manifest candidate.
 - Project bundles now contain the generated PNGs plus the existing authoritative manifest with only generated semantic states merged in.
 - Existing entity `size` values are preserved during merge so that a different authoring/export resolution cannot silently change runtime sizing.

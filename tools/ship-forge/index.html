@@ -284,9 +284,17 @@ const WEAPON_COMPONENTS = {
 };
 
 const stage = $('stage');
+let projectManifest=null;
+let projectManifestEvidence={source:'unloaded',fingerprint:null};
 let renderer;
 try { renderer = new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true}); }
-catch(err){ log('<b>WebGL-Renderer konnte nicht gestartet werden:</b> '+err); throw err; }
+catch(err){
+  // Manifest authority is independent from the authoring renderer. Keep the
+  // repository-baseline evidence visible even in a browser without WebGL,
+  // while leaving all render/export paths unavailable.
+  loadProjectManifest().finally(()=>log('<b>WebGL-Renderer konnte nicht gestartet werden:</b> '+err));
+  throw err;
+}
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -597,8 +605,6 @@ function manifestFile(){return canonicalSpriteFile($('role').value,$('entity').v
 function physicalFile(){return canonicalPhysicalFile($('role').value,$('entity').value,$('stateName').value);}
 function updateRuntimeView(){$('pathView').textContent=manifestFile();}
 
-let projectManifest=null;
-let projectManifestEvidence={source:'unloaded',fingerprint:null};
 function setProjectManifest(manifest,source){
   assertSpriteManifestBaseline(manifest);
   projectManifest=mergeSpriteManifest(manifest,{});
