@@ -129,7 +129,11 @@ bonzookaa/
 │
 ├── tools/
 │   ├── sprites_studio_unified.html  # Sprite preview + manifest export
-│   └── sprite_generation_machine_patch.js
+│   ├── sprite_generation_machine_patch.js
+│   └── ship-forge/                   # 3D authoring → canonical BONZOOKA sprite assets
+│       ├── index.html                # M4NFROID Ship Forge v2.9.0 generator
+│       ├── bonzooka-contract.mjs     # Path/profile/manifest merge contract
+│       └── README.md                 # Pipeline interface + acceptance rules
 │
 ├── ROADMAP.md
 ├── CHANGELOG.md
@@ -147,6 +151,13 @@ bonzookaa/
 3. Preview in `tools/sprites_studio_unified.html`
 4. SpriteManager falls back to canvas primitives if missing — **zero regression**
 5. PR on `asset/sprites/<category>`
+
+### Ship Forge production asset
+1. Open `tools/ship-forge/index.html` over HTTP and load the repository manifest.
+2. Resolve the asset to `category / entity / state`; recipes, skins, factions, seeds, and components remain authoring metadata.
+3. Export a project ZIP containing canonical PNG paths and the guarded merged `assets/sprite_manifest.json`.
+4. Validate with `scripts/ship-forge-contract.test.mjs`, `scripts/validate-ship-forge-integration.mjs`, and `scripts/validate-baseline.mjs`.
+5. Preview through the existing Sprite Studio/SpriteManager path; the game runtime must never import Ship Forge or Three.js.
 
 ### New enemy
 1. `data/enemies.json` — add spec

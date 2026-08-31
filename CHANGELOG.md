@@ -1,5 +1,18 @@
 # BONZOOKAA! CHANGELOG
 
+## Candidate — Ship Forge v2.9.0 Pipeline Integration (2026-08-31)
+
+- Integration branch: `integration/ship-forge-v2.9.0`
+- Verified base: `recovery/a60-candidate` @ `58b3482f1e739723af1663e851c59fb201bb3b84`
+- Added Ship Forge under `tools/ship-forge/`; no standalone runtime or asset namespace.
+- Production ZIPs now write canonical `assets/sprites/<category>/<entity>/<state>.png` sheets and a guarded merge of the authoritative `assets/sprite_manifest.json`.
+- Added runtime-compatible metadata for static, heading, and bank profiles, including explicit multi-frame sequences.
+- Removed unseeded authoring micro-detail randomness.
+- Added contract tests, integration validation, interface documentation, and a dedicated recovery/acceptance change lock.
+- Game runtime, gameplay assets, saves, Director, and current sprite manifest remain unchanged.
+
+Detailed evidence: `CHANGELOG_SHIP_FORGE_INTEGRATION_v2.9.0.md`.
+
 ## v2.16.3 — "The Reward Spiral" (2026-03-19)
 
 ### [P0] Boot Fixes

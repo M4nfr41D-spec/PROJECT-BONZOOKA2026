@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<!-- Copyright (c) Manfred Foissner. All rights reserved. License: ../../LICENSE.txt -->
+<!-- Integrated from M4NFROID SHIP FORGE v2.9.0 into the BONZOOKA production tool layer. -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BONZOOKA · M4NFROID SHIP FORGE v2.9.0</title>
+<style>
+  :root{
+    --bg:#05070c; --panel:#0b1018; --panel2:#0e1621; --line:#1b2635;
+    --ink:#c3d2e2; --dim:#5d7085; --hot:#2fb4ff; --warn:#ffb03a; --ok:#75d69a; --bad:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;-webkit-text-size-adjust:100%}
+  #stage{position:fixed;left:0;top:0;right:0;display:grid;place-items:center}
+  canvas{display:block;touch-action:none}
+  #grid{position:fixed;inset:0;pointer-events:none;opacity:.25;background:linear-gradient(#0d1522 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,#0d1522 1px,transparent 1px) 0 0/40px 40px}
+  #ui{position:fixed;left:0;right:0;bottom:0;background:rgba(11,16,24,.94);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));backdrop-filter:blur(8px);max-height:61vh;overflow:auto}
+  h1{margin:0 0 4px;font-size:12px;letter-spacing:.22em;color:var(--hot);font-weight:600}
+  .strap{font-size:10px;color:var(--dim);margin-bottom:8px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .card{background:rgba(14,22,33,.65);border:1px solid var(--line);border-radius:5px;padding:8px}
+  .cap{font-size:9px;letter-spacing:.14em;color:var(--warn);margin-bottom:5px;text-transform:uppercase}
+  .row{display:flex;align-items:center;gap:10px;margin:6px 0}
+  .row label{flex:0 0 92px;color:var(--dim);letter-spacing:.06em}
+  .row output{flex:0 0 62px;text-align:right;color:#e8f2ff}
+  input[type=range]{flex:1;accent-color:var(--hot);height:26px;min-width:90px}
+  input[type=text],input[type=number],select{background:#0d1520;border:1px solid var(--line);color:#e8f2ff;border-radius:3px;padding:6px;font:inherit;min-width:0}
+  input[type=text]{width:100%}
+  select{max-width:100%}
+  .num{width:72px}
+  .wide{width:100%}
+  .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+  button{background:#111a26;color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:8px 11px;font:inherit;letter-spacing:.04em;cursor:pointer}
+  button:hover{border-color:var(--hot);color:#fff}
+  button.primary{border-color:#247fb2;color:#dff5ff;background:#0d2231}
+  button.good{border-color:#315f49;color:#b9f0ce;background:#102219}
+  button.warn{border-color:#6a4d1e;color:#ffd48d;background:#241b0d}
+  button.dir{padding:7px 10px}
+  .sub{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:7px;color:var(--dim)}
+  .pill{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--dim);font-size:10px}
+  .pill.ok{border-color:#315f49;color:var(--ok)}
+  #log{margin-top:8px;color:var(--dim);min-height:20px;white-space:pre-wrap}
+  #log b{color:var(--warn);font-weight:400}
+  #pathView{color:#9edaff;word-break:break-all}
+  .checks{display:flex;gap:10px;flex-wrap:wrap;color:var(--dim);font-size:11px}
+  .checks label{display:flex;align-items:center;gap:4px}
+  .metric{font-size:10px;color:var(--dim)}
+  .matrix{margin-top:8px;border:1px solid var(--line);border-radius:4px;overflow:auto;max-height:220px}
+  .matrix table{width:100%;border-collapse:collapse;font-size:10px;min-width:780px}
+  .matrix th,.matrix td{padding:6px 7px;border-bottom:1px solid #172131;text-align:left;white-space:nowrap}
+  .matrix th{position:sticky;top:0;background:#0c1420;color:var(--warn);z-index:1}
+  .matrix td.path{color:#8fcdf5;max-width:320px;overflow:hidden;text-overflow:ellipsis}
+  .progress{height:5px;background:#111a26;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:8px}
+  .progress>i{display:block;height:100%;width:0;background:var(--hot)}
+  @media(max-width:880px){.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}#ui{max-height:66vh}.row label{flex-basis:82px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+<div id="grid"></div>
+<div id="stage"></div>
+<div id="ui">
+  <h1>BONZOOKA · M4NFROID SHIP FORGE · v2.9.0 SILHOUETTE VARIANCE</h1>
+  <div class="strap">Production generator · Ship Forge → assets + merged sprite manifest → SpriteManager → game runtime</div>
+
+  <div class="grid3">
+    <div class="card">
+      <div class="cap">Asset Identity</div>
+      <div class="row"><label>ROLE</label><select id="role" class="wide"><option value="player">player</option><option value="enemies">enemies</option></select></div>
+      <div class="row"><label>TYPE</label><select id="type" class="wide"></select></div>
+      <div class="row"><label>SKIN</label><select id="skin" class="wide"></select></div>
+      <div class="row"><label>FACTION</label><select id="faction" class="wide"></select></div>
+      <div class="row"><label>DAMAGE</label><select id="damageLevel" class="wide"><option value="auto">AUTO · Runtime State</option><option value="0">Clean</option><option value="1">Light Hit</option><option value="2">Heavy Damage</option><option value="3">Wreck / Critical</option></select></div>
+      <div class="row"><label>HULL</label><select id="hullComponent" class="wide"></select></div>
+      <div class="row"><label>WINGS</label><select id="wingComponent" class="wide"></select></div>
+      <div class="row"><label>ENGINES</label><select id="engineComponent" class="wide"></select></div>
+      <div class="row"><label>WEAPONS</label><select id="weaponComponent" class="wide"></select></div>
+      <div class="row"><label>ENTITY</label><input id="entity" type="text" value="ship"></div>
+      <div class="row"><label>STATE</label><select id="stateName" class="wide"></select></div>
+      <div class="row"><label>SEED</label><input id="variantSeed" type="number" value="42" class="wide"></div>
+      <div class="row"><label>VARIATION</label><input id="variation" type="range" min="0" max="20" step="1" value="0"><output id="variationOut">0%</output></div>
+      <div class="checks" id="moduleChecks">
+        <label><input type="checkbox" id="modWings" checked>Wings</label>
+        <label><input type="checkbox" id="modWeapons" checked>Weapons</label>
+        <label><input type="checkbox" id="modEngines" checked>Engines</label>
+        <label><input type="checkbox" id="modDetails" checked>Details</label>
+      </div>
+      <div class="btns"><button id="bRebuild" class="primary">REBUILD ASSET</button><button id="bSyncEntity">SYNC ENTITY</button></div>
+    </div>
+
+    <div class="card">
+      <div class="cap">Pose / Preview</div>
+      <div class="row"><label>BANK</label><input id="bank" type="range" min="-60" max="60" step="1" value="0"><output id="bankOut">0°</output></div>
+      <div class="row"><label>HEADING</label><input id="head" type="range" min="0" max="359" step="1" value="0"><output id="headOut">0°</output></div>
+      <div class="row"><label>RICHTUNG</label><div class="btns" style="margin:0"><button class="dir" data-h="0">N</button><button class="dir" data-h="45">NO</button><button class="dir" data-h="90">O</button><button class="dir" data-h="180">S</button><button class="dir" data-h="270">W</button><button class="dir" data-h="315">NW</button></div></div>
+      <div class="row"><label>PITCH</label><input id="pitch" type="range" min="-25" max="25" step="1" value="0"><output id="pitchOut">0°</output></div>
+      <div class="row"><label>ZOOM</label><input id="zoom" type="range" min="6" max="16" step="0.1" value="8.6"><output id="zoomOut">8.6</output></div>
+      <div class="row"><label>GLOW</label><input id="glow" type="range" min="0" max="3" step="0.05" value="1.85"><output id="glowOut">1.85</output></div>
+      <div class="checks"><label><input type="checkbox" id="flames">Preview Thruster</label><label><input type="checkbox" id="hardpoints">Hardpoints</label></div>
+      <div class="metric" style="margin-top:6px">Thruster preview is QA-only. Sprite and GLB exports force flames OFF.</div>
+    </div>
+
+    <div class="card">
+      <div class="cap">Recipe Library</div>
+      <div class="row"><label>RECIPE</label><select id="recipe" class="wide"></select></div>
+      <div class="row"><label>NAME</label><input id="recipeName" type="text" class="wide" value="custom_ship_recipe"></div>
+      <div class="btns"><button id="bRecipeApply">APPLY</button><button id="bRecipeSave" class="good">SAVE CURRENT</button><button id="bRecipeDelete">DELETE</button><button id="bRecipeExport">RECIPE JSON</button><button id="bRecipeImport">IMPORT JSON</button><input id="recipeImportFile" type="file" accept="application/json,.json" hidden></div>
+      <div class="sub"><span class="pill" id="recipePill">recipes 0</span><span class="metric">Built-ins + local user recipes. Deterministic component/skin/faction/variation capture.</span></div>
+      <div class="cap" style="margin-top:10px">Export / Runtime Bridge</div>
+      <div class="row"><label>PROFILE</label><select id="profile" class="wide"><option value="runtime1">Runtime Static · 1F</option><option value="heading8">Production Heading · 8F</option><option value="bank4">Bank Left · 4F · 0/14/28/42°</option><option value="bank7">Bank Full · 7F · ±42°</option></select></div>
+      <div class="row"><label>MANIFEST</label><div class="metric" id="manifestStatus">loading assets/sprite_manifest.json…</div></div>
+      <div class="btns"><button id="bManifestReload">RELOAD PROJECT MANIFEST</button><button id="bManifestImport">IMPORT MANIFEST</button><input id="manifestImportFile" type="file" accept="application/json,.json" hidden></div>
+      <div class="sub"><span>PX <input class="num" id="fsize" type="number" value="256" min="64" max="1024" step="64"></span><span>FPS <input class="num" id="fps" type="number" value="1" min="1" max="60"></span><span><input type="checkbox" id="loop" checked> loop</span></div>
+      <div class="cap" style="margin-top:8px">Legacy Custom Sheet</div>
+      <div class="sub"><span>FRAMES <input class="num" id="frames" type="number" value="9" min="2" max="64"></span><span>RANGE ± <input class="num" id="range" type="number" value="45" min="5" max="90">°</span><span>AXIS <select class="num" id="axis" style="width:auto"><option value="bank">BANK ±</option><option value="head">HEADING 360°</option></select></span></div>
+      <div class="sub">
+        <span>QUALITY <select class="num" id="quality" style="width:auto">
+          <option value="1">DRAFT 1×</option><option value="2" selected>PROD 2× SSAA</option><option value="4">ULTRA 4× SSAA</option></select></span>
+        <span>BLOOM <input class="num" id="bloom" type="number" value="45" min="0" max="200" step="5">%</span>
+        <span>AO <input class="num" id="ao" type="number" value="75" min="0" max="150" step="5">%</span>
+        <span><input type="checkbox" id="shadows" checked> Self-Shadow</span>
+        <span><input type="checkbox" id="micro" checked> Micro-Detail</span>
+        <span><button id="bPost" style="padding:6px 10px">POST PREVIEW</button></span>
+        <span><input type="checkbox" id="emiMap"> Emissive-Map</span>
+        <span><input type="checkbox" id="nrmMap"> Normal-Map</span>
+        <span><button id="bEmissive" style="padding:6px 10px">EMISSIVE PNG</button></span>
+        <span><button id="bNormal" style="padding:6px 10px">NORMAL PNG</button></span>
+        <span><button id="bGameScale" style="padding:6px 10px">GAME SCALE A/B</button></span>
+        <span><button id="bSil" style="padding:6px 10px">SILHOUETTE CHECK</button></span>
+      </div>
+      <div class="btns"><button id="bProjectAsset" class="primary">PROJECT ASSET ZIP</button><button id="bProfile" class="good">PROFILE PNG · QA</button><button id="bCustom">CUSTOM SHEET · QA</button><button id="b4Bank">4F BANK LOCK · QA</button><button id="bFrame">FRAME PNG · QA</button><button id="bMeta" class="warn">AUTHORING JSON</button><button id="bGlb">GLB</button><button id="bSpin">BANK PREVIEW</button></div>
+      <div class="metric" style="margin-top:7px">Manifest file: <span id="pathView"></span></div>
+      <div class="sub"><span class="pill ok" id="contractPill">runtime contract aligned</span><span class="pill" id="boundsPill">bounds —</span><span class="pill" id="hpPill">hardpoints —</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="cap">Production Matrix · Batch Asset Families</div>
+    <div class="grid3">
+      <div>
+        <div class="row"><label>RECIPES</label><select id="batchRecipeMode" class="wide"><option value="selected">Selected Recipe</option><option value="builtins">All Built-in Recipes</option><option value="all">Built-ins + User Recipes</option></select></div>
+        <div class="row"><label>SKINS</label><select id="batchSkinMode" class="wide"><option value="recipe">Recipe Skin</option><option value="current">Current Skin</option><option value="all">All Skins</option></select></div>
+      </div>
+      <div>
+        <div class="row"><label>FACTIONS</label><select id="batchFactionMode" class="wide"><option value="recipe">Recipe Faction</option><option value="current">Current Faction</option><option value="all">All Factions</option></select></div>
+        <div class="row"><label>STATES</label><select id="batchStateMode" class="wide"><option value="all">All Runtime States</option><option value="current">Current State Only</option></select></div>
+      </div>
+      <div>
+        <div class="row"><label>PX</label><select id="batchSize" class="wide"><option>128</option><option selected>256</option><option>512</option></select></div>
+        <div class="row"><label>PROFILE</label><select id="batchProfile" class="wide"><option value="runtime1">Runtime Static · 1F</option><option value="heading8">Heading · 8F</option><option value="bank4">Bank Left · 4F</option><option value="bank7">Bank Full · 7F</option></select></div>
+        <div class="row"><label>POLICY</label><div class="metric">Canonical state sheet · flames OFF · AUTO damage · authoritative manifest merge.</div></div>
+      </div>
+    </div>
+    <div class="btns"><button id="bMatrixBuild" class="primary">BUILD MATRIX</button><button id="bMatrixAddCurrent">ADD CURRENT</button><button id="bMatrixClear">CLEAR</button><button id="bMatrixExport" class="good">EXPORT PRODUCTION ZIP</button><button id="bMatrixJson" class="warn">BATCH INDEX JSON</button></div>
+    <div class="sub"><span class="pill" id="matrixFamilyPill">families 0</span><span class="pill" id="matrixAssetPill">assets 0</span><span class="pill ok" id="matrixContractPill">canonical manifest merge</span><span class="metric" id="matrixHint">Build a deterministic queue from recipes × skins × factions × states.</span></div>
+    <div class="progress"><i id="matrixProgress"></i></div>
+    <div class="matrix"><table><thead><tr><th>#</th><th>Recipe</th><th>Role</th><th>Entity</th><th>Skin</th><th>Faction</th><th>States</th><th>Profile</th><th>Physical Path Root</th></tr></thead><tbody id="matrixBody"><tr><td colspan="9" style="color:#5d7085">matrix empty</td></tr></tbody></table></div>
+  </div>
+  <div id="log">initialisiere…</div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';
+import {
+  BONZOOKA_MANIFEST_PATH,
+  assertSpriteManifestBaseline,
+  buildManifestFragment,
+  buildManifestState,
+  canonicalPhysicalFile,
+  canonicalSpriteFile,
+  generationFingerprint,
+  getProfileDefinition,
+  mergeSpriteManifest,
+  slugSegment,
+} from './bonzooka-contract.mjs';
+
+const $ = id => document.getElementById(id);
+const log = t => { $('log').innerHTML = t; };
+const RUNTIME_STATES = { player:['idle','thrust','fire','hit','death'], enemies:['patrol','aggro','fire','death'] };
+const AUTHORING_STATES = {
+  player:[...RUNTIME_STATES.player,'bank_left','bank_right'],
+  enemies:[...RUNTIME_STATES.enemies,'bank_left','bank_right']
+};
+const STATE_DEFAULTS = {
+  player:{idle:{fps:1,loop:true},thrust:{fps:6,loop:true},fire:{fps:8,loop:false},hit:{fps:8,loop:false},death:{fps:12,loop:false},bank_left:{fps:8,loop:true},bank_right:{fps:8,loop:true}},
+  enemies:{patrol:{fps:1,loop:true},aggro:{fps:8,loop:true},fire:{fps:8,loop:false},death:{fps:12,loop:false},bank_left:{fps:8,loop:true},bank_right:{fps:8,loop:true}}
+};
+
+const SKINS = {
+  reference:{label:'Reference Silver / Cyan',runtimeEntity:null,hull:'#d8dde2',hull2:'#8b949f',dark:'#20242b',edge:'#454d57',glass:'#03213a',glow:'#00bfff'},
+  default:{label:'Standard Issue',runtimeEntity:'ship',hull:'#00bb99',hull2:'#007766',dark:'#082b2a',edge:'#00aa88',glass:'#063a38',glow:'#00ffcc'},
+  crimson:{label:'Crimson Viper',runtimeEntity:'ship_default_alt',hull:'#cc2222',hull2:'#771b1b',dark:'#300d12',edge:'#b63d32',glass:'#3a1010',glow:'#ff6644'},
+  void:{label:'Void Stalker',runtimeEntity:'ship_void',hull:'#8833cc',hull2:'#4d247a',dark:'#13091f',edge:'#744398',glass:'#1c0d32',glow:'#bb66ff'},
+  gold:{label:'Golden Sovereign',runtimeEntity:'ship_gold',hull:'#cc9900',hull2:'#7a5a00',dark:'#2b2108',edge:'#c79c2a',glass:'#332606',glow:'#ffcc00'},
+  phantom:{label:'Phantom',runtimeEntity:'ship_phantom',hull:'#778899',hull2:'#465563',dark:'#1a2230',edge:'#708295',glass:'#1d2d3d',glow:'#9ab4c8'},
+  inferno:{label:'Inferno',runtimeEntity:'ship_inferno',hull:'#dd5500',hull2:'#843200',dark:'#2e1205',edge:'#c55219',glass:'#3b1606',glow:'#ff8800'},
+  glacier:{label:'Glacier',runtimeEntity:'ship_glacier',hull:'#4499cc',hull2:'#285c82',dark:'#0c1c2d',edge:'#4f9bc2',glass:'#0c2840',glow:'#88ddff'},
+  mythic:{label:'Mythic Ascendant',runtimeEntity:'ship_stealth',hull:'#dd44aa',hull2:'#802a68',dark:'#250a22',edge:'#c24d9c',glass:'#35102f',glow:'#ff88cc'},
+  toxic:{label:'Toxic Reactor',runtimeEntity:'ship_toxic',hull:'#228822',hull2:'#155715',dark:'#0a200a',edge:'#2c8b2c',glass:'#0d300d',glow:'#44ff44'}
+};
+
+const FACTIONS = {
+  neutral:{label:'Neutral / Unmarked',defaultSkin:'reference',accent:'#9fb2c4'},
+  bonzooka:{label:'BONZOOKAA · Player Corps',defaultSkin:'default',accent:'#00ffcc'},
+  raider:{label:'Raider Clans',defaultSkin:'crimson',accent:'#ff6a35'},
+  voidborn:{label:'Voidborn',defaultSkin:'void',accent:'#b96cff'},
+  corrupted:{label:'Corrupted Swarm',defaultSkin:'toxic',accent:'#63ff43'},
+  sovereign:{label:'Sovereign / Elite',defaultSkin:'gold',accent:'#ffd34e'},
+  industrial:{label:'Industrial Militia',defaultSkin:'phantom',accent:'#9ab4c8'}
+};
+
+const PRESETS = {
+  player_mk1:{role:'player',label:'Player · MK-I Reference',runtimeEntity:'ship',fusX:1,fusZ:1,wingX:1,wingZ:1,wingShift:0,weaponScale:1,weaponOut:1,canopy:1,modules:{wings:true,weapons:true,engines:true,details:true},engines:[[0,.78,3.05,4.92],[1.55,.43,2.25,4.40],[-1.55,.43,2.25,4.40]]},
+  player_interceptor:{role:'player',label:'Player · Interceptor',runtimeEntity:'ship_interceptor',fusX:.78,fusZ:1.10,wingX:.86,wingZ:.93,wingShift:.15,weaponScale:.78,weaponOut:.91,canopy:.86,modules:{wings:true,weapons:true,engines:true,details:true},engines:[[0,.58,2.65,5.18],[1.10,.31,1.90,4.78],[-1.10,.31,1.90,4.78]]},
+  player_heavy:{role:'player',label:'Player · Heavy Fighter',runtimeEntity:'ship_heavy',fusX:1.22,fusZ:.96,wingX:1.14,wingZ:.92,wingShift:-.10,weaponScale:1.22,weaponOut:1.08,canopy:1.08,modules:{wings:true,weapons:true,engines:true,details:true},engines:[[0,.92,3.25,4.65],[1.85,.54,2.55,4.18],[-1.85,.54,2.55,4.18]]},
+  enemy_scout:{role:'enemies',label:'Enemy · Scout',runtimeEntity:'scout',fusX:.67,fusZ:.83,wingX:.76,wingZ:.73,wingShift:.35,weaponScale:.55,weaponOut:.70,canopy:.62,modules:{wings:true,weapons:false,engines:true,details:true},engines:[[.72,.29,1.68,3.85],[-.72,.29,1.68,3.85]]},
+  enemy_fighter:{role:'enemies',label:'Enemy · Fighter / Grunt',runtimeEntity:'grunt',fusX:.86,fusZ:.90,wingX:.92,wingZ:.82,wingShift:.20,weaponScale:.80,weaponOut:.83,canopy:.74,modules:{wings:true,weapons:true,engines:true,details:true},engines:[[0,.48,2.22,4.30],[1.15,.30,1.75,4.05],[-1.15,.30,1.75,4.05]]},
+  enemy_bomber:{role:'enemies',label:'Enemy · Bomber',runtimeEntity:'bomber',fusX:1.20,fusZ:.86,wingX:1.08,wingZ:.80,wingShift:-.15,weaponScale:1.12,weaponOut:1.05,canopy:.85,modules:{wings:true,weapons:true,engines:true,details:true},engines:[[0,.88,2.85,4.15],[1.92,.45,2.20,3.92],[-1.92,.45,2.20,3.92]]},
+  enemy_elite:{role:'enemies',label:'Enemy · Elite / Corrupted',runtimeEntity:'corrupted',fusX:.96,fusZ:1.04,wingX:1.08,wingZ:.94,wingShift:.05,weaponScale:1.06,weaponOut:1.02,canopy:.92,modules:{wings:true,weapons:true,engines:true,details:true},engines:[[0,.72,2.75,4.72],[1.55,.43,2.10,4.35],[-1.55,.43,2.10,4.35]]}
+ };
+
+const COMPONENT_DEFAULTS = {
+  player_mk1:{hull:'reference',wing:'delta',engine:'preset',weapon:'quad_pod'},
+  player_interceptor:{hull:'needle',wing:'swept',engine:'twin',weapon:'twin_lance'},
+  player_heavy:{hull:'heavy',wing:'broad',engine:'wide_tri',weapon:'bomber_pods'},
+  enemy_scout:{hull:'wedge',wing:'claw',engine:'twin',weapon:'none'},
+  enemy_fighter:{hull:'raider',wing:'swept',engine:'tri',weapon:'twin_lance'},
+  enemy_bomber:{hull:'hammer',wing:'bomber_slab',engine:'wide_tri',weapon:'bomber_pods'},
+  enemy_elite:{hull:'spire',wing:'forward_swept',engine:'quad',weapon:'twin_lance'}
+};
+
+const BUILTIN_RECIPES = {
+  mk1_reference:{label:'Player · MK-I Reference',role:'player',type:'player_mk1',skin:'reference',faction:'neutral',components:{hull:'reference',wing:'delta',engine:'preset',weapon:'quad_pod'},seed:1337,variation:0},
+  mk1_corps:{label:'Player · MK-I Corps',role:'player',type:'player_mk1',skin:'default',faction:'bonzooka',components:{hull:'reference',wing:'delta',engine:'preset',weapon:'quad_pod'},seed:1337,variation:0},
+  interceptor_void:{label:'Player · Void Interceptor',role:'player',type:'player_interceptor',skin:'void',faction:'voidborn',components:{hull:'needle',wing:'swept',engine:'twin',weapon:'twin_lance'},seed:4102,variation:6},
+  raider_grunt:{label:'Enemy · Raider Grunt',role:'enemies',type:'enemy_fighter',skin:'crimson',faction:'raider',components:{hull:'raider',wing:'swept',engine:'tri',weapon:'twin_lance'},seed:771,variation:8},
+  void_scout:{label:'Enemy · Void Scout',role:'enemies',type:'enemy_scout',skin:'void',faction:'voidborn',components:{hull:'wedge',wing:'claw',engine:'twin',weapon:'none'},seed:8821,variation:10},
+  corrupted_elite:{label:'Enemy · Corrupted Elite',role:'enemies',type:'enemy_elite',skin:'toxic',faction:'corrupted',components:{hull:'spire',wing:'forward_swept',engine:'quad',weapon:'twin_lance'},seed:666,variation:12},
+  sovereign_bomber:{label:'Enemy · Sovereign Bomber',role:'enemies',type:'enemy_bomber',skin:'gold',faction:'sovereign',components:{hull:'hammer',wing:'bomber_slab',engine:'wide_tri',weapon:'bomber_pods'},seed:90210,variation:5}
+};
+const RECIPE_STORAGE_KEY='m4nfroid.shipforge.recipes.v1';
+let userRecipes={};
+
+const HULL_COMPONENTS = {
+  reference:{label:'Reference Needle',half:[[0,7.35],[.34,6.35],[.58,4.95],[.76,3.25],[1.05,1.55],[1.22,-.15],[1.46,-2.25],[1.42,-4.15],[1.02,-5.75],[.58,-6.55],[0,-6.90]],spine:.92,nose:1,canopyZ:1},
+  needle:{label:'Interceptor Needle',half:[[0,7.75],[.22,6.7],[.42,5.25],[.55,3.3],[.78,1.4],[.88,-.6],[1.02,-2.7],[.94,-4.7],[.62,-6.1],[.30,-6.9],[0,-7.2]],spine:.80,nose:.86,canopyZ:1.08},
+  wedge:{label:'Predator Wedge',half:[[0,6.65],[.55,5.85],[.95,4.65],[1.35,2.9],[1.75,1.2],[2.05,-.6],[2.25,-2.6],[1.95,-4.35],[1.25,-5.55],[.55,-6.15],[0,-6.35]],spine:.72,nose:.70,canopyZ:.84},
+  heavy:{label:'Heavy Bastion',half:[[0,6.65],[.55,6.05],[.95,5.1],[1.35,3.6],[1.65,1.7],[1.85,-.4],[1.95,-2.7],[1.75,-4.65],[1.25,-5.85],[.65,-6.45],[0,-6.60]],spine:1.12,nose:1.15,canopyZ:.92},
+  hammer:{label:'Bomber Hammer',half:[[0,5.35],[.95,5.15],[1.55,4.35],[1.95,2.60],[2.15,.50],[2.25,-1.90],[2.00,-4.00],[1.45,-5.30],[.70,-5.95],[0,-6.15]],spine:1.18,nose:1.30,noseZ:.68,spineZ:.80,canopyZ:.78},
+  spire:{label:'Elite Spire',half:[[0,7.90],[.30,6.60],[.52,4.90],[.62,3.05],[1.58,1.95],[1.74,.20],[1.12,-1.60],[.95,-3.60],[.62,-5.60],[.30,-7.10],[0,-7.90]],spine:.74,nose:.80,noseZ:1.08,spineZ:1.06,canopyZ:1.02},
+  raider:{label:'Raider Spear',half:[[0,7.05],[.28,6.35],[.72,5.25],[1.15,3.65],[1.32,1.45],[1.58,-.4],[1.82,-2.25],[1.55,-4.0],[.92,-5.25],[.35,-6.0],[0,-6.25]],spine:.67,nose:.78,canopyZ:.92}
+};
+
+const WING_COMPONENTS = {
+  delta:{label:'Delta Reference',sweep:[5.27,4.10],wing:[[1.05,1.20],[2.38,.05],[4.18,-1.82],[6.20,-3.45],[6.70,-4.45],[5.92,-4.72],[3.55,-3.88],[1.28,-3.38]],inner:[[1.15,.65],[2.45,-.25],[4.55,-2.35],[5.25,-3.55],[3.36,-3.30],[1.35,-2.75]],tip:[[4.35,-2.72],[6.12,-3.78],[6.48,-4.35],[5.78,-4.40],[4.50,-3.62]],strake:[[1.05,2.35],[2.30,-.45],[2.25,-3.45],[1.15,-3.85]]},
+  swept:{label:'Swept Interceptor',sweep:[6.2,3.5],wing:[[.9,1.0],[2.0,.1],[3.25,-1.55],[5.35,-3.55],[6.15,-4.7],[5.35,-4.85],[3.2,-3.75],[1.15,-3.0]],inner:[[1.0,.55],[2.0,-.3],[3.7,-2.35],[4.4,-3.6],[2.9,-3.2],[1.2,-2.45]],tip:[[3.7,-2.8],[5.5,-3.85],[5.95,-4.5],[5.15,-4.55],[4.0,-3.65]],strake:[[.95,2.05],[1.95,-.6],[1.85,-3.2],[1.0,-3.55]]},
+  broad:{label:'Broad Heavy',sweep:[4.2,4.8],wing:[[1.1,1.45],[2.9,.55],[5.0,-.8],[6.75,-2.0],[7.25,-3.1],[6.55,-3.75],[4.0,-3.25],[1.35,-2.7]],inner:[[1.25,.95],[2.9,.1],[5.1,-1.25],[5.75,-2.45],[3.65,-2.65],[1.45,-2.15]],tip:[[4.9,-1.25],[6.6,-2.15],[7.0,-2.85],[6.25,-3.25],[5.0,-2.75]],strake:[[1.0,2.55],[2.55,.25],[2.7,-2.8],[1.25,-3.35]]},
+  forward_swept:{label:'Elite Forward-Swept',sweep:[-5.40,3.20],wing:[[1.15,-3.30],[1.10,-.60],[3.20,.65],[5.35,2.15],[6.45,2.60],[6.60,1.30],[4.85,.05],[2.75,-1.85]],inner:[[1.25,-2.85],[1.20,-.85],[3.10,.25],[4.60,1.25],[4.30,.35],[2.55,-1.55]],tip:[[4.90,1.10],[6.30,2.15],[6.45,1.35],[5.10,.45]],strake:[[1.05,1.90],[2.05,-.60],[2.00,-3.20],[1.10,-3.60]]},
+  bomber_slab:{label:'Bomber Slab',sweep:[3.00,5.60],wing:[[1.20,1.20],[4.30,1.00],[6.95,.30],[7.15,-1.50],[4.80,-1.85],[4.60,-3.60],[3.10,-3.35],[3.05,-1.95],[1.30,-2.60]],inner:[[1.35,.75],[4.20,.55],[6.30,-.10],[6.35,-1.35],[4.30,-1.45],[1.40,-2.05]],tip:[[5.55,-.15],[6.90,-.55],[7.00,-1.35],[5.60,-1.35]],strake:[[1.05,2.45],[2.45,.15],[2.55,-2.90],[1.20,-3.40]]},
+  claw:{label:'Enemy Claw',sweep:[6.6,3.1],wing:[[1.0,1.1],[2.15,.35],[3.1,-.75],[5.95,-2.3],[6.8,-3.65],[6.0,-4.2],[4.35,-3.1],[3.55,-2.25],[2.75,-3.65],[1.25,-3.0]],inner:[[1.1,.55],[2.2,-.15],[3.4,-1.15],[4.75,-2.2],[3.7,-2.55],[2.7,-1.85],[1.25,-2.35]],tip:[[4.55,-2.05],[6.15,-2.75],[6.55,-3.45],[5.75,-3.75],[4.85,-3.05]],strake:[[1.0,2.0],[2.0,-.35],[2.65,-2.65],[1.2,-3.25]]}
+};
+
+const ENGINE_COMPONENTS = {
+  preset:{label:'Preset Layout'},
+  twin:{label:'Twin Drive',layout:[[-.82,.48,2.35,4.55],[.82,.48,2.35,4.55]]},
+  tri:{label:'Tri Drive',layout:[[0,.60,2.55,4.72],[-1.30,.34,1.95,4.30],[1.30,.34,1.95,4.30]]},
+  wide_tri:{label:'Wide Heavy Tri',layout:[[0,.86,3.05,4.55],[-2.00,.46,2.30,4.05],[2.00,.46,2.30,4.05]]},
+  quad:{label:'Quad Hunter',layout:[[-1.35,.38,2.10,4.35],[1.35,.38,2.10,4.35],[-.45,.28,1.85,4.75],[.45,.28,1.85,4.75]]}
+};
+
+const WEAPON_COMPONENTS = {
+  quad_pod:{label:'Quad Cannon Pods'},
+  twin_lance:{label:'Twin Lance'},
+  bomber_pods:{label:'Heavy Bomber Pods'},
+  none:{label:'Unarmed / External'}
+};
+
+const stage = $('stage');
+let renderer;
+try { renderer = new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true}); }
+catch(err){ log('<b>WebGL-Renderer konnte nicht gestartet werden:</b> '+err); throw err; }
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = .95;
+renderer.setClearColor(0x000000,0);
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1,1,1,-1,.1,200);
+camera.position.set(0,40,0); camera.up.set(0,0,-1); camera.lookAt(0,0,0); scene.add(camera);
+const envCv=document.createElement('canvas'); envCv.width=64; envCv.height=64;
+{const cx=envCv.getContext('2d');const g=cx.createLinearGradient(0,0,0,64);g.addColorStop(0,'#eaf2fb');g.addColorStop(.24,'#9db0c4');g.addColorStop(.48,'#3a4b5e');g.addColorStop(.74,'#121a24');g.addColorStop(1,'#05070b');cx.fillStyle=g;cx.fillRect(0,0,64,64);}
+const envTex=new THREE.CanvasTexture(envCv);envTex.mapping=THREE.EquirectangularReflectionMapping;envTex.colorSpace=THREE.SRGBColorSpace;
+const pmrem=new THREE.PMREMGenerator(renderer);scene.environment=pmrem.fromEquirectangular(envTex).texture;
+const key=new THREE.DirectionalLight(0xffffff,.85);key.position.set(-8,6.5,-6);scene.add(key);
+key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.bias=-.0006; key.shadow.normalBias=.035;
+{const sc=key.shadow.camera; sc.left=-12;sc.right=12;sc.top=12;sc.bottom=-12;sc.near=.5;sc.far=60;sc.updateProjectionMatrix();}
+const fill=new THREE.DirectionalLight(0x4f86d6,.30);fill.position.set(9,3,8);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xcfe2ff,.40);rim.position.set(1,2,13);scene.add(rim);scene.add(new THREE.AmbientLight(0x18202b,.5));
+
+let M=null, ship=null, hullGrp=null, flameGrp=null, hardpointGrp=null, debugGrp=null, damageGrp=null;
+let bounds={halfHull:8,radHull:9,width:0,depth:0,height:0,collisionRadius:2};
+let activeHardpoints=[];
+let activePresetKey='player_mk1';
+const pose={bank:0,pitch:0,head:0};
+let halfH=8.6;
+
+function makeMaterials(skinKey){
+  const s=SKINS[skinKey]||SKINS.reference;
+  const f=FACTIONS[$('faction')?.value]||FACTIONS.neutral;
+  return applyMicroDetail({
+    hull:new THREE.MeshStandardMaterial({color:s.hull,metalness:.78,roughness:.30}),
+    hull2:new THREE.MeshStandardMaterial({color:s.hull2,metalness:.90,roughness:.37}),
+    dark:new THREE.MeshStandardMaterial({color:s.dark,metalness:.92,roughness:.43}),
+    black:new THREE.MeshStandardMaterial({color:0x0e1218,metalness:.72,roughness:.62}),
+    glow:new THREE.MeshStandardMaterial({color:s.dark,emissive:s.glow,emissiveIntensity:+$('glow').value||1.85,metalness:.05,roughness:.30}),
+    glass:new THREE.MeshStandardMaterial({color:s.glass,emissive:s.glow,emissiveIntensity:1.12,metalness:.28,roughness:.10}),
+    edge:new THREE.MeshStandardMaterial({color:s.edge,metalness:.96,roughness:.24}),
+    faction:new THREE.MeshStandardMaterial({color:f.accent,emissive:f.accent,emissiveIntensity:.72,metalness:.35,roughness:.30}),
+    scorch:new THREE.MeshStandardMaterial({color:0x090909,metalness:.25,roughness:.92}),
+    fracture:new THREE.MeshStandardMaterial({color:0x34120d,emissive:0xff5b35,emissiveIntensity:1.25,metalness:.05,roughness:.72})
+  });
+}
+function plate(pts,thickness,lift,mat,bevel=.06){const s=new THREE.Shape();s.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)s.lineTo(pts[i][0],pts[i][1]);s.closePath();const g=new THREE.ExtrudeGeometry(s,{depth:thickness,bevelEnabled:bevel>0,bevelSize:bevel,bevelThickness:bevel,bevelSegments:1,curveSegments:1});g.rotateX(-Math.PI/2);g.translate(0,lift,0);return new THREE.Mesh(g,mat);}
+function mirrorX(pts){return pts.map(p=>[-p[0],p[1]]).reverse();}
+function symmetric(half){return half.concat(mirrorX(half.slice(1,-1)));}
+function scalePts(pts,sx,sy,dy=0){return pts.map(p=>[p[0]*sx,p[1]*sy+dy]);}
+function box(w,h,d,mat,x,y,z,ry=0){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.rotation.y=ry;return m;}
+function tube(r1,r2,len,mat,x,y,z,seg=16){const g=new THREE.CylinderGeometry(r1,r2,len,seg);g.rotateX(Math.PI/2);const m=new THREE.Mesh(g,mat);m.position.set(x,y,z);return m;}
+function disposeObject(obj){if(!obj)return;obj.traverse(o=>{if(o.geometry)o.geometry.dispose?.();if(o.material){const arr=Array.isArray(o.material)?o.material:[o.material];arr.forEach(m=>m.dispose?.());}});}
+function seededSigned(seed,key){let h=(Number(seed)||0)>>>0;for(let i=0;i<key.length;i++){h=Math.imul(h^key.charCodeAt(i),2654435761)>>>0;h^=h>>>13;}return ((h%20001)/10000)-1;}
+function getEffectiveConfig(){
+  const base=structuredClone(PRESETS[activePresetKey]);
+  const v=(+$('variation').value||0)/100,seed=+$('variantSeed').value||0;
+  const adj=(k,amp=1)=>1+seededSigned(seed,k)*v*amp;
+  base.fusX*=adj('fusX',.65); base.fusZ*=adj('fusZ',.55); base.wingX*=adj('wingX',.75); base.wingZ*=adj('wingZ',.65);
+  base.weaponScale*=adj('weaponScale',.55); base.weaponOut*=adj('weaponOut',.45); base.canopy*=adj('canopy',.40);
+  base.components={hull:$('hullComponent').value,wing:$('wingComponent').value,engine:$('engineComponent').value,weapon:$('weaponComponent').value};
+  const ec=ENGINE_COMPONENTS[base.components.engine];
+  if(ec && ec.layout) base.engines=structuredClone(ec.layout);
+  base.engines=base.engines.map((e,i)=>[e[0]*adj('engineX'+i,.35)*base.fusX,e[1]*adj('engineR'+i,.30),e[2]*adj('engineLen'+i,.25)*base.fusZ,e[3]*adj('engineZ'+i,.15)*base.fusZ]);
+  base.modules={wings:$('modWings').checked,weapons:$('modWeapons').checked&&base.components.weapon!=='none',engines:$('modEngines').checked,details:$('modDetails').checked};
+  return base;
+}
+function addHardpoint(name,kind,x,y,z){const o=new THREE.Object3D();o.name=name;o.position.set(x,y,z);hardpointGrp.add(o);activeHardpoints.push({name,kind,obj:o});}
+function resolvedDamageLevel(){
+  const v=$('damageLevel')?.value||'auto';
+  if(v!=='auto')return Math.max(0,Math.min(3,+v||0));
+  const st=$('stateName')?.value||'';
+  if(st==='death')return 3;
+  if(st==='hit')return 1;
+  if(st==='aggro')return 0;
+  return 0;
+}
+function addDamageLayer(cfg,level){
+  if(!damageGrp||level<=0)return;
+  const spots=[[-.58,.95,-.65],[.72,.96,1.05],[-1.08,.30,-2.15],[1.15,.28,-1.55]];
+  const n=Math.min(spots.length,level+1);
+  for(let i=0;i<n;i++){
+    const [x,y,z]=spots[i];
+    const s=.48+i*.10;
+    damageGrp.add(box(s*cfg.fusX,.035,.72*cfg.fusZ,M.scorch,x*cfg.fusX,y,z*cfg.fusZ,(i%2?.35:-.28)));
+  }
+  if(level>=2){
+    for(const sgn of [-1,1])damageGrp.add(box(.08,.055,1.65*cfg.fusZ,M.fracture,.72*cfg.fusX*sgn,1.03,-2.45*cfg.fusZ,.14*sgn));
+    addHardpoint('fx_damage_sparks','fx',.62*cfg.fusX,1.08,-2.3*cfg.fusZ);
+  }
+  if(level>=3){
+    damageGrp.add(box(.14,.06,2.05*cfg.fusZ,M.scorch,0,1.08,-4.05*cfg.fusZ,.22));
+    addHardpoint('fx_wreck_smoke','fx',0,1.1,-3.85*cfg.fusZ);
+  }
+}
+function captureRecipe(){return {label:$('recipeName').value||'Custom Recipe',role:$('role').value,type:activePresetKey,skin:$('skin').value,faction:$('faction').value,damage:$('damageLevel').value,components:{hull:$('hullComponent').value,wing:$('wingComponent').value,engine:$('engineComponent').value,weapon:$('weaponComponent').value},seed:+$('variantSeed').value||0,variation:+$('variation').value||0,modules:{wings:$('modWings').checked,weapons:$('modWeapons').checked,engines:$('modEngines').checked,details:$('modDetails').checked}};}
+function loadUserRecipes(){try{userRecipes=JSON.parse(localStorage.getItem(RECIPE_STORAGE_KEY)||'{}')||{};}catch{userRecipes={};}}
+function saveUserRecipes(){localStorage.setItem(RECIPE_STORAGE_KEY,JSON.stringify(userRecipes));}
+function allRecipes(){return {...BUILTIN_RECIPES,...userRecipes};}
+function populateRecipes(selectKey){const all=allRecipes(),cur=selectKey||$('recipe').value; $('recipe').innerHTML=Object.entries(all).map(([k,r])=>`<option value="${k}">${r.label||k}${BUILTIN_RECIPES[k]?' · builtin':''}</option>`).join(''); if(all[cur])$('recipe').value=cur; $('recipePill').textContent=`recipes ${Object.keys(all).length}`;}
+function applyRecipeData(r){if(!r)return; $('role').value=r.role||'player'; populateTypes(); activePresetKey=PRESETS[r.type]?r.type:$('type').value; $('type').value=activePresetKey; populateStates(); applyPresetUi(); if(r.skin&&SKINS[r.skin])$('skin').value=r.skin; if(r.faction&&FACTIONS[r.faction])$('faction').value=r.faction; if(r.damage!=null)$('damageLevel').value=String(r.damage); if(r.components){for(const [id,k] of [['hullComponent','hull'],['wingComponent','wing'],['engineComponent','engine'],['weaponComponent','weapon']])if(r.components[k])$(id).value=r.components[k];} $('variantSeed').value=r.seed??1337; $('variation').value=r.variation??0; $('variationOut').textContent=$('variation').value+'%'; if(r.modules){for(const k of ['wings','weapons','engines','details'])$('mod'+k[0].toUpperCase()+k.slice(1)).checked=r.modules[k]!==false;} $('recipeName').value=r.label||'custom_ship_recipe'; syncEntity(); buildAsset();}
+function applySelectedRecipe(){applyRecipeData(allRecipes()[$('recipe').value]);}
+function saveCurrentRecipe(){const key=slug($('recipeName').value||'custom_recipe');userRecipes[key]=captureRecipe();saveUserRecipes();populateRecipes(key);log(`Recipe gespeichert: <b>${key}</b>`);}
+function deleteSelectedRecipe(){const k=$('recipe').value;if(BUILTIN_RECIPES[k]){log('<b>Built-in Recipe ist geschützt.</b>');return;}if(userRecipes[k]){delete userRecipes[k];saveUserRecipes();populateRecipes();log(`Recipe gelöscht: ${k}`);}}
+function exportSelectedRecipe(){const k=$('recipe').value,r=allRecipes()[k]||captureRecipe();dl(new Blob([JSON.stringify({schema:'m4nfroid.shipforge.recipe.v1',key,recipe:r},null,2)],{type:'application/json'}),`${slug(k)}_shipforge_recipe.json`);}
+function importRecipeFile(file){if(!file)return;const fr=new FileReader();fr.onload=()=>{try{const p=JSON.parse(fr.result),r=p.recipe||p,key=slug(p.key||r.label||file.name.replace(/\.json$/i,''));userRecipes[key]=r;saveUserRecipes();populateRecipes(key);applyRecipeData(r);log(`Recipe importiert: <b>${key}</b>`);}catch(e){log('<b>Recipe Import fehlgeschlagen:</b> '+e.message);}};fr.readAsText(file);}
+
+function buildAsset(){
+  const cfg=getEffectiveConfig();
+  if(ship){scene.remove(ship);disposeObject(ship);}
+  M=makeMaterials($('skin').value);
+  ship=new THREE.Group();ship.name=$('entity').value||cfg.runtimeEntity;
+  hullGrp=new THREE.Group();hullGrp.name='HullRoot';
+  flameGrp=new THREE.Group();flameGrp.name='DynamicThrusterPreview';
+  hardpointGrp=new THREE.Group();hardpointGrp.name='Hardpoints';
+  debugGrp=new THREE.Group();debugGrp.name='HardpointDebug';
+  damageGrp=new THREE.Group();damageGrp.name='DamageLayer';
+  ship.add(hullGrp,flameGrp,hardpointGrp,debugGrp);scene.add(ship);activeHardpoints=[];
+  const core=new THREE.Group(),wings=new THREE.Group(),weapons=new THREE.Group(),engines=new THREE.Group(),details=new THREE.Group();
+  core.name='Core';wings.name='Wings';weapons.name='Weapons';engines.name='Engines';details.name='Details';hullGrp.add(core,wings,weapons,engines,details,damageGrp);
+
+  const hc=HULL_COMPONENTS[cfg.components.hull]||HULL_COMPONENTS.reference;
+  const wc=WING_COMPONENTS[cfg.components.wing]||WING_COMPONENTS.delta;
+  const sweep=Math.atan2(wc.sweep[0],wc.sweep[1]);
+  const FUS=symmetric(scalePts(hc.half,cfg.fusX,cfg.fusZ));
+  const under=plate(FUS,.52,-.36,M.dark,.05);under.scale.set(1.045,1,1.025);core.add(under);core.add(plate(FUS,.82,.02,M.hull,.09));
+  core.add(plate(symmetric(scalePts([[0,6.95],[.21,5.45],[.39,3.65],[.47,1.55],[.51,-.65],[.42,-2.95],[.22,-4.55],[0,-5.15]],cfg.fusX*hc.spine,cfg.fusZ*(hc.spineZ??1))),.45,.84,M.dark,.045));
+  for(const sgn of [1,-1]){const nose=scalePts([[.06,7.15],[.32,6.25],[.47,4.95],[.43,3.78],[.18,3.25]],cfg.fusX*hc.nose,cfg.fusZ*(hc.noseZ??1));core.add(plate(sgn>0?nose:mirrorX(nose),.30,1.16,M.hull,.035));}
+  const canopyX=cfg.fusX*cfg.canopy;
+  core.add(plate(symmetric(scalePts([[0,4.42],[.28,3.83],[.38,2.82],[.34,1.72],[.18,1.18],[0,1.02]],canopyX,cfg.fusZ*hc.canopyZ)),.34,1.33,M.glass,.055));
+  core.add(plate(symmetric(scalePts([[0,4.22],[.11,3.72],[.15,2.56],[.08,1.72],[0,1.55]],canopyX,cfg.fusZ*hc.canopyZ)),.08,1.70,M.glow,.015));
+
+  if(cfg.modules.wings){
+    const WING=scalePts(wc.wing,cfg.wingX,cfg.wingZ,cfg.wingShift),INNER=scalePts(wc.inner,cfg.wingX,cfg.wingZ,cfg.wingShift),TIP=scalePts(wc.tip,cfg.wingX,cfg.wingZ,cfg.wingShift),STRAKE=scalePts(wc.strake,cfg.fusX,cfg.fusZ);
+    for(const sgn of [1,-1]){const pts=sgn>0?WING:mirrorX(WING);const o=plate(pts,.18,-.28,M.dark,.025);o.scale.set(1.035,1,1.035);wings.add(o);wings.add(plate(pts,.30,-.07,M.hull,.06));wings.add(plate(sgn>0?INNER:mirrorX(INNER),.12,.22,M.dark,.025));wings.add(plate(sgn>0?TIP:mirrorX(TIP),.12,.28,M.hull2,.02));wings.add(plate(sgn>0?STRAKE:mirrorX(STRAKE),.40,.28,M.hull2,.05));}
+  }
+
+  if(cfg.modules.weapons){
+    const wp=cfg.components.weapon,ws=cfg.weaponScale;
+    if(wp==='quad_pod'||wp==='bomber_pods'){
+      const heavy=wp==='bomber_pods'?1.22:1;
+      for(const sgn of [1,-1]){const px=(wp==='bomber_pods'?4.25:3.95)*cfg.weaponOut*sgn;weapons.add(box(1.02*ws*heavy,.30*ws*heavy,3.9*ws*heavy,M.dark,px,.02,-.45*cfg.fusZ));weapons.add(box(.88*ws*heavy,.62*ws*heavy,3.4*ws*heavy,M.hull,px,.30,-.45*cfg.fusZ));weapons.add(box(.94*ws*heavy,.34*ws*heavy,1.1*ws*heavy,M.hull2,px,.34,.95*cfg.fusZ));for(const bx of [-.21,.21]){weapons.add(tube(.145*ws,.145*ws,.55*ws,M.hull2,px+bx*ws,.34,-2.25*cfg.fusZ,12));weapons.add(tube(.095*ws,.095*ws,2.3*ws*heavy,M.black,px+bx*ws,.34,-3.30*cfg.fusZ,12));addHardpoint(`muzzle_${sgn>0?'right':'left'}_${bx>0?'outer':'inner'}`,'muzzle',px+bx*ws,.34,-(3.30*cfg.fusZ+1.15*ws*heavy));}weapons.add(box(.14*ws,.06,1.9*ws,M.glow,px,.63,-.55*cfg.fusZ));}
+    } else if(wp==='twin_lance'){
+      for(const sgn of [1,-1]){const px=2.55*cfg.weaponOut*sgn;weapons.add(box(.55*ws,.44*ws,2.45*ws,M.hull2,px,.30,-1.55*cfg.fusZ));weapons.add(tube(.10*ws,.075*ws,3.5*ws,M.black,px,.31,-3.25*cfg.fusZ,12));weapons.add(tube(.13*ws,.10*ws,.45*ws,M.glow,px,.31,-5.0*cfg.fusZ,12));addHardpoint(`muzzle_${sgn>0?'right':'left'}_lance`,'muzzle',px,.31,-(5.25*cfg.fusZ));}
+    }
+  }
+
+  if(cfg.modules.engines){
+    cfg.engines.forEach(([x,r,len,z],i)=>{engines.add(tube(r,r*.92,len,M.dark,x,.05,z,28));engines.add(tube(r*.94,r*.86,len*.78,M.hull2,x,.11,z+.18,28));engines.add(tube(r*1.08,r*1.08,.32,M.edge,x,.09,z+len/2-.06,28));engines.add(tube(r*.78,r*.78,.07,M.glow,x,.09,z+len/2+.09,28));addHardpoint(`exhaust_${i}`,'exhaust',x,.09,z+len/2+.16);const cg=new THREE.ConeGeometry(r*.74,2.35,22,1,true);cg.rotateX(-Math.PI/2);const flame=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:SKINS[$('skin').value]?.glow||'#39c9ff',transparent:true,opacity:.48,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,depthWrite:false}));flame.position.set(x,.08,z+len/2+1.23);flameGrp.add(flame);});
+    if(cfg.engines.length>=3){for(const sgn of [1,-1]){const fin=scalePts([[.48*sgn,-4.45],[.86*sgn,-4.92],[.80*sgn,-6.25],[.48*sgn,-5.70]],cfg.fusX,cfg.fusZ);engines.add(plate(fin,.18,.14,M.hull2,.025));}}
+  }
+
+  if(cfg.modules.details){
+    details.add(box(.18*cfg.fusX,.07,4.6*cfg.fusZ,M.glow,0,1.34,-.6*cfg.fusZ));
+    details.add(box(.08*cfg.fusX,.075,2.55*cfg.fusZ,M.faction,.28*cfg.fusX,1.42,-.15*cfg.fusZ));
+    details.add(box(.08*cfg.fusX,.075,2.55*cfg.fusZ,M.faction,-.28*cfg.fusX,1.42,-.15*cfg.fusZ));details.add(box(.11*cfg.fusX,.07,1.9*cfg.fusZ,M.glow,0,1.60,-4.4*cfg.fusZ));
+    for(const sgn of [1,-1]){details.add(box(.20,.07,2.2*cfg.fusZ,M.glow,.82*cfg.fusX*sgn,.86,-2.5*cfg.fusZ));details.add(box(.20,.07,1.4*cfg.fusZ,M.glow,1.12*cfg.fusX*sgn,.86,1.7*cfg.fusZ));if(cfg.modules.wings){for(const [ox,oz,l] of [[2.55,-.35,2.2],[3.55,.95,1.9],[5.25,2.25,1.3]])details.add(box(.17,.07,l*cfg.wingZ,M.glow,ox*cfg.wingX*sgn,.25,oz*cfg.wingZ,-sweep*sgn));}details.add(box(.26,.05,1.4*cfg.fusZ,M.dark,.60*cfg.fusX*sgn,1.33,2.35*cfg.fusZ));if(cfg.modules.wings){details.add(box(.50,.05,.7*cfg.wingZ,M.dark,3.05*cfg.wingX*sgn,.24,-1.55*cfg.wingZ,-sweep*sgn));details.add(box(.34,.05,.5*cfg.wingZ,M.dark,4.35*cfg.wingX*sgn,.24,.45*cfg.wingZ,-sweep*sgn));}details.add(box(.80,.05,.16,M.dark,.90*cfg.fusX*sgn,.84,-3.30*cfg.fusZ));}
+  }
+
+  addDamageLayer(cfg,resolvedDamageLevel());
+
+  hullGrp.updateMatrixWorld(true);
+  const bb=new THREE.Box3().setFromObject(hullGrp);const cy=(bb.min.y+bb.max.y)/2,cz=(bb.min.z+bb.max.z)/2;
+  hullGrp.position.y-=cy;hullGrp.position.z-=cz;flameGrp.position.y-=cy;flameGrp.position.z-=cz;hardpointGrp.position.y-=cy;hardpointGrp.position.z-=cz;
+  activeHardpoints.forEach(h=>{const marker=new THREE.Mesh(new THREE.SphereGeometry(.11,10,8),new THREE.MeshBasicMaterial({color:h.kind==='muzzle'?0xffb03a:(h.kind==='fx'?0xff5b35:0x2fb4ff),depthTest:false}));marker.position.copy(h.obj.position);debugGrp.add(marker);});
+  debugGrp.position.copy(hardpointGrp.position);debugGrp.visible=$('hardpoints').checked;flameGrp.visible=$('flames').checked;
+  applyShadowFlags();
+  updateBounds();applyPose();fit();updateRuntimeView();
+  log(`gebaut: <b>${PRESETS[activePresetKey].label}</b> · ${hc.label} / ${wc.label} / ${ENGINE_COMPONENTS[cfg.components.engine].label} / ${WEAPON_COMPONENTS[cfg.components.weapon].label} · skin ${$('skin').value} · faction ${$('faction').value} · damage ${resolvedDamageLevel()} · variation ${$('variation').value}%`);
+}
+
+function withNeutralPose(fn){const r=ship.rotation.clone();ship.rotation.set(0,0,0);ship.updateMatrixWorld(true);try{return fn();}finally{ship.rotation.copy(r);ship.updateMatrixWorld(true);}}
+function updateBounds(){if(!hullGrp)return;withNeutralPose(()=>{const bb=new THREE.Box3().setFromObject(hullGrp);const sz=new THREE.Vector3();bb.getSize(sz);bounds.width=sz.x;bounds.height=sz.y;bounds.depth=sz.z;bounds.halfHull=Math.max(Math.abs(bb.min.x),Math.abs(bb.max.x),Math.abs(bb.min.z),Math.abs(bb.max.z))*1.06;let r=0;for(const x of [bb.min.x,bb.max.x])for(const z of [bb.min.z,bb.max.z])r=Math.max(r,Math.hypot(x,z));bounds.radHull=r*1.04;bounds.collisionRadius=Math.min(sz.x,sz.z)*.34;});
+  {const r=Math.max(6,bounds.radHull*1.30),sc=key.shadow.camera;sc.left=-r;sc.right=r;sc.top=r;sc.bottom=-r;sc.updateProjectionMatrix();}$('boundsPill').textContent=`bounds ${bounds.width.toFixed(1)}×${bounds.depth.toFixed(1)} · col r${bounds.collisionRadius.toFixed(2)}`;$('hpPill').textContent=`hardpoints ${activeHardpoints.length}`;}
+function collectHardpoints(){if(!ship)return[];ship.updateMatrixWorld(true);return activeHardpoints.map(h=>{const v=new THREE.Vector3();h.obj.getWorldPosition(v);ship.worldToLocal(v);return{name:h.name,kind:h.kind,x:+v.x.toFixed(4),y:+v.y.toFixed(4),z:+v.z.toFixed(4)};});}
+
+
+/* ===== RENDER ENGINE v2.4 =============================================== */
+const NOISE_TEX = (()=>{                       // Value-Noise für Roughness-Bruch
+  const S=256, cv=document.createElement('canvas'); cv.width=cv.height=S;
+  const cx=cv.getContext('2d'); cx.fillStyle='#b4b4b4'; cx.fillRect(0,0,S,S);
+  let noiseSeed=0x4d344e46;                    // fixed M4NF seed: reproducible material detail
+  const rnd=()=>((noiseSeed=(Math.imul(noiseSeed,1664525)+1013904223)>>>0)/4294967296);
+  const layer=(cells,alpha)=>{
+    const t=document.createElement('canvas'); t.width=t.height=cells;
+    const tc=t.getContext('2d'), im=tc.createImageData(cells,cells);
+    for(let i=0;i<im.data.length;i+=4){const v=120+rnd()*135|0;
+      im.data[i]=im.data[i+1]=im.data[i+2]=v; im.data[i+3]=255;}
+    tc.putImageData(im,0,0);
+    cx.globalAlpha=alpha; cx.imageSmoothingEnabled=true; cx.drawImage(t,0,0,S,S); cx.globalAlpha=1;
+  };
+  layer(8,.55); layer(24,.35); layer(96,.22);
+  cx.globalAlpha=.30;                                       // feine Kratzer / Streifen
+  for(let i=0;i<70;i++){cx.strokeStyle=rnd()<.5?'#e8e8e8':'#8a8a8a';cx.lineWidth=rnd()*1.4+.3;
+    const x=rnd()*S,y=rnd()*S,l=20+rnd()*90,a=rnd()*Math.PI;
+    cx.beginPath();cx.moveTo(x,y);cx.lineTo(x+Math.cos(a)*l,y+Math.sin(a)*l);cx.stroke();}
+  cx.globalAlpha=1;
+  const t=new THREE.CanvasTexture(cv);
+  t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(.42,.42); t.colorSpace=THREE.NoColorSpace;
+  return t;
+})();
+function applyMicroDetail(mats){
+  if(!$('micro') || !$('micro').checked) return mats;
+  for(const k of ['hull','hull2','dark','edge']){
+    const m=mats[k]; if(!m) continue;
+    m.roughnessMap=NOISE_TEX; m.roughness=Math.min(1,m.roughness*1.28+.06); m.needsUpdate=true;
+  }
+  return mats;
+}
+function applyShadowFlags(){
+  if(!hullGrp) return;
+  hullGrp.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; } });
+  if(flameGrp) flameGrp.traverse(o=>{ if(o.isMesh){o.castShadow=false;o.receiveShadow=false;} });
+  if(debugGrp) debugGrp.traverse(o=>{ if(o.isMesh){o.castShadow=false;o.receiveShadow=false;} });
+}
+function blurCanvas(src,div){                   // Mip-Blur, kein ctx.filter nötig (iOS-sicher)
+  const w=Math.max(2,Math.round(src.width/div));
+  const a=document.createElement('canvas'); a.width=a.height=w;
+  const ac=a.getContext('2d'); ac.imageSmoothingEnabled=true; ac.imageSmoothingQuality='high';
+  ac.drawImage(src,0,0,w,w);
+  return a;
+}
+
+const DEPTH_MAT = new THREE.MeshDepthMaterial({depthPacking:THREE.BasicDepthPacking});
+function renderDepth(rp){                      // enge Near/Far-Klammer = maximale Tiefenauflösung
+  const near=camera.near, far=camera.far, ovr=scene.overrideMaterial;
+  const r=Math.max(2,bounds.radHull);
+  camera.near=Math.max(.01,40-r*1.2); camera.far=40+r*1.2; camera.updateProjectionMatrix();
+  scene.overrideMaterial=DEPTH_MAT;
+  renderer.render(scene,camera);
+  scene.overrideMaterial=ovr; camera.near=near; camera.far=far; camera.updateProjectionMatrix();
+  const cv=document.createElement('canvas'); cv.width=cv.height=rp;
+  cv.getContext('2d').drawImage(renderer.domElement,0,0,rp,rp);
+  return cv.getContext('2d').getImageData(0,0,rp,rp);
+}
+function applyAO(work,depthImg,strength){
+  const rp=work.width, h=Math.max(64,rp>>1);                 // AO in halber Auflösung
+  const wctx=work.getContext('2d');
+  const col=wctx.getImageData(0,0,rp,rp).data, dep=depthImg.data;
+  const D=new Float32Array(h*h), A=new Uint8Array(h*h), step=rp/h;
+  for(let y=0;y<h;y++)for(let x=0;x<h;x++){
+    const sx=Math.min(rp-1,(x*step)|0), sy=Math.min(rp-1,(y*step)|0), i=(sy*rp+sx)*4;
+    D[y*h+x]=dep[i]/255; A[y*h+x]=col[i+3];
+  }
+  const taps=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]];
+  const radii=[Math.max(1,h*0.008), Math.max(2,h*0.022), Math.max(3,h*0.05)];
+  const RANGE=0.055;                                          // Tiefendifferenz für volle Verschattung
+  const ao=document.createElement('canvas'); ao.width=ao.height=h;
+  const actx=ao.getContext('2d'), aimg=actx.createImageData(h,h), out=aimg.data;
+  for(let y=0;y<h;y++)for(let x=0;x<h;x++){
+    const id=y*h+x; if(A[id]<10) continue;
+    const dc=D[id]; let occ=0,n=0;
+    for(const R of radii)for(const [tx,ty] of taps){
+      const px=x+Math.round(tx*R), py=y+Math.round(ty*R);
+      if(px<0||py<0||px>=h||py>=h) continue;
+      const jd=py*h+px; n++;
+      if(A[jd]<10) continue;
+      const diff=dc-D[jd];                                    // Nachbar näher an der Kamera => verschattet
+      if(diff>0.0012) occ+=Math.min(1,diff/RANGE);
+    }
+    if(!n) continue;
+    const v=Math.min(1,(occ/n)*2.35)*strength;
+    const o=id*4; out[o]=4; out[o+1]=7; out[o+2]=12; out[o+3]=Math.min(235,v*255);
+  }
+  actx.putImageData(aimg,0,0);
+  const soft=blurCanvas(ao,2);                                 // leicht weichzeichnen
+  wctx.save(); wctx.globalCompositeOperation='source-atop';
+  wctx.imageSmoothingQuality='high'; wctx.drawImage(soft,0,0,rp,rp);
+  wctx.restore();
+}
+function applyBloom(cv,strength){
+  const s=cv.width, ctx=cv.getContext('2d');
+  const img=ctx.getImageData(0,0,s,s), d=img.data;
+  const bp=document.createElement('canvas'); bp.width=bp.height=s;
+  const bctx=bp.getContext('2d'), bd=bctx.createImageData(s,s), o=bd.data;
+  const TH=202;                                   // nur echte Emissives bluehen, nicht der helle Rumpf
+  for(let i=0;i<d.length;i+=4){
+    if(d[i+3]<12) continue;
+    const l=Math.max(d[i],d[i+1],d[i+2]);
+    if(l<=TH) continue;
+    const k=Math.pow((l-TH)/(255-TH),1.5);
+    o[i]=d[i]*k; o[i+1]=d[i+1]*k; o[i+2]=d[i+2]*k; o[i+3]=255*k;
+  }
+  bctx.putImageData(bd,0,0);
+  ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.imageSmoothingQuality='high';
+  for(const [div,a] of [[6,.50],[16,.36],[48,.24]]){
+    const b=blurCanvas(bp,div); ctx.globalAlpha=a*strength; ctx.drawImage(b,0,0,s,s);
+  }
+  ctx.restore();
+}
+/* ======================================================================== */
+
+function applyPose(){if(!ship)return;ship.rotation.set(0,0,0);ship.rotateY(THREE.MathUtils.degToRad(-pose.head));ship.rotateX(THREE.MathUtils.degToRad(pose.pitch));ship.rotateZ(THREE.MathUtils.degToRad(pose.bank));draw();}
+function draw(){renderer.render(scene,camera);}
+function fit(){const panel=$('ui').offsetHeight;const w=innerWidth,h=Math.max(220,innerHeight-panel);renderer.setSize(w,h);const a=w/h;camera.left=-halfH*a;camera.right=halfH*a;camera.top=halfH;camera.bottom=-halfH;camera.updateProjectionMatrix();draw();}
+addEventListener('resize',fit);
+
+function populateTypes(){const role=$('role').value;const current=activePresetKey;const opts=Object.entries(PRESETS).filter(([,p])=>p.role===role);$('type').innerHTML=opts.map(([k,p])=>`<option value="${k}">${p.label}</option>`).join('');activePresetKey=opts.some(([k])=>k===current)?current:opts[0][0];$('type').value=activePresetKey;}
+function populateSkins(){const cur=$('skin').value||'reference';$('skin').innerHTML=Object.entries(SKINS).map(([k,s])=>`<option value="${k}">${s.label}</option>`).join('');$('skin').value=SKINS[cur]?cur:'reference';}
+function populateFactions(){const cur=$('faction').value||'neutral';$('faction').innerHTML=Object.entries(FACTIONS).map(([k,f])=>`<option value="${k}">${f.label}</option>`).join('');$('faction').value=FACTIONS[cur]?cur:'neutral';}
+function fillComponentSelect(id,lib,value){const el=$(id);el.innerHTML=Object.entries(lib).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');el.value=lib[value]?value:Object.keys(lib)[0];}
+function applyComponentDefaults(){const d=COMPONENT_DEFAULTS[activePresetKey]||COMPONENT_DEFAULTS.player_mk1;fillComponentSelect('hullComponent',HULL_COMPONENTS,d.hull);fillComponentSelect('wingComponent',WING_COMPONENTS,d.wing);fillComponentSelect('engineComponent',ENGINE_COMPONENTS,d.engine);fillComponentSelect('weaponComponent',WEAPON_COMPONENTS,d.weapon);}
+function populateStates(){const role=$('role').value,cur=$('stateName').value;const states=AUTHORING_STATES[role];$('stateName').innerHTML=states.map(s=>`<option value="${s}">${s}</option>`).join('');$('stateName').value=states.includes(cur)?cur:states[0];syncStateDefaults();}
+function syncStateDefaults() {const d=STATE_DEFAULTS[$('role').value]?.[$('stateName').value]||{fps:1,loop:true};$('fps').value=d.fps;$('loop').checked=d.loop;updateRuntimeView();}
+function slug(v){return slugSegment(v);}
+function suggestedEntity(){const p=PRESETS[activePresetKey],skin=$('skin').value;if(p.role==='player'&&activePresetKey==='player_mk1'&&SKINS[skin]?.runtimeEntity)return SKINS[skin].runtimeEntity;if(skin==='reference'||skin==='default')return p.runtimeEntity;return `${p.runtimeEntity}_${skin}`;}
+function syncEntity(){ $('entity').value=suggestedEntity(); updateRuntimeView(); }
+function applyPresetUi(){const p=PRESETS[activePresetKey];$('modWings').checked=p.modules.wings;$('modWeapons').checked=p.modules.weapons;$('modEngines').checked=p.modules.engines;$('modDetails').checked=p.modules.details;applyComponentDefaults();syncEntity();}
+function manifestFile(){return canonicalSpriteFile($('role').value,$('entity').value,$('stateName').value);}
+function physicalFile(){return canonicalPhysicalFile($('role').value,$('entity').value,$('stateName').value);}
+function updateRuntimeView(){$('pathView').textContent=manifestFile();}
+
+let projectManifest=null;
+let projectManifestEvidence={source:'unloaded',fingerprint:null};
+function setProjectManifest(manifest,source){
+  assertSpriteManifestBaseline(manifest);
+  projectManifest=mergeSpriteManifest(manifest,{});
+  projectManifestEvidence={source,fingerprint:generationFingerprint(projectManifest)};
+  $('manifestStatus').textContent=`ready · ${source} · ${projectManifestEvidence.fingerprint}`;
+  $('manifestStatus').style.color='var(--ok)';
+}
+function clearProjectManifest(message){
+  projectManifest=null;projectManifestEvidence={source:'unavailable',fingerprint:null};
+  $('manifestStatus').textContent=message;
+  $('manifestStatus').style.color='var(--bad)';
+}
+async function loadProjectManifest(){
+  $('manifestStatus').textContent=`loading ${BONZOOKA_MANIFEST_PATH}…`;
+  $('manifestStatus').style.color='var(--dim)';
+  try{
+    const url=new URL('../../assets/sprite_manifest.json',window.location.href);
+    const response=await fetch(url,{cache:'no-store'});
+    if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    setProjectManifest(await response.json(),'repository baseline');
+    log(`Project manifest geladen · <b>${projectManifestEvidence.fingerprint}</b> · production exports merge into ${BONZOOKA_MANIFEST_PATH}.`);
+  }catch(error){
+    clearProjectManifest('unavailable · import assets/sprite_manifest.json');
+    log(`<b>Project manifest nicht geladen:</b> ${error.message}. Importiere ${BONZOOKA_MANIFEST_PATH}; Production ZIP bleibt bis dahin gesperrt.`);
+  }
+}
+async function importProjectManifest(file){
+  if(!file)return;
+  try{
+    setProjectManifest(JSON.parse(await file.text()),`imported ${file.name}`);
+    log(`Project manifest importiert · <b>${projectManifestEvidence.fingerprint}</b>.`);
+  }catch(error){
+    clearProjectManifest('invalid manifest · import blocked');
+    log(`<b>Manifest-Import fehlgeschlagen:</b> ${error.message}`);
+  }
+}
+function requireProjectManifest(){
+  if(!projectManifest)throw new Error(`Load ${BONZOOKA_MANIFEST_PATH} before producing project assets`);
+  return projectManifest;
+}
+
+function dl(blobOrUrl,name){const a=document.createElement('a');a.href=(blobOrUrl instanceof Blob)?URL.createObjectURL(blobOrUrl):blobOrUrl;a.download=name;a.click();if(blobOrUrl instanceof Blob)setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+function renderFrame(px,deg,axis='bank',opts={}){
+  const old2=pose[axis],oldFlame=flameGrp.visible,oldDebug=debugGrp.visible,oldDpr=renderer.getPixelRatio();
+  const keepFx=!!(opts&&opts.fx);
+  flameGrp.visible=keepFx&&oldFlame; debugGrp.visible=false;
+  pose[axis]=deg; applyPose();
+  const ss=Math.max(1,Math.min(4,+($('quality')?.value)||1));
+  const cap=renderer.capabilities.maxTextureSize||4096;
+  const rp=Math.min(px*ss,cap,4096);
+  renderer.setPixelRatio(1); renderer.setSize(rp,rp,false);
+  const hx=bounds.radHull;camera.left=-hx;camera.right=hx;camera.top=hx;camera.bottom=-hx;camera.updateProjectionMatrix();
+  if(opts&&opts.normal){
+    withNormalMaterials(()=>renderer.render(scene,camera));
+    const nc=document.createElement('canvas'); nc.width=nc.height=px;
+    const nx=nc.getContext('2d'); nx.imageSmoothingEnabled=true; nx.imageSmoothingQuality='high';
+    nx.drawImage(renderer.domElement,0,0,px,px);
+    renderer.setPixelRatio(oldDpr);
+    pose[axis]=old2;flameGrp.visible=oldFlame;debugGrp.visible=oldDebug;return nc;
+  }
+  if(opts&&opts.emissive){
+    withEmissiveMaterials(()=>renderer.render(scene,camera));
+    const ec=document.createElement('canvas'); ec.width=ec.height=px;
+    const ex=ec.getContext('2d'); ex.imageSmoothingEnabled=true; ex.imageSmoothingQuality='high';
+    ex.drawImage(renderer.domElement,0,0,px,px);
+    renderer.setPixelRatio(oldDpr);
+    pose[axis]=old2;flameGrp.visible=oldFlame;debugGrp.visible=oldDebug;return ec;
+  }
+  renderer.render(scene,camera);
+  const work=document.createElement('canvas'); work.width=work.height=rp;
+  const wctx=work.getContext('2d'); wctx.drawImage(renderer.domElement,0,0,rp,rp);
+  const aoAmt=Math.max(0,+($('ao')?.value)||0)/100;
+  if(aoAmt>0){ try{ applyAO(work,renderDepth(rp),aoAmt); }catch(err){ console.warn('AO skipped',err); } }
+  const bloom=Math.max(0,+($('bloom')?.value)||0)/100;
+  if(bloom>0) applyBloom(work,bloom);
+  const c=document.createElement('canvas'); c.width=c.height=px;
+  const cc=c.getContext('2d'); cc.imageSmoothingEnabled=true; cc.imageSmoothingQuality='high';
+  cc.drawImage(work,0,0,px,px);
+  renderer.setPixelRatio(oldDpr);
+  pose[axis]=old2;flameGrp.visible=oldFlame;debugGrp.visible=oldDebug;return c;
+}
+function exportSheet(angles,axis,cols,name,label,lockPose={}){
+  const px=Math.max(64,+$('fsize').value||256),rows=Math.ceil(angles.length/cols);
+  const mk=(opts)=>renderSheetCanvas(angles,axis,cols,px,opts);
+  const saved={...pose};Object.assign(pose,lockPose);
+  const sheet=mk({});
+  const emi=$('emiMap').checked ? mk({emissive:true}) : null;
+  const nrm=$('nrmMap').checked ? mk({normal:true}) : null;
+  Object.assign(pose,saved);fit();applyPose();
+  sheet.toBlob(b=>{dl(b,name);log(`${label}: ${angles.length}F · ${cols}×${rows} · ${px}px · flames OFF · ${angles.join('/')}°${emi?' · + Emissive-Map':''}${nrm?' · + Normal-Map':''}`);});
+  if(emi) emi.toBlob(b=>dl(b,emissiveName(name)));
+  if(nrm) nrm.toBlob(b=>dl(b,normalName(name)));
+}
+function renderSheetCanvas(angles,axis,cols,px,opts={}){const rows=Math.ceil(angles.length/cols),sheet=document.createElement('canvas');sheet.width=cols*px;sheet.height=rows*px;const ctx=sheet.getContext('2d');angles.forEach((angle,index)=>ctx.drawImage(renderFrame(px,angle,axis,opts),(index%cols)*px,Math.floor(index/cols)*px));return sheet;}
+function productionProfile(profileKey,state=$('stateName').value){const profile=getProfileDefinition(profileKey);if(profile.key==='bank4'&&state==='bank_right')profile.angles=profile.angles.map(angle=>-angle);return profile;}
+function renderProductionProfile(profileKey,px,state=$('stateName').value){const profile=productionProfile(profileKey,state),saved={...pose};Object.assign(pose,profile.lockPose);const result={profile,sheet:renderSheetCanvas(profile.angles,profile.axis,profile.cols,px,{})};if($('emiMap').checked)result.emissive=renderSheetCanvas(profile.angles,profile.axis,profile.cols,px,{emissive:true});if($('nrmMap').checked)result.normal=renderSheetCanvas(profile.angles,profile.axis,profile.cols,px,{normal:true});Object.assign(pose,saved);fit();applyPose();return result;}
+function exportProfile(){const profile=productionProfile($('profile').value),entity=slug($('entity').value),state=slug($('stateName').value),px=Math.max(64,+$('fsize').value||256),suffix=profile.key==='runtime1'?'':`_${profile.key}`;exportSheet(profile.angles,profile.axis,profile.cols,`${entity}_${state}${suffix}_${px}px.png`,profile.label,profile.lockPose);}
+function exportCustom(){const n=Math.max(2,+$('frames').value||9),rng=+$('range').value||45,axis=$('axis').value,angles=[];if(axis==='head'){for(let i=0;i<n;i++)angles.push(Math.round(360*i/n*100)/100);}else{for(let i=0;i<n;i++)angles.push(Math.round((-rng+(2*rng)*i/(n-1))*100)/100);}exportSheet(angles,axis,Math.min(n,8),`${slug($('entity').value)}_${slug($('stateName').value)}_${axis}_${n}f_${$('fsize').value}px.png`,'Custom Sheet');}
+function buildRuntimePayload(profileKey=$('profile').value){updateBounds();const role=slug($('role').value),entity=slug($('entity').value),state=slug($('stateName').value),px=Math.max(64,+$('fsize').value||256),fps=Math.max(1,+$('fps').value||1),loop=$('loop').checked,file=canonicalSpriteFile(role,entity,state),profile=productionProfile(profileKey,state);const stateEntry={...buildManifestState({category:role,entity,state,profileKey,fps,loop}),anchorX:.5,anchorY:.5};
+  if($('emiMap').checked) stateEntry.emissive={file:emissiveName(file),blend:'additive',note:'black = no contribution; tint/pulse at runtime'};
+  if($('nrmMap').checked) stateEntry.normal={file:normalName(file),space:'view',encoding:'rgb=xyz, 0.5=flat',note:'dynamic light direction in screen space'};
+  const tooling={preset:activePresetKey,components:{hull:$('hullComponent').value,wing:$('wingComponent').value,engine:$('engineComponent').value,weapon:$('weaponComponent').value},skin:$('skin').value,faction:$('faction').value,damagePreview:{mode:$('damageLevel').value,resolvedLevel:resolvedDamageLevel(),runtimeState:$('stateName').value},recipe:$('recipe').value||null,variantSeed:+$('variantSeed').value||0,variationPercent:+$('variation').value||0,profile:{key:profile.key,axis:profile.axis,angles:profile.angles,cols:profile.cols,rows:profile.rows,frames:profile.frames}};
+  const manifestFragment=buildManifestFragment({category:role,entity,state,size:px,stateEntry});
+  return {schema:'bonzookaa.shipforge.asset.v5',generator:'M4NFROID SHIP FORGE v2.9.0',generationId:generationFingerprint({role,entity,state,px,fps,loop,tooling}),runtimeIdentity:{category:role,entity,state},category:role,entity,state,physicalFile:canonicalPhysicalFile(role,entity,state),manifestTarget:BONZOOKA_MANIFEST_PATH,thrusterPolicy:'dynamic_external_fx',manifestFragment,tooling,hardpoints:collectHardpoints(),bounds:{width:+bounds.width.toFixed(4),height:+bounds.height.toFixed(4),depth:+bounds.depth.toFixed(4)},collision:{shape:'circle',recommendedRadius:+bounds.collisionRadius.toFixed(4),authority:'runtime-tunable recommendation'}};}
+function exportRuntimeMeta(){const payload=buildRuntimePayload();dl(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),`${payload.entity}_${payload.state}_shipforge_runtime.json`);log(`Runtime JSON exportiert · manifest path ${payload.manifestFragment[payload.category][payload.entity][payload.state].file} · ${payload.hardpoints.length} hardpoints`);}
+
+const MAX_BATCH_ASSETS=400;
+let productionMatrix=[];
+function batchRecipeKeys(){const mode=$('batchRecipeMode').value,all=allRecipes();if(mode==='selected')return [$('recipe').value].filter(k=>all[k]);if(mode==='builtins')return Object.keys(BUILTIN_RECIPES);return Object.keys(all);}
+function batchValues(mode,current,map,recipeValue){if(mode==='recipe')return [recipeValue];if(mode==='current')return [current];return Object.keys(map);}
+function entityForBatch(r,skin,faction){const p=PRESETS[r.type]||PRESETS.player_mk1;let base;if(p.role==='player'&&r.type==='player_mk1'&&SKINS[skin]?.runtimeEntity)base=SKINS[skin].runtimeEntity;else if(skin==='default')base=p.runtimeEntity;else base=`${p.runtimeEntity}_${skin}`;const neutralish=faction==='neutral'||(p.role==='player'&&faction==='bonzooka');if(!neutralish)base+=`_${faction}`;return slug(base);}
+function normalizeMatrixEntities(rows){const seen=new Map();for(const row of rows){const k=`${row.role}/${row.entity}`;if(!seen.has(k)){seen.set(k,1);continue;}const n=seen.get(k)+1;seen.set(k,n);row.entity=slug(`${row.entity}_${row.recipeKey}_${n}`);}return rows;}
+function statesForBatch(role){return $('batchStateMode').value==='current'&&AUTHORING_STATES[role].includes($('stateName').value)?[$('stateName').value]:RUNTIME_STATES[role].slice();}
+function makeBatchRow(key,r,skin,faction){const role=r.role||PRESETS[r.type]?.role||'player',entity=entityForBatch(r,skin,faction),profile=$('batchProfile').value||'runtime1';return {id:`${key}__${skin}__${faction}__${profile}`,recipeKey:key,recipe:JSON.parse(JSON.stringify(r)),role,entity,skin,faction,states:statesForBatch(role),profile,size:+$('batchSize').value||256};}
+function buildProductionMatrix(additive=false){const rows=additive?productionMatrix.slice():[],all=allRecipes();for(const key of batchRecipeKeys()){const r=all[key];if(!r)continue;const skins=batchValues($('batchSkinMode').value,$('skin').value,SKINS,r.skin||'reference');const factions=batchValues($('batchFactionMode').value,$('faction').value,FACTIONS,r.faction||'neutral');for(const skin of skins)for(const faction of factions){const row=makeBatchRow(key,r,skin,faction);if(!rows.some(x=>x.id===row.id))rows.push(row);}}
+  productionMatrix=normalizeMatrixEntities(rows);renderProductionMatrix();}
+function addCurrentToMatrix(){const r=captureRecipe(),key=slug($('recipeName').value||'current');const row=makeBatchRow(key,r,$('skin').value,$('faction').value);if(!productionMatrix.some(x=>x.id===row.id))productionMatrix.push(row);productionMatrix=normalizeMatrixEntities(productionMatrix);renderProductionMatrix();}
+function matrixAssetCount(rows=productionMatrix){return rows.reduce((n,r)=>n+r.states.length,0);}
+function renderProductionMatrix(){const body=$('matrixBody'),assets=matrixAssetCount();$('matrixFamilyPill').textContent=`families ${productionMatrix.length}`;$('matrixAssetPill').textContent=`assets ${assets}`;$('matrixHint').textContent=assets>MAX_BATCH_ASSETS?`Matrix exceeds safety cap ${MAX_BATCH_ASSETS}; narrow recipes/skins/factions.`:'Deterministic runtime queue ready.';body.innerHTML=productionMatrix.length?productionMatrix.map((r,i)=>`<tr><td>${i+1}</td><td>${r.recipeKey}</td><td>${r.role}</td><td>${r.entity}</td><td>${r.skin}</td><td>${r.faction}</td><td>${r.states.join('/')}</td><td>${r.profile}</td><td class="path">assets/sprites/${r.role}/${r.entity}/…</td></tr>`).join(''):'<tr><td colspan="9" style="color:#5d7085">matrix empty</td></tr>';}
+function batchIndexPayload(rows=productionMatrix){const payload={schema:'bonzookaa.shipforge.production_matrix.v2',generator:'M4NFROID SHIP FORGE v2.9.0',manifestTarget:BONZOOKA_MANIFEST_PATH,manifestBaseline:projectManifestEvidence,runtimePolicy:{dependencyDirection:'ship-forge -> generated sprites + metadata -> sprite_manifest -> SpriteManager -> game runtime',thrusters:'dynamic_external_fx',manifestPath:'sprites/<category>/<entity>/<state>.png',physicalPath:'assets/sprites/<category>/<entity>/<state>.png'},families:rows,assetCount:matrixAssetCount(rows)};payload.generationId=generationFingerprint(payload);return payload;}
+function exportBatchIndex(){dl(new Blob([JSON.stringify(batchIndexPayload(),null,2)],{type:'application/json'}),'shipforge_production_matrix.json');}
+function canvasBlob(canvas){return new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Canvas PNG encode failed')),'image/png'));}
+function mergeManifestEntry(target,payload){const role=payload.category,entity=payload.entity,state=payload.state,src=payload.manifestFragment[role][entity];target[role]??={};target[role][entity]??={size:src.size};target[role][entity].size=src.size;target[role][entity][state]=src[state];}
+function snapshotAuthoring(){return {recipe:captureRecipe(),recipeKey:$('recipe').value,state:$('stateName').value,entity:$('entity').value,fsize:$('fsize').value,profile:$('profile').value,pose:{...pose}};}
+function restoreAuthoring(snap){applyRecipeData(snap.recipe);if(allRecipes()[snap.recipeKey])$('recipe').value=snap.recipeKey;$('entity').value=snap.entity;$('fsize').value=snap.fsize;$('profile').value=snap.profile;if(AUTHORING_STATES[$('role').value].includes(snap.state)){$('stateName').value=snap.state;syncStateDefaults();}Object.assign(pose,snap.pose);buildAsset();applyPose();updateRuntimeView();}
+async function exportProductionZip(rows=productionMatrix,downloadStem=null){if(!rows.length){log('<b>Production Matrix ist leer.</b>');return;}const total=matrixAssetCount(rows);if(total>MAX_BATCH_ASSETS){log(`<b>Batch abgebrochen:</b> ${total} Assets > Safety Cap ${MAX_BATCH_ASSETS}.`);return;}if(typeof JSZip==='undefined'){log('<b>JSZip nicht verfügbar.</b> CDN/Netzwerk prüfen.');return;}let baseline;try{baseline=requireProjectManifest();}catch(error){log(`<b>Production ZIP gesperrt:</b> ${error.message}`);return;}const snap=snapshotAuthoring(),zip=new JSZip(),generatedManifest={},assetIndex=[];let done=0;$('matrixProgress').style.width='0%';
+  try{for(const family of rows){const r=JSON.parse(JSON.stringify(family.recipe));r.skin=family.skin;r.faction=family.faction;r.damage='auto';applyRecipeData(r);$('skin').value=family.skin;$('faction').value=family.faction;$('entity').value=family.entity;$('fsize').value=family.size;for(const state of family.states){$('stateName').value=state;syncStateDefaults();$('damageLevel').value='auto';buildAsset();const rendered=renderProductionProfile(family.profile||'runtime1',family.size,state),payload=buildRuntimePayload(family.profile||'runtime1');zip.file(payload.physicalFile,await canvasBlob(rendered.sheet));
+          if(rendered.emissive)zip.file(emissiveName(payload.physicalFile),await canvasBlob(rendered.emissive));
+          if(rendered.normal)zip.file(normalName(payload.physicalFile),await canvasBlob(rendered.normal));mergeManifestEntry(generatedManifest,payload);const metaPath=`tools/ship-forge/generated/meta/${payload.category}/${payload.entity}/${payload.state}.json`;zip.file(metaPath,JSON.stringify(payload,null,2));assetIndex.push({generationId:payload.generationId,recipe:family.recipeKey,skin:family.skin,faction:family.faction,category:payload.category,entity:payload.entity,state:payload.state,profile:family.profile||'runtime1',file:payload.manifestFragment[payload.category][payload.entity][payload.state].file,physicalFile:payload.physicalFile,metadata:metaPath});done++;$('matrixProgress').style.width=`${(done/total)*100}%`;log(`Batch ${done}/${total} · ${payload.category}/${payload.entity}/${payload.state} · ${family.profile||'runtime1'}`);await new Promise(requestAnimationFrame);}}
+    const mergedManifest=mergeSpriteManifest(baseline,generatedManifest),matrixPayload=batchIndexPayload(rows),assetPayload={schema:'bonzookaa.shipforge.batch_index.v2',generationId:matrixPayload.generationId,manifestBaseline:projectManifestEvidence,assets:assetIndex};zip.file(BONZOOKA_MANIFEST_PATH,JSON.stringify(mergedManifest,null,2));zip.file('tools/ship-forge/generated/production_matrix.json',JSON.stringify(matrixPayload,null,2));zip.file('tools/ship-forge/generated/asset_index.json',JSON.stringify(assetPayload,null,2));zip.file('tools/ship-forge/generated/README.txt','M4NFROID SHIP FORGE v2.9.0 · BONZOOKA production bundle\nGenerated PNGs use assets/sprites/<category>/<entity>/<state>.png.\nassets/sprite_manifest.json is the authoritative repository manifest with generated entries merged in.\nNo runtime imports Ship Forge or Three.js. Thruster flames are not baked into sprites.\n');const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:6}}),stem=downloadStem||`bonzooka_shipforge_production_${rows.length}families_${total}assets`;dl(blob,`${stem}.zip`);log(`Production ZIP fertig · <b>${rows.length} families / ${total} assets</b> · authoritative manifest merged from ${projectManifestEvidence.fingerprint}.`);
+  }catch(e){log('<b>Production ZIP fehlgeschlagen:</b> '+e.message);}finally{restoreAuthoring(snap);setTimeout(()=>{$('matrixProgress').style.width='0%';},800);}}
+
+async function exportCurrentProjectAsset(){const role=slug($('role').value),entity=slug($('entity').value),state=slug($('stateName').value),row=makeBatchRow('current',captureRecipe(),$('skin').value,$('faction').value);row.id=`current__${role}__${entity}__${state}`;row.role=role;row.entity=entity;row.states=[state];row.profile=$('profile').value;row.size=Math.max(64,+$('fsize').value||256);await exportProductionZip([row],`bonzooka_shipforge_${role}_${entity}_${state}_${row.profile}`);}
+
+function exportGlb(){log('exportiere GLB …');const oldF=flameGrp.visible,oldD=debugGrp.visible;flameGrp.visible=false;debugGrp.visible=false;const out=new THREE.Group();out.add(hullGrp.clone(true));new GLTFExporter().parse(out,res=>{dl(new Blob([res],{type:'model/gltf-binary'}),`${slug($('entity').value)}.glb`);flameGrp.visible=oldF;debugGrp.visible=oldD;draw();log('GLB gespeichert · Rumpf ohne Flames · Y-up · Nase −Z.');},err=>{flameGrp.visible=oldF;debugGrp.visible=oldD;log('<b>GLB-Export fehlgeschlagen:</b> '+err);},{binary:true});}
+
+$('role').onchange=()=>{populateTypes();populateStates();activePresetKey=$('type').value;applyPresetUi();buildAsset();};
+$('type').onchange=e=>{activePresetKey=e.target.value;applyPresetUi();buildAsset();};
+$('skin').onchange=()=>{syncEntity();buildAsset();};
+$('faction').onchange=()=>{buildAsset();};
+$('damageLevel').onchange=buildAsset;
+$('entity').oninput=updateRuntimeView;
+$('stateName').onchange=()=>{syncStateDefaults();if($('damageLevel').value==='auto')buildAsset();};
+$('variantSeed').onchange=buildAsset;
+$('variation').oninput=e=>{$('variationOut').textContent=e.target.value+'%';};$('variation').onchange=buildAsset;
+['modWings','modWeapons','modEngines','modDetails'].forEach(id=>$(id).onchange=buildAsset);
+['hullComponent','wingComponent','engineComponent','weaponComponent'].forEach(id=>$(id).onchange=buildAsset);
+$('bRebuild').onclick=buildAsset;$('bSyncEntity').onclick=()=>{syncEntity();buildAsset();};
+$('bank').oninput=e=>{pose.bank=+e.target.value;$('bankOut').textContent=pose.bank+'°';applyPose();};
+$('head').oninput=e=>{pose.head=+e.target.value;$('headOut').textContent=pose.head+'°';applyPose();};
+document.querySelectorAll('.dir').forEach(b=>b.onclick=()=>{pose.head=+b.dataset.h;$('head').value=pose.head;$('headOut').textContent=pose.head+'°';applyPose();});
+$('pitch').oninput=e=>{pose.pitch=+e.target.value;$('pitchOut').textContent=pose.pitch+'°';applyPose();};
+$('zoom').oninput=e=>{halfH=+e.target.value;$('zoomOut').textContent=halfH.toFixed(1);fit();};
+$('glow').oninput=e=>{if(M){M.glow.emissiveIntensity=+e.target.value;M.glass.emissiveIntensity=Math.max(.15,+e.target.value*.62);}$('glowOut').textContent=(+e.target.value).toFixed(2);draw();};
+function postPreview(){
+  if(!ship){log('<b>Kein Asset gebaut.</b>');return;}
+  const px=Math.min(1024,Math.max(256,+$('fsize').value||512));
+  const c=renderFrame(px,pose.bank,'bank',{fx:$('flames').checked});
+  fit();applyPose();
+  let ov=document.getElementById('postOverlay');
+  if(!ov){ov=document.createElement('div');ov.id='postOverlay';
+    ov.style.cssText='position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:50;border:1px solid #1b2635;background:#05070c;padding:6px;border-radius:4px;cursor:pointer';
+    ov.title='schließen'; ov.onclick=()=>ov.remove(); document.body.appendChild(ov);}
+  ov.innerHTML='';
+  const img=new Image(); img.src=c.toDataURL('image/png');
+  img.style.cssText='display:block;width:'+Math.min(px,320)+'px;height:auto;image-rendering:auto';
+  ov.appendChild(img);
+  const cap=document.createElement('div'); cap.style.cssText='color:#5d7085;font:11px ui-monospace;padding-top:4px';
+  cap.textContent=`POST ${px}px · SSAA ${$('quality').value}× · bloom ${$('bloom').value}% · shadows ${$('shadows').checked?'on':'off'} · tap = close`;
+  ov.appendChild(cap);
+  log(`Post-Preview: ${px}px · SSAA ${$('quality').value}× · bloom ${$('bloom').value}%.`);
+}
+
+
+/* ===== EMISSIVE MASK (v2.6) ============================================
+   Zweiter Pass: alle Materialien werden durch flache Basic-Materialien
+   ersetzt - Emissives in ihrer Leuchtfarbe, alles andere schwarz. Ergibt
+   eine Maske fuer additives Runtime-Licht (Bloom, Puls, Boost, Schaden). */
+const EMI_CACHE=new WeakMap();
+function emissiveProxy(mat){
+  if(EMI_CACHE.has(mat)) return EMI_CACHE.get(mat);
+  const e=mat.emissive, inten=mat.emissiveIntensity||0;
+  let m;
+  if(e && inten>0 && (e.r+e.g+e.b)>0.004){
+    const c=e.clone();                 // absolut: Leuchtfarbe pur, Glow-Slider bleibt aussen vor
+    const mx=Math.max(c.r,c.g,c.b);    // auf Vollausschlag normiert -> Runtime skaliert selbst
+    if(mx>0) c.multiplyScalar(1/mx);
+    m=new THREE.MeshBasicMaterial({color:c,toneMapped:false});
+  } else {
+    m=new THREE.MeshBasicMaterial({color:0x000000,toneMapped:false});
+  }
+  EMI_CACHE.set(mat,m); return m;
+}
+function withEmissiveMaterials(fn){
+  const restore=[];
+  hullGrp.traverse(o=>{ if(o.isMesh&&o.material&&!Array.isArray(o.material)){
+    restore.push([o,o.material]); o.material=emissiveProxy(o.material); } });
+  try{ return fn(); } finally { restore.forEach(([o,m])=>o.material=m); }
+}
+function emissiveName(base){ return base.replace(/\.png$/i,'') + '_emissive.png'; }
+function exportEmissiveFrame(){
+  if(!ship){log('<b>Kein Asset gebaut.</b>');return;}
+  const px=Math.max(64,+$('fsize').value||256);
+  const c=renderFrame(px,pose.bank,'bank',{emissive:true});
+  fit();applyPose();
+  c.toBlob(b=>{dl(b,emissiveName(`${slug($('entity').value)}_${slug($('stateName').value)}_${px}px`));
+    log(`Emissive-Maske exportiert · ${px}px · additiv blenden, Schwarz = kein Beitrag.`);});
+}
+
+
+/* ===== NORMAL MAP (v2.7) ===============================================
+   MeshNormalMaterial als Override: RGB = Normale im View-Space, also exakt
+   die Basis, die ein 2D-Shader fuer richtungsabhaengiges Licht braucht.
+   R = X (rechts), G = Y (oben im Bild), B = Z (zur Kamera). */
+const NORMAL_MAT = new THREE.MeshNormalMaterial();
+function withNormalMaterials(fn){
+  const ovr=scene.overrideMaterial, tm=renderer.toneMapping;
+  scene.overrideMaterial=NORMAL_MAT; renderer.toneMapping=THREE.NoToneMapping;
+  try{ return fn(); } finally { scene.overrideMaterial=ovr; renderer.toneMapping=tm; }
+}
+function normalName(base){ return base.replace(/\.png$/i,'') + '_normal.png'; }
+function exportNormalFrame(){
+  if(!ship){log('<b>Kein Asset gebaut.</b>');return;}
+  const px=Math.max(64,+$('fsize').value||256);
+  const c=renderFrame(px,pose.bank,'bank',{normal:true});
+  fit();applyPose();
+  c.toBlob(b=>{dl(b,normalName(`${slug($('entity').value)}_${slug($('stateName').value)}_${px}px`));
+    log(`Normal-Map exportiert · ${px}px · View-Space · R=x G=y B=z.`);});
+}
+
+
+/* ===== SILHOUETTE CHECK (v2.8) =========================================
+   Baut jeden Preset-Typ einzeln, rendert die reine Alpha-Silhouette bei
+   Gameplay-Groesse und misst die paarweise Ueberdeckung (IoU). Hoher IoU
+   = im Gefecht nicht auseinanderzuhalten. */
+const SIL_PX=72;
+function alphaMask(canvas,px){
+  const d=canvas.getContext('2d').getImageData(0,0,px,px).data;
+  const m=new Uint8Array(px*px);
+  for(let i=0,j=0;i<d.length;i+=4,j++) m[j]=d[i+3]>100?1:0;
+  return m;
+}
+function iou(a,b){let inter=0,uni=0;for(let i=0;i<a.length;i++){if(a[i]&&b[i])inter++;if(a[i]||b[i])uni++;}return uni?inter/uni:0;}
+function silhouetteCheck(){
+  if(!ship){log('<b>Kein Asset gebaut.</b>');return;}
+  const snap=snapshotAuthoring();
+  const q=$('quality').value, ao=$('ao').value, bl=$('bloom').value;
+  $('quality').value='2'; $('ao').value='0'; $('bloom').value='0';   // Bloom faelscht das Alpha
+  const keys=Object.keys(PRESETS), shots=[], masks=[], labels=[];
+  const savedPose={...pose}; Object.assign(pose,{head:0,pitch:0,bank:0});
+  for(const k of keys){
+    const p=PRESETS[k];
+    $('role').value=p.role; populateTypes(); activePresetKey=k; $('type').value=k;
+    populateStates(); applyPresetUi(); buildAsset();
+    const c=renderFrame(SIL_PX,0,'bank');
+    shots.push(c); masks.push(alphaMask(c,SIL_PX)); labels.push(p.label.replace(/^.*· /,''));
+  }
+  Object.assign(pose,savedPose);
+  $('quality').value=q; $('ao').value=ao; $('bloom').value=bl;
+  restoreAuthoring(snap);
+
+  const n=keys.length, CELL=86, PAD=16, LEFT=118, TOP=118;
+  const W=LEFT+n*CELL+PAD, H=TOP+n*CELL+56;
+  const cv=document.createElement('canvas'); cv.width=W*2; cv.height=H*2;
+  const c=cv.getContext('2d'); c.scale(2,2);
+  c.fillStyle='#05070c'; c.fillRect(0,0,W,H);
+  c.font='10px ui-monospace,Menlo,monospace'; c.textBaseline='middle';
+  c.fillStyle='#2fb4ff'; c.fillText('SILHOUETTE CHECK · '+SIL_PX+' px · IoU-Matrix',12,16);
+
+  // Kopfzeile: Silhouetten weiss auf dunkel
+  for(let i=0;i<n;i++){
+    const x=LEFT+i*CELL, y=34;
+    const t=document.createElement('canvas'); t.width=t.height=SIL_PX;
+    const tc=t.getContext('2d'); tc.drawImage(shots[i],0,0);
+    tc.globalCompositeOperation='source-in'; tc.fillStyle='#cfe0f2'; tc.fillRect(0,0,SIL_PX,SIL_PX);
+    c.drawImage(t,x+(CELL-SIL_PX)/2,y-4,SIL_PX*.82,SIL_PX*.82);
+    c.save(); c.translate(x+CELL/2,TOP-8); c.rotate(-Math.PI/4);
+    c.fillStyle='#8ea3ba'; c.fillText(labels[i],0,0); c.restore();
+  }
+  let worst=[0,'',''];
+  for(let r=0;r<n;r++){
+    c.fillStyle='#8ea3ba'; c.fillText(labels[r],10,TOP+r*CELL+CELL/2);
+    for(let k2=0;k2<n;k2++){
+      const v=r===k2?1:iou(masks[r],masks[k2]);
+      if(r<k2 && v>worst[0]) worst=[v,labels[r],labels[k2]];
+      const x=LEFT+k2*CELL, y=TOP+r*CELL;
+      const hot=r===k2?'#141c26':(v>.80?'#5a1f18':(v>.65?'#4a3512':'#12301c'));
+      c.fillStyle=hot; c.fillRect(x+2,y+2,CELL-4,CELL-4);
+      c.fillStyle=r===k2?'#3d4a5a':(v>.80?'#ff8a72':(v>.65?'#ffb03a':'#7ee08a'));
+      c.fillText(v.toFixed(2),x+CELL/2-12,y+CELL/2);
+    }
+  }
+  c.fillStyle='#5d7085';
+  c.fillText('IoU 1.00 = identische Silhouette · >0.80 rot = im Gefecht nicht unterscheidbar · <0.65 gruen = ok',12,H-18);
+
+  let ov=document.getElementById('silOverlay');
+  if(!ov){ov=document.createElement('div');ov.id='silOverlay';
+    ov.style.cssText='position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:60;max-width:96vw;max-height:92vh;overflow:auto;border:1px solid #1b2635;background:#05070c;padding:6px;border-radius:4px;cursor:pointer';
+    ov.title='schliessen'; ov.onclick=()=>ov.remove(); document.body.appendChild(ov);}
+  ov.innerHTML='';
+  const img=new Image(); img.src=cv.toDataURL('image/png');
+  img.style.cssText='display:block;width:min('+W+'px,94vw);height:auto'; ov.appendChild(img);
+  log(`Silhouette-Check: schlechtestes Paar <b>${worst[1]} / ${worst[2]}</b> · IoU ${worst[0].toFixed(2)}`);
+}
+
+/* ===== GAME-SCALE A/B (v2.5) ===========================================
+   Rendert dasselbe Asset zweimal: volle Pipeline vs. RAW (SSAA1, AO 0,
+   Bloom 0, Micro-Detail aus) und zeigt beide in Gameplay-Groessen ueber
+   Starfield. Die Diff-Zahl ist der gemessene mittlere Pixelunterschied. */
+const GS_SCALES=[128,96,64,48,32];
+function starfield(ctx,w,h,seed){
+  let t=seed>>>0; const rnd=()=>((t=(t*1664525+1013904223)>>>0)/4294967296);
+  const g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,'#05070c');g.addColorStop(.5,'#080d16');g.addColorStop(1,'#04060a');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  ctx.globalAlpha=.10;ctx.fillStyle='#1b3a63';
+  for(let i=0;i<6;i++){const x=rnd()*w,y=rnd()*h,r=60+rnd()*150;
+    const ng=ctx.createRadialGradient(x,y,0,x,y,r);ng.addColorStop(0,'#2a5f9e');ng.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=ng;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();}
+  ctx.globalAlpha=1;
+  for(let i=0;i<420;i++){const x=rnd()*w,y=rnd()*h,r=rnd()*1.25+.2,a=.25+rnd()*.75;
+    ctx.fillStyle=`rgba(${200+rnd()*55|0},${215+rnd()*40|0},255,${a.toFixed(2)})`;
+    ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();}
+}
+function scaleTo(src,px){
+  const c=document.createElement('canvas');c.width=c.height=px;
+  const x=c.getContext('2d');x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';
+  x.drawImage(src,0,0,px,px);return c;
+}
+function pixelDiff(a,b,px){
+  const da=a.getContext('2d').getImageData(0,0,px,px).data;
+  const db=b.getContext('2d').getImageData(0,0,px,px).data;
+  let sum=0,n=0;                                  // nur belegte Pixel zaehlen, sonst verduennt der leere Rand
+  for(let i=0;i<da.length;i+=4){
+    if(da[i+3]<10 && db[i+3]<10) continue;
+    sum+=Math.abs(da[i]-db[i])+Math.abs(da[i+1]-db[i+1])+Math.abs(da[i+2]-db[i+2])+Math.abs(da[i+3]-db[i+3]);
+    n+=4;
+  }
+  return n? sum/n/255*100 : 0;
+}
+function gameScaleAB(){
+  if(!ship){log('<b>Kein Asset gebaut.</b>');return;}
+  const MASTER=256;
+  const q=$('quality').value, ao=$('ao').value, bl=$('bloom').value, mi=$('micro').checked;
+  const full=renderFrame(MASTER,pose.bank,'bank');
+  $('quality').value='1'; $('ao').value='0'; $('bloom').value='0';
+  if(mi){ $('micro').checked=false; buildAsset(); }
+  const raw=renderFrame(MASTER,pose.bank,'bank');
+  $('quality').value=q; $('ao').value=ao; $('bloom').value=bl;
+  if(mi){ $('micro').checked=true; buildAsset(); }
+  fit(); applyPose();
+
+  const W=780, HEAD=34, ROWH=s=>s+34, SWARM=126;
+  const H=HEAD+GS_SCALES.reduce((a,s)=>a+ROWH(s),0)+SWARM+14;
+  const cv=document.createElement('canvas'); cv.width=W*2; cv.height=H*2;
+  const c=cv.getContext('2d'); c.scale(2,2);
+  starfield(c,W,H,(+$('variantSeed').value||42)*7919);
+  c.font='11px ui-monospace,Menlo,monospace'; c.textBaseline='middle';
+  c.fillStyle='#2fb4ff'; c.fillText('GAME SCALE A/B · '+slug($('entity').value),12,17);
+  c.fillStyle='#8ea3ba'; c.fillText('FULL PIPELINE',196,17); c.fillText('RAW (kein SSAA/AO/Bloom/Micro)',372,17);
+  c.fillStyle='#5d7085'; c.fillText('Δ Pixel',660,17);
+
+  const results=[]; let y=HEAD;
+  for(const px of GS_SCALES){
+    const a=scaleTo(full,px), b=scaleTo(raw,px), d=pixelDiff(a,b,px);
+    results.push([px,d]);
+    const cy=y+ROWH(px)/2;
+    c.fillStyle='#5d7085'; c.fillText(px+' px',14,cy);
+    c.drawImage(a,232-px/2,cy-px/2); c.drawImage(b,432-px/2,cy-px/2);
+    c.fillStyle=d>3?'#7ee08a':(d>1.2?'#ffb03a':'#ff6a4d');
+    c.fillText(d.toFixed(2)+' %',660,cy);
+    c.fillStyle='#243244'; c.fillRect(12,y+ROWH(px)-1,W-24,1);
+    y+=ROWH(px);
+  }
+  c.fillStyle='#8ea3ba'; c.fillText('SWARM READABILITY · 64 px · full pipeline',14,y+16);
+  const sw=scaleTo(full,64);
+  for(let i=0;i<7;i++){ const sx=40+i*100+(i%2)*18, sy=y+40+(i%3)*16; c.drawImage(sw,sx,sy); }
+
+  let ov=document.getElementById('gameOverlay');
+  if(!ov){ov=document.createElement('div');ov.id='gameOverlay';
+    ov.style.cssText='position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:60;max-width:96vw;max-height:92vh;overflow:auto;border:1px solid #1b2635;background:#05070c;padding:6px;border-radius:4px;cursor:pointer';
+    ov.title='schliessen'; ov.onclick=()=>ov.remove(); document.body.appendChild(ov);}
+  ov.innerHTML='';
+  const img=new Image(); img.src=cv.toDataURL('image/png');
+  img.style.cssText='display:block;width:min('+W+'px,94vw);height:auto';
+  ov.appendChild(img);
+  const cap=document.createElement('div');
+  cap.style.cssText='color:#5d7085;font:11px ui-monospace;padding-top:5px';
+  cap.textContent='Δ = mittlerer Pixelunterschied FULL vs RAW, nur ueber belegte Sprite-Pixel. Unter ~1.5 % zahlt die Post-Pipeline bei dieser Groesse kaum noch ein. Tap = schliessen.';
+  ov.appendChild(cap);
+  log('Game-Scale A/B: '+results.map(([p,d])=>`${p}px Δ${d.toFixed(2)}%`).join(' · '));
+}
+$('bGameScale').onclick=gameScaleAB;
+$('bSil').onclick=silhouetteCheck;
+$('bEmissive').onclick=exportEmissiveFrame;
+$('bNormal').onclick=exportNormalFrame;
+$('nrmMap').onchange=e=>log('Normal-Map bei Sheet/Profil/ZIP-Export: '+(e.target.checked?'AN (zweite Datei je Asset)':'aus')+'.');
+$('emiMap').onchange=e=>log('Emissive-Map bei Sheet/Profil/ZIP-Export: '+(e.target.checked?'AN (zweite Datei je Asset)':'aus')+'.');
+
+$('bPost').onclick=postPreview;
+$('shadows').onchange=e=>{renderer.shadowMap.enabled=e.target.checked;
+  scene.traverse(o=>{if(o.isMesh&&o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true);}});
+  draw();log('Self-Shadow '+(e.target.checked?'aktiv':'aus')+'.');};
+$('micro').onchange=()=>{buildAsset();log('Micro-Detail '+($('micro').checked?'aktiv':'aus')+' · Materialien neu gebaut.');};
+$('quality').onchange=()=>log(`Export-Qualität: SSAA ${$('quality').value}× (Viewport bleibt 1×).`);
+$('bloom').onchange=()=>log(`Bloom: ${$('bloom').value}%.`);
+$('ao').onchange=()=>log(`Ambient Occlusion: ${$('ao').value}%.`);
+$('flames').onchange=e=>{if(flameGrp)flameGrp.visible=e.target.checked;draw();};
+$('hardpoints').onchange=e=>{if(debugGrp)debugGrp.visible=e.target.checked;draw();};
+$('fsize').onchange=updateRuntimeView;$('bProjectAsset').onclick=exportCurrentProjectAsset;$('bProfile').onclick=exportProfile;$('bCustom').onclick=exportCustom;
+$('b4Bank').onclick=()=>exportSheet([0,14,28,42],'bank',4,`${slug($('entity').value)}_${slug($('stateName').value)}_bank_left4_${$('fsize').value}px.png`,'LOCKED BANK LEFT',{head:0,pitch:0});
+$('bFrame').onclick=()=>{const px=Math.max(64,+$('fsize').value||256),c=renderFrame(px,pose.bank,'bank');fit();applyPose();c.toBlob(b=>dl(b,`${slug($('entity').value)}_h${pose.head}_b${pose.bank}_p${pose.pitch}_${px}px.png`));log('Einzelframe gespeichert · flames OFF.');};
+$('bMeta').onclick=exportRuntimeMeta;$('bGlb').onclick=exportGlb;
+$('bManifestReload').onclick=loadProjectManifest;$('bManifestImport').onclick=()=>$('manifestImportFile').click();$('manifestImportFile').onchange=async e=>{await importProjectManifest(e.target.files?.[0]);e.target.value='';};
+$('bRecipeApply').onclick=applySelectedRecipe;$('bRecipeSave').onclick=saveCurrentRecipe;$('bRecipeDelete').onclick=deleteSelectedRecipe;$('bRecipeExport').onclick=exportSelectedRecipe;$('bRecipeImport').onclick=()=>$('recipeImportFile').click();$('recipeImportFile').onchange=e=>{importRecipeFile(e.target.files?.[0]);e.target.value='';};
+$('bMatrixBuild').onclick=()=>buildProductionMatrix(false);$('bMatrixAddCurrent').onclick=addCurrentToMatrix;$('bMatrixClear').onclick=()=>{productionMatrix=[];renderProductionMatrix();};$('bMatrixExport').onclick=()=>exportProductionZip();$('bMatrixJson').onclick=exportBatchIndex;
+['batchRecipeMode','batchSkinMode','batchFactionMode','batchStateMode','batchProfile','batchSize'].forEach(id=>$(id).onchange=()=>{if(productionMatrix.length)buildProductionMatrix(false);});
+$('bSpin').onclick=()=>{const t0=performance.now(),dur=2600;(function step(t){const k=(t-t0)/dur;if(k>=1){pose.bank=0;$('bank').value=0;$('bankOut').textContent='0°';applyPose();return;}pose.bank=Math.sin(k*Math.PI*2)*45;$('bank').value=Math.round(pose.bank);$('bankOut').textContent=Math.round(pose.bank)+'°';applyPose();requestAnimationFrame(step);})(t0);};
+
+populateSkins();populateFactions();loadUserRecipes();populateRecipes('mk1_reference');populateTypes();$('type').value=activePresetKey;populateStates();applyPresetUi();buildAsset();renderProductionMatrix();
+loadProjectManifest();
+log('v2.9.0 BONZOOKA integration loaded · canonical project assets · authoritative manifest merge · deterministic profiles · no runtime dependency.');
+</script>
+</body>
+</html>
