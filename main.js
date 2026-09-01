@@ -36,6 +36,8 @@ import { DepthRules } from './runtime/world/DepthRules.js';
 import { PauseUI } from './runtime/PauseUI.js';
 import { AntiExploit } from './runtime/AntiExploit.js';
 import { Contracts } from './runtime/Contracts.js';
+import { Director } from './runtime/Director.js';
+import { PoolManager, createBulletPool, createParticlePool, createDmgNumberPool } from './runtime/ObjectPool.js';
 
 // ============================================================
 // GAME CONTROLLER
@@ -58,6 +60,7 @@ const Game = {
   async init() {
     const legacyStartModal = document.getElementById('startModal');
     if (legacyStartModal) legacyStartModal.remove();
+    this.neutralizeLegacyBootArtifacts();
     // console.log(' BONZOOKAA Exploration Mode initializing...');
     
     // Setup canvas
@@ -77,10 +80,23 @@ const Game = {
     }
     
     // Load data
-    await loadAllData();
+
+    const dataLoaded = await loadAllData();
+
+
+    if (!dataLoaded) {
+      this.showBootError('Boot warning: one or more data files failed to load.\nIf you opened the game from Files/ZIP preview on iPad/iPhone, use the patched portable build or a real web host.');
+    }
     
-    // Load save
-    Save.load();
+    // Load save (guard against corruption)
+
+    try {
+      Save.load();
+    } catch(e) {
+      console.error('[BOOT] Save.load() crashed — clearing corrupted save:', e);
+      try { Save.delete(); } catch(_) {}
+      Save.load(); // retry with clean state
+    }
     
     // Register modules in State for cross-module access
     State.modules = {
@@ -88,17 +104,44 @@ const Game = {
       Enemies, Bullets, Pickups, Particles, UI,
       Camera, World, SceneManager, Crafting, Audio, PostFX,
       Missions, Prestige, Achievements, SpriteManager, DepthRules,
-      PauseUI, AntiExploit, Contracts
+      PauseUI, AntiExploit, Contracts, Director, PoolManager
     };
+    try { Save.bindLifecycle(); } catch(e) { console.error('[BOOT] Save.bindLifecycle:', e); }
     
-    // Initialize systems
-    Input.init(this.canvas);
-    UI.init();
-    Audio.init();
-    PostFX.init();
-    Camera.init(0, 0);
-    SpriteManager.init(); // Async — loads sprite_manifest.json if present
-    SceneManager.init();
+    // Initialize systems — each step guarded to prevent silent boot death
+
+    try { Input.init(this.canvas); } catch(e) { console.error('[BOOT] Input.init:', e); }
+
+    try { UI.init(); } catch(e) { console.error('[BOOT] UI.init:', e); }
+
+    try { Audio.init(); } catch(e) { console.error('[BOOT] Audio.init:', e); }
+
+    try { PostFX.init(); } catch(e) { console.error('[BOOT] PostFX.init:', e); }
+
+    try { Camera.init(0, 0); } catch(e) { console.error('[BOOT] Camera.init:', e); }
+
+    try { SpriteManager.init(); } catch(e) { console.error('[BOOT] SpriteManager.init:', e); }
+
+    try { SceneManager.init(); } catch(e) { console.error('[BOOT] SceneManager.init:', e); }
+    globalThis._bonzookaaState = State;
+
+    // v2.16.1: Director + pools — stable core wiring
+
+    try {
+      Director.init();
+      if (State.data.director) Director.loadConfig(State.data.director);
+    } catch(e) { console.error('[BOOT] Director:', e); }
+
+    try {
+      if (!PoolManager.get('bullet')) PoolManager.register(createBulletPool(300));
+      if (!PoolManager.get('particle')) PoolManager.register(createParticlePool(500));
+      if (!PoolManager.get('dmgNumber')) PoolManager.register(createDmgNumberPool(50));
+    } catch(e) { console.error('[BOOT] Pools:', e); }
+
+    try { this.ensureDirectorDebugUI(); } catch(e) { console.error('[BOOT] DebugUI:', e); }
+
+
+    this.forceCanonicalHubState('post-scene-init');
     
     // ═══ v2.15.0: Settings callback from HTML modal ═══
     window._settingsUpdate = (key, val) => {
@@ -131,26 +174,170 @@ const Game = {
     };
     
     // Calculate stats
-    Stats.calculate();
+
+    try { Stats.calculate(); } catch(e) { console.error('[BOOT] Stats.calculate failed:', e); }
     
     // Add starter items if new
+
     if (State.meta.stash.length === 0) {
-      this.addStarterItems();
+      try { this.addStarterItems(); } catch(e) { console.error('[BOOT] addStarterItems failed:', e); }
     }
     
     // Initialize act unlocks
-    this.initActUnlocks();
+
+    try { this.initActUnlocks(); } catch(e) { console.error('[BOOT] initActUnlocks failed:', e); }
+
+    // Canonical boot target: always enter hub explicitly.
+
+    this.forceCanonicalHubState('post-init');
     
     // Show hub
-    this.showHub();
+
+    try { this.showHub(); } catch(e) {
+      console.error('[BOOT] showHub failed:', e);
+
+      const actsEl = document.getElementById('actList');
+      if (actsEl) actsEl.innerHTML = `<div style="padding:20px;color:#ff4444;"><b>BOOT ERROR</b><pre style="color:#ff8866;font-size:11px;white-space:pre-wrap;">${e.message}\n${e.stack||''}</pre></div>`;
+    }
+    
+    // v2.16.4: Tutorial disabled — was blocking hub visibility on fresh installs
+    State.meta.tutorialComplete = true;
     
     // Start loop
+
+    try { Save.save('post-boot'); } catch(e) { console.error('[BOOT] initial save failed:', e); }
+    window._bonzookaBooted = true;
+    // Remove boot overlay
     this.lastTime = performance.now();
     requestAnimationFrame((t) => this.loop(t));
     
     // console.log(' Exploration mode ready');
+    if (State.runtimeHints?.localPreview) {
+      console.warn('Running in local preview mode. Embedded data fallbacks are active.');
+    }
   },
   
+  showBootError(message) {
+    let el = document.getElementById('bootErrorBanner');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'bootErrorBanner';
+      el.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:rgba(120,0,0,.92);color:#fff;padding:12px 14px;border:2px solid #ff6677;border-radius:10px;font:12px/1.4 sans-serif;white-space:pre-wrap;box-shadow:0 8px 24px rgba(0,0,0,.45)';
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+  },
+
+  neutralizeLegacyBootArtifacts() {
+    // Remove any old overlays that could block the canonical hub boot.
+    const legacyStartModal = document.getElementById('startModal');
+    if (legacyStartModal) legacyStartModal.remove();
+
+    const deathModal = document.getElementById('deathModal');
+    if (deathModal) deathModal.classList.remove('active', 'show');
+
+    document.body.classList.remove('paused-ui');
+  },
+
+  forceCanonicalHubState(reason = 'boot') {
+    // The legacy start modal used to act as a state anchor. After removing it,
+    // we must set the boot scene explicitly so mobile browsers do not inherit a
+    // stale combat/gameover state from interrupted transitions.
+    State.scene = 'hub';
+    State.run.active = false;
+    State.run.inCombat = false;
+    State.run.currentAct = null;
+    State.ui.paused = false;
+
+    SceneManager.currentScene = 'hub';
+    if (SceneManager.transition) {
+      SceneManager.transition.active = false;
+      SceneManager.transition.callback = null;
+      SceneManager.transition.progress = 0;
+      SceneManager.transition.phase = 'in';
+    }
+
+    const hubModal = document.getElementById('hubModal');
+    if (hubModal) hubModal.classList.add('active');
+    this.rescueBindHubEvents();
+
+    const deathModal = document.getElementById('deathModal');
+    if (deathModal) deathModal.classList.remove('active', 'show');
+
+    document.body.classList.remove('paused-ui');
+  },
+
+
+  rescueBindHubEvents() {
+    const hub = document.getElementById('hubModal');
+    if (!hub || hub.dataset.rescueBound === '1') return;
+    hub.dataset.rescueBound = '1';
+
+    const handler = (event) => {
+      const target = event.target.closest('[data-action], .hub-nav-btn, .act-card, .diff-dot');
+      if (!target || !hub.contains(target)) return;
+
+      const action = target.dataset.action ||
+        (target.classList.contains('hub-nav-btn') ? target.textContent.trim().toLowerCase() : '') ||
+        (target.classList.contains('diff-dot') ? 'start-portal' : '') ||
+        (target.classList.contains('act-card') ? 'start-portal' : '');
+
+      if (!action) return;
+      event.preventDefault();
+      event.stopPropagation();
+
+      try {
+        switch (action) {
+          case 'open-inventory': this.openInventoryFromHub(); break;
+          case 'open-skills': this.openSkillsFromHub(); break;
+          case 'open-pilot': this.openPilotFromHub(); break;
+          case 'open-crafting': this.openCrafting(); break;
+          case 'open-vendor': this.openVendor(); break;
+          case 'start-resume': this.startResume(target.dataset.lane || 'normal'); break;
+          case 'start-portal': this.startPortalDiff(target.dataset.portalId || 'portal1', target.dataset.difficulty || 'normal'); break;
+          case 'debug-resources': this.debugAddResources(); break;
+          case 'debug-unlock': this.debugUnlockAll(); break;
+          case 'do-prestige': this.doPrestige(); break;
+          case 'change-corruption': this.changeCorruption(Number(target.dataset.delta || 0)); break;
+          case 'export-save': this.exportSave(); break;
+          case 'import-save': this.importSave(); break;
+          case 'select-skin': this.selectSkin(target.dataset.skinId); break;
+          default: break;
+        }
+      } catch (err) {
+        console.error('[HUB ACTION FAILED]', action, err);
+        this.showHubActionError(action, err);
+      }
+    };
+
+    hub.addEventListener('click', handler, true);
+    hub.addEventListener('touchend', handler, { passive: false, capture: true });
+  },
+
+  showHubActionError(action, err) {
+    const actsEl = document.getElementById('actList');
+    const msg = (err && err.message) ? err.message : String(err || 'unknown error');
+    if (actsEl) {
+      const box = document.createElement('div');
+      box.style.cssText = 'margin-bottom:8px;padding:8px;border:1px solid rgba(255,80,80,0.35);border-radius:6px;background:rgba(120,0,0,0.18);color:#ff9a9a;font-size:11px;';
+      box.textContent = `Action ${action} failed: ${msg}`;
+      actsEl.prepend(box);
+    }
+    this.announce(`Hub action failed: ${action}`, 'boss');
+  },
+
+  openInventoryFromHub() {
+    this.openServiceModal('inventory', 'hub');
+  },
+
+  openSkillsFromHub() {
+    this.openServiceModal('skills', 'hub');
+  },
+
+  openPilotFromHub() {
+    this.openServiceModal('paragon', 'hub');
+  },
+
   resize(force = false) {
     const container = document.getElementById('gameContainer');
     if (!container || !this.canvas) return;
@@ -266,6 +453,9 @@ const Game = {
     
     // Update world (proximity spawning)
     World.update(dt);
+    
+    // Update Director pacing (L4D-style intensity cycling)
+    Director.update(dt, State.player, State.run);
     
     // Update player
     Player.update(dt, this.canvas, true); // true = exploration mode
@@ -402,8 +592,177 @@ const Game = {
     
     // Draw mission tracker (right side)
     this.drawMissionHUD(ctx);
+
+    // Director pacing HUD + debug sync
+    this.drawDirectorHUD(ctx);
+    this.updateDirectorDebugUI();
   },
   
+
+  // ========== DIRECTOR HUD + DEBUG ==========
+  drawDirectorHUD(ctx) {
+    if (!State.run.active) return;
+    const hud = Director.getHUDData?.();
+    if (!hud) return;
+
+    const sw = this.screenW;
+    const sh = this.screenH;
+    const x = sw / 2 - 72;
+    const y = 18;
+    const barW = 144;
+    const barH = 5;
+    const phaseColors = {
+      build: '#ffaa00', peak: '#ff4466', relax: '#44cc66', reward: '#ffd700', ambush: '#ff0044'
+    };
+    const phaseLabels = {
+      build: 'BUILD', peak: 'PEAK', relax: 'RELAX', reward: 'REWARD', ambush: '⚠ AMBUSH'
+    };
+    const color = phaseColors[hud.phase] || '#8899aa';
+    const progress = Math.max(0, Math.min(1, hud.intensity || 0));
+
+    // ═══ v2.16.3: SCREEN-WIDE DIRECTOR VISUAL EFFECTS ═══
+    
+    // Red vignette during PEAK/AMBUSH (intensity-based)
+    if (hud.phase === 'peak' || hud.phase === 'ambush') {
+      const vigAlpha = hud.phase === 'ambush' ? 0.15 + progress * 0.1 : progress * 0.08;
+      const grad = ctx.createRadialGradient(sw/2, sh/2, sh*0.3, sw/2, sh/2, sh*0.7);
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(1, `rgba(255,20,40,${vigAlpha})`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, sw, sh);
+    }
+    
+    // Gold shimmer during REWARD
+    if (hud.phase === 'reward') {
+      const rewardAlpha = 0.04 + Math.sin(performance.now() * 0.003) * 0.02;
+      const grad = ctx.createRadialGradient(sw/2, sh/2, sh*0.2, sw/2, sh/2, sh*0.6);
+      grad.addColorStop(0, `rgba(255,215,0,${rewardAlpha})`);
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, sw, sh);
+    }
+    
+    // Green calm during RELAX
+    if (hud.phase === 'relax') {
+      const relaxAlpha = 0.03;
+      ctx.fillStyle = `rgba(40,200,80,${relaxAlpha})`;
+      ctx.fillRect(0, 0, sw, sh);
+    }
+
+    // Phase transition announcement
+    if (this._lastDirectorPhase !== hud.phase) {
+      this._lastDirectorPhase = hud.phase;
+      const msgs = {
+        peak: '⚔️ ENEMY WAVE INCOMING!',
+        ambush: '⚠️ AMBUSH! BRACE YOURSELF!',
+        relax: '🛡️ BRIEF RESPITE...',
+        reward: '✨ LOOT BONUS ACTIVE!',
+        build: ''
+      };
+      const msg = msgs[hud.phase];
+      if (msg && State.ui) {
+        State.ui.announcement = { text: msg, timer: 2.5 };
+      }
+    }
+
+    // HUD bar
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.font = '8px Orbitron, sans-serif';
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.9;
+    ctx.fillText(`${phaseLabels[hud.phase] || 'DIRECTOR'} · INT ${(progress * 100).toFixed(0)}%`, sw / 2, y - 4);
+    ctx.globalAlpha = 1;
+
+    ctx.fillStyle = 'rgba(0,0,0,0.42)';
+    ctx.fillRect(x, y, barW, barH);
+    const gradient = ctx.createLinearGradient(x, y, x + barW, y);
+    gradient.addColorStop(0, '#44cc66');
+    gradient.addColorStop(0.5, '#ffaa00');
+    gradient.addColorStop(1, '#ff2244');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x, y, barW * progress, barH);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.strokeRect(x, y, barW, barH);
+
+    if (hud.phase === 'reward' || hud.phase === 'relax') {
+      ctx.font = '7px Orbitron, sans-serif';
+      ctx.fillStyle = color;
+      const txt = hud.phase === 'reward' ? `LOOT ×${(hud.modifiers?.lootDropMult || 1).toFixed(1)}` : `RELIEF ${Math.ceil(hud.remaining || 0)}s`;
+      ctx.fillText(txt, sw / 2, y + 14);
+    }
+    ctx.restore();
+  },
+
+  ensureDirectorDebugUI() {
+    if (document.getElementById('directorDebugRoot')) return;
+    const root = document.createElement('div');
+    root.id = 'directorDebugRoot';
+    root.style.cssText = 'position:fixed;right:14px;bottom:14px;z-index:9998;font-family:Orbitron,Arial,sans-serif;';
+
+    const btn = document.createElement('button');
+    btn.id = 'directorDebugBtn';
+    btn.textContent = 'DIR';
+    btn.style.cssText = 'width:56px;height:56px;border-radius:28px;border:2px solid #00ccff;background:rgba(5,10,18,.82);color:#00ccff;font-weight:700;box-shadow:0 0 18px rgba(0,180,255,.28);cursor:pointer;';
+
+    const panel = document.createElement('div');
+    panel.id = 'directorDebugPanel';
+    panel.style.cssText = 'display:none;position:absolute;right:0;bottom:68px;min-width:250px;padding:12px;border:1px solid #1d5f7c;border-radius:12px;background:rgba(5,10,18,.94);color:#d8f6ff;box-shadow:0 12px 32px rgba(0,0,0,.45);font-size:11px;line-height:1.45;';
+    panel.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong style="color:#00ccff;letter-spacing:1px;">DIRECTOR DEBUG</strong>
+        <span id="directorDebugScene" style="color:#88aabb;">scene</span>
+      </div>
+      <div id="directorDebugStats" style="display:grid;grid-template-columns:1fr auto;gap:4px 8px;margin-bottom:10px;"></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+        <button data-director-phase="build">BUILD</button>
+        <button data-director-phase="peak">PEAK</button>
+        <button data-director-phase="relax">RELAX</button>
+        <button data-director-phase="reward">REWARD</button>
+        <button data-director-phase="ambush">AMBUSH</button>
+        <button data-director-phase="reset">RESET</button>
+      </div>`;
+    panel.querySelectorAll('button').forEach(b => {
+      b.style.cssText = 'padding:6px 8px;border-radius:8px;border:1px solid #22556c;background:#0b1824;color:#d8f6ff;cursor:pointer;font:11px Orbitron,Arial,sans-serif;';
+      b.addEventListener('click', () => {
+        const phase = b.dataset.directorPhase;
+        if (phase === 'reset') Director.reset();
+        else Director.forcePhase?.(phase);
+        this.updateDirectorDebugUI();
+      });
+    });
+
+    btn.addEventListener('click', () => {
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+      this.updateDirectorDebugUI();
+    });
+
+    root.appendChild(panel);
+    root.appendChild(btn);
+    document.body.appendChild(root);
+  },
+
+  updateDirectorDebugUI() {
+    const stats = document.getElementById('directorDebugStats');
+    const scene = document.getElementById('directorDebugScene');
+    if (!stats || !scene) return;
+    const snap = Director.getDebugSnapshot?.();
+    if (!snap) return;
+    scene.textContent = `${SceneManager.getScene?.() || State.scene}`;
+    const rows = [
+      ['Phase', snap.phase],
+      ['Intensity', snap.intensity.toFixed(2)],
+      ['Stress', snap.stress.toFixed(2)],
+      ['Spawn budget', snap.spawnBudget.toFixed(2)],
+      ['Elite chance', `${(snap.eliteChance * 100).toFixed(1)}%`],
+      ['Reward mult', `${snap.rewardMultiplier.toFixed(2)}×`],
+      ['XP mult', `${snap.xpMultiplier.toFixed(2)}×`],
+      ['Relief timer', `${snap.reliefTimer.toFixed(1)}s`],
+      ['Depth', String(snap.depth)]
+    ];
+    stats.innerHTML = rows.map(([k,v]) => `<span style="color:#89a7b8;">${k}</span><strong style="color:#eafcff;">${v}</strong>`).join('');
+  },
+
   // ========== DIFFICULTY BADGE ==========
   drawDifficultyBadge(ctx) {
     const diff = State.run.difficulty || 'normal';
@@ -991,6 +1350,34 @@ const Game = {
     // POI markers (diamond shapes on minimap)
     World.drawMinimapPOIs(ctx, mapX, mapY, mapSize, mapSize, zone.width, zone.height);
     
+    // v2.16.4: Layout rooms + corridors on minimap
+    const layout = zone.layout;
+    if (layout) {
+      ctx.globalAlpha = 0.15;
+      // Corridors
+      ctx.strokeStyle = '#445566';
+      ctx.lineWidth = 3;
+      for (const cor of layout.corridors) {
+        const a = layout.rooms[cor.from], b = layout.rooms[cor.to];
+        ctx.beginPath();
+        ctx.moveTo(mapX + a.cx * scale, mapY + a.cy * scale);
+        ctx.lineTo(mapX + b.cx * scale, mapY + b.cy * scale);
+        ctx.stroke();
+      }
+      // Rooms
+      const ROOM_COLORS = { spawn: '#00ff88', boss: '#ff4455', treasure: '#ffcc00', ambush: '#ff8800', combat: '#335577', corridor: '#223344', gauntlet: '#664422', junction: '#446655', hidden: '#553388' };
+      for (const room of layout.rooms) {
+        ctx.fillStyle = ROOM_COLORS[room.type] || '#334455';
+        ctx.fillRect(
+          mapX + (room.cx - room.rx) * scale,
+          mapY + (room.cy - room.ry) * scale,
+          room.rx * 2 * scale,
+          room.ry * 2 * scale
+        );
+      }
+      ctx.globalAlpha = 1;
+    }
+    
     // Player (cyan dot)
     ctx.fillStyle = '#00ffff';
     ctx.fillRect(
@@ -1022,17 +1409,27 @@ const Game = {
   
   showHub() {
     try { Contracts.assertHubUI(); } catch(e) { console.warn(e.message); }
+    // v2.16.3: Exit combat fullscreen — restore panels
+    document.getElementById('app')?.classList.remove('combat-fullscreen');
+    // Close any combat modals
+    this.closeCombatServiceModal?.();
+    this._hardCloseLegacyCombatModals?.();
+    document.getElementById('_backToHub')?.remove();
+    
     SceneManager.goToHub();
     this.showModal('hubModal');
+    this.rescueBindHubEvents();
     this.renderHubUI();
+    setTimeout(() => this.resize(true), 50);
   },
   
   renderHubUI() {
+    const actsEl = document.getElementById('actList');
+    try {
     // Update hub stats
     const scrapEl = document.getElementById('hubScrap');
     const cellsEl = document.getElementById('hubCells');
     const levelEl = document.getElementById('hubLevel');
-    const actsEl = document.getElementById('actList');
     
     if (scrapEl) scrapEl.textContent = State.meta.scrap;
     if (cellsEl) cellsEl.textContent = State.run?.cells || 0;
@@ -1092,7 +1489,7 @@ const Game = {
           const tierForZone = tiers.find(t => lane.zone >= (t.zoneStart||1) && lane.zone <= (t.zoneEnd||Infinity)) || tiers[0];
           html += `
             <button style="flex:1;padding:6px 8px;background:rgba(0,0,0,0.3);border:1px solid ${lane.color}40;border-radius:4px;cursor:pointer;text-align:left;color:var(--text);" 
-                    onclick="Game.startResume('${lane.key}')">
+                    data-action="start-resume" data-lane="${lane.key}">
               <div style="font-size:9px;color:${lane.color};font-weight:bold;letter-spacing:1px;">${lane.label}</div>
               <div style="font-size:12px;color:#fff;font-family:monospace;">Z${lane.zone}</div>
               <div style="font-size:8px;color:#666;">${tierForZone?.name || ''}</div>
@@ -1136,7 +1533,7 @@ const Game = {
       html += `<div style="flex:1;padding:8px;background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.25);border-radius:6px;">`;
       html += `<div class="section-label" style="color:#a855f7;margin-bottom:4px;">🌟 PRESTIGE ${prestigeInfo.currentLevel > 0 ? 'LV' + prestigeInfo.currentLevel : ''}</div>`;
       if (prestigeInfo.canPrestige) {
-        html += `<button onclick="Game.doPrestige()" style="width:100%;padding:4px;background:#a855f7;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:10px;font-weight:bold;">PRESTIGE NOW</button>`;
+        html += `<button data-action="do-prestige" style="width:100%;padding:4px;background:#a855f7;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:10px;font-weight:bold;">PRESTIGE NOW</button>`;
         html += `<div style="font-size:8px;color:#a855f7;margin-top:3px;">Reset → +${prestigeInfo.nextTier.bonuses.damage}% DMG, +${prestigeInfo.nextTier.bonuses.maxHP}% HP, +${prestigeInfo.nextTier.bonuses.luck} Luck</div>`;
       } else if (prestigeInfo.currentLevel >= prestigeInfo.maxLevel) {
         html += `<div style="font-size:9px;color:#a855f7;">MAX PRESTIGE</div>`;
@@ -1152,11 +1549,11 @@ const Game = {
       html += `<div style="flex:1;padding:8px;background:rgba(255,33,85,0.06);border:1px solid rgba(255,33,85,0.25);border-radius:6px;">`;
       html += `<div class="section-label" style="color:#ff2155;margin-bottom:4px;">🔮 CORRUPTION: ${corr}</div>`;
       html += `<div style="display:flex;align-items:center;gap:6px;">`;
-      html += `<button onclick="Game.changeCorruption(-1)" style="width:24px;height:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:3px;color:#fff;cursor:pointer;font-size:14px;">−</button>`;
+      html += `<button data-action="change-corruption" data-delta="-1" style="width:24px;height:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:3px;color:#fff;cursor:pointer;font-size:14px;">−</button>`;
       html += `<div style="flex:1;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;position:relative;">`;
       html += `<div style="height:100%;width:${corr*10}%;background:linear-gradient(90deg,#ff2155,#ff6600);border-radius:4px;"></div>`;
       html += `</div>`;
-      html += `<button onclick="Game.changeCorruption(1)" style="width:24px;height:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:3px;color:#fff;cursor:pointer;font-size:14px;">+</button>`;
+      html += `<button data-action="change-corruption" data-delta="1" style="width:24px;height:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:3px;color:#fff;cursor:pointer;font-size:14px;">+</button>`;
       html += `</div>`;
       html += `<div style="font-size:8px;color:#888;margin-top:3px;">+${corr*15}% HP | +${corr*10}% DMG | +${corr*5}% Loot | +${corr*8}% XP</div>`;
       html += `</div>`;
@@ -1183,7 +1580,7 @@ const Game = {
             </div>`;
         } else {
           html += `
-            <div class="act-card" onclick="Game.startPortalDiff('${portal.id}','normal')" style="cursor:pointer;">
+            <div class="act-card" data-action="start-portal" data-portal-id="${portal.id}" data-difficulty="normal" style="cursor:pointer;">
               <div class="act-icon">${icon}</div>
               <div class="act-info">
                 <h3>${portal.name} <span class="zone-range">Z${portal.startZone}–${endZone}</span></h3>
@@ -1195,9 +1592,9 @@ const Game = {
                 </div>
               </div>
               <div class="diff-dots">
-                <div class="diff-dot diff-normal active" title="Normal (click card)" onclick="event.stopPropagation();Game.startPortalDiff('${portal.id}','normal')">N</div>
-                <div class="diff-dot diff-risk" title="Risk: +Loot +Danger" onclick="event.stopPropagation();Game.startPortalDiff('${portal.id}','risk')">R</div>
-                <div class="diff-dot diff-chaos" title="Chaos: Maximum danger" onclick="event.stopPropagation();Game.startPortalDiff('${portal.id}','chaos')">C</div>
+                <div class="diff-dot diff-normal active" title="Normal (click card)" data-action="start-portal" data-portal-id="${portal.id}" data-difficulty="normal">N</div>
+                <div class="diff-dot diff-risk" title="Risk: +Loot +Danger" data-action="start-portal" data-portal-id="${portal.id}" data-difficulty="risk">R</div>
+                <div class="diff-dot diff-chaos" title="Chaos: Maximum danger" data-action="start-portal" data-portal-id="${portal.id}" data-difficulty="chaos">C</div>
               </div>
             </div>`;
         }
@@ -1253,10 +1650,37 @@ const Game = {
         html += `</div>`;
       }
       
+      // ═══ SHIP SKINS ═══
+      const skins = State.data.skins;
+      if (skins) {
+        const currentSkin = State.meta.selectedSkin || 'default';
+        html += `<div style="padding:8px;background:rgba(0,255,200,0.03);border:1px solid rgba(0,255,200,0.15);border-radius:6px;margin-top:8px;">`;
+        html += `<div class="section-label" style="margin-bottom:6px;color:#00ffcc;">🎨 SHIP SKINS</div>`;
+        html += `<div style="display:flex;flex-wrap:wrap;gap:4px;">`;
+        for (const [skinId, skinDef] of Object.entries(skins)) {
+          if (skinId.startsWith('_')) continue;
+          const unlocked = this.isSkinUnlocked(skinId, skinDef);
+          const selected = skinId === currentSkin;
+          const border = selected ? '2px solid #00ffcc' : unlocked ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(255,255,255,0.06)';
+          const bg = selected ? 'rgba(0,255,200,0.12)' : unlocked ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.3)';
+          const opacity = unlocked ? '1' : '0.4';
+          const cursor = unlocked ? 'pointer' : 'default';
+          const hullPreview = skinDef.hull?.[0] || '#888';
+          html += `<div title="${skinDef.name}${unlocked ? '' : ' — ' + skinDef.description}" 
+            style="padding:4px 8px;background:${bg};border:${border};border-radius:4px;opacity:${opacity};cursor:${cursor};text-align:center;min-width:48px;"
+            ${unlocked ? `data-action="select-skin" data-skin-id="${skinId}"` : ''}>
+            <div style="font-size:14px;">${skinDef.icon}</div>
+            <div style="font-size:7px;color:${selected ? '#00ffcc' : '#888'};margin-top:2px;white-space:nowrap;">${skinDef.name}</div>
+            <div style="width:20px;height:3px;background:${hullPreview};border-radius:1px;margin:2px auto 0;"></div>
+          </div>`;
+        }
+        html += `</div></div>`;
+      }
+      
       // ═══ SAVE EXPORT/IMPORT ═══
       html += `<div style="display:flex;gap:6px;margin-top:8px;">`;
-      html += `<button onclick="Game.exportSave()" style="flex:1;padding:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:#aaa;cursor:pointer;font-size:9px;">📤 Export Save</button>`;
-      html += `<button onclick="Game.importSave()" style="flex:1;padding:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:#aaa;cursor:pointer;font-size:9px;">📥 Import Save</button>`;
+      html += `<button data-action="export-save" style="flex:1;padding:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:#aaa;cursor:pointer;font-size:9px;">📤 Export Save</button>`;
+      html += `<button data-action="import-save" style="flex:1;padding:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:#aaa;cursor:pointer;font-size:9px;">📥 Import Save</button>`;
       html += `</div>`;
       
       actsEl.innerHTML = html;
@@ -1264,6 +1688,10 @@ const Game = {
     
     // Update UI panels
     UI.renderAll();
+    } catch (err) {
+      console.error('[HUB] renderHubUI CRASHED:', err);
+      if (actsEl) actsEl.innerHTML = `<div style="padding:20px;color:#ff4444;font-size:14px;"><b>HUB RENDER ERROR</b><br><pre style="color:#ff8866;font-size:11px;white-space:pre-wrap;margin-top:8px;">${err.message}\n\n${err.stack || ''}</pre></div>`;
+    }
   },
   
   // ========== GAME FLOW ==========
@@ -1279,6 +1707,13 @@ const Game = {
     
     // Reset run state
     resetRun();
+    Director.reset();
+    if (State.data.director) Director.loadConfig(State.data.director);
+    try {
+      const overrides = State.data?.director?.difficultyOverrides?.[difficulty];
+      if (overrides) Director.loadConfig(overrides);
+    } catch (e) { /* safe */ }
+    PoolManager.releaseAll();
     State.run.active = true;
     State.run.currentAct = actId;
     
@@ -1329,6 +1764,13 @@ const Game = {
     this.hideModal('hubModal');
     
     resetRun();
+    Director.reset();
+    if (State.data.director) Director.loadConfig(State.data.director);
+    try {
+      const overrides = State.data?.director?.difficultyOverrides?.[difficulty];
+      if (overrides) Director.loadConfig(overrides);
+    } catch (e) { /* safe */ }
+    PoolManager.releaseAll();
     State.run.active = true;
     State.run.currentAct = tier.id;
     State.run.difficulty = difficulty;
@@ -1370,8 +1812,19 @@ const Game = {
     const seed = SeededRandom.fromString(portal.tierId + '_' + Date.now());
 
     this.hideModal('hubModal');
+    
+    // v2.16.3: Combat fullscreen — hide panels, expand canvas
+    document.getElementById('app')?.classList.add('combat-fullscreen');
+    setTimeout(() => this.resize(true), 50);
 
     resetRun();
+    Director.reset();
+    if (State.data.director) Director.loadConfig(State.data.director);
+    try {
+      const overrides = State.data?.director?.difficultyOverrides?.[difficulty];
+      if (overrides) Director.loadConfig(overrides);
+    } catch (e) { /* safe */ }
+    PoolManager.releaseAll();
     State.run.active = true;
     State.run.currentAct = portal.tierId;
     State.run.difficulty = difficulty;
@@ -1390,6 +1843,8 @@ const Game = {
 
   returnToHub() {
     SceneManager.returnToHub('portal');
+    Director.reset();
+    PoolManager.releaseAll();
     
     // Add earned resources
     State.meta.scrap += State.run.scrapEarned;
@@ -1513,6 +1968,7 @@ const Game = {
   onBossKilled(actId) {
     // Track mission boss kills
     try { Missions.onEnemyKill({ isBoss: true, isElite: false }); } catch(e) {}
+    try { Achievements.onEnemyKill({ isBoss: true, isElite: false }); } catch(e) {} // v2.16.0
     
     // Mark act as completed
     if (!State.meta.actsCompleted) State.meta.actsCompleted = {};
@@ -1538,6 +1994,8 @@ const Game = {
   
   onDeath() {
     State.run.active = false;
+    Director.reset();
+    PoolManager.releaseAll();
     try { Contracts.assertDeathUI(); } catch(e) { console.warn(e.message); }
     
     // Add earnings (partial)
@@ -1591,39 +2049,71 @@ const Game = {
   
   openVendor() {
     try { Contracts.assertVendorUI(); } catch(e) { console.warn(e.message); }
-    State.ui.paused = true;
-    UI.renderVendor();
-    this.showModal('vendorModal');
+    this.openServiceModal('forge', 'hub');
   },
   
   closeVendor() {
+    const modal = this._getCombatServiceModal?.();
+    if (modal?.classList.contains('active') && this._combatServiceTab === 'forge') {
+      this.closeCombatServiceModal();
+      return;
+    }
     this.hideModal('vendorModal');
     State.ui.paused = false;
     Stats.calculate();
+    Save.save();
     UI.renderShipStats();
+    this.showHub();
   },
 
   // ========== CRAFTING UI ==========
   _craftSelectedItem: null,
   _craftPickerOpen: false,
 
-  openCrafting() {
+  _resetCraftingState() {
     this._craftSelectedItem = null;
     this._craftPickerOpen = false;
     this._updateCraftCurrencies();
     this._renderCraftRecipes();
-    document.getElementById('craftStashPick').style.display = 'none';
-    document.getElementById('craftResult').className = 'craft-result';
-    document.getElementById('craftResult').textContent = '';
-    document.getElementById('craftItemSlot').innerHTML = '<span class="slot-label">Select Item</span>';
-    document.getElementById('craftItemName').textContent = '--';
-    document.getElementById('craftSalvageBtn').disabled = true;
-    this.showModal('craftModal');
+    const picker = document.getElementById('craftStashPick');
+    if (picker) picker.style.display = 'none';
+    const result = document.getElementById('craftResult');
+    if (result) {
+      result.className = 'craft-result';
+      result.textContent = '';
+      result.innerHTML = '';
+    }
+    const slot = document.getElementById('craftItemSlot');
+    if (slot) {
+      slot.innerHTML = '<span class="slot-label">Select Item</span>';
+      slot.className = 'craft-item-card';
+      slot.style.borderColor = '';
+      slot.style.borderStyle = '';
+    }
+    const name = document.getElementById('craftItemName');
+    if (name) {
+      name.textContent = '--';
+      name.style.color = '';
+    }
+    const salvage = document.getElementById('craftSalvageBtn');
+    if (salvage) salvage.disabled = true;
+  },
+
+  openCrafting() {
+    this._resetCraftingState();
+    this.openServiceModal('crafting', 'hub');
   },
 
   closeCrafting() {
+    const modal = this._getCombatServiceModal?.();
+    if (modal?.classList.contains('active') && this._combatServiceTab === 'crafting') {
+      this.closeCombatServiceModal();
+      return;
+    }
     this.hideModal('craftModal');
+    Save.save();
     UI.renderAll();
+    this.showHub();
   },
 
   _updateCraftCurrencies() {
@@ -2034,6 +2524,425 @@ const Game = {
     const m = Math.floor(s / 60);
     const sec = Math.floor(s % 60);
     return `${m}:${sec.toString().padStart(2, '0')}`;
+  },
+
+  // ═══════════════════════════════════════════════════
+  // ONBOARDING / TUTORIAL SYSTEM (v2.16.3)
+  // ═══════════════════════════════════════════════════
+
+  _tutorialSteps: [
+    {
+      title: 'WELCOME, PILOT',
+      body: 'You command a ship in an endless space. Destroy enemies, collect loot, and grow stronger with every zone.',
+      keys: []
+    },
+    {
+      title: 'MOVEMENT & COMBAT',
+      body: 'Move with WASD. Aim and fire with mouse. Your weapon overheats — release to cool down!',
+      keys: [
+        { key: 'WASD', label: 'Move' },
+        { key: 'MOUSE', label: 'Aim & Fire' },
+      ]
+    },
+    {
+      title: 'ABILITIES',
+      body: 'Three powerful abilities on cooldown. Use them to survive tough encounters.',
+      keys: [
+        { key: 'Q', label: 'Dash (invuln)' },
+        { key: 'R', label: 'Shield Burst' },
+        { key: 'F', label: 'Orbital Strike' },
+      ]
+    },
+    {
+      title: 'THE HUB',
+      body: 'Between zones, visit the Command Deck. Equip gear, craft, spend stat points, and choose your next destination.',
+      keys: [
+        { key: 'I', label: 'Inventory' },
+        { key: 'C', label: 'Crafting' },
+        { key: 'V', label: 'Vendor' },
+      ]
+    },
+    {
+      title: 'LOOT & SYNERGIES',
+      body: 'Items have rarity tiers, affixes with synergy tags, and a Power Score. Equip 3+ items sharing a tag to activate set bonuses!',
+      keys: []
+    },
+    {
+      title: 'CHOOSE A PORTAL',
+      body: 'Pick a portal on the left to enter a zone. Try Normal first — Risk and Chaos offer better loot but deadlier enemies.',
+      keys: [
+        { key: 'H', label: 'Controls overlay (anytime)' },
+      ]
+    }
+  ],
+
+  _tutorialStep: 0,
+
+  startTutorial() {
+    if (State.meta.tutorialComplete) return;
+    this._tutorialStep = 0;
+    this._showTutorialStep();
+  },
+
+  _showTutorialStep() {
+    const steps = this._tutorialSteps;
+    if (this._tutorialStep >= steps.length) {
+      this.completeTutorial();
+      return;
+    }
+    const step = steps[this._tutorialStep];
+    const overlay = document.getElementById('tutorialOverlay');
+    const title = document.getElementById('tutTitle');
+    const body = document.getElementById('tutBody');
+    const keys = document.getElementById('tutKeys');
+    const btn = document.getElementById('tutBtn');
+    const stepEl = document.getElementById('tutStep');
+    if (!overlay) return;
+
+    title.textContent = step.title;
+    body.textContent = step.body;
+    keys.innerHTML = step.keys.map(k =>
+      `<div class="tut-key"><span>${k.key}</span> ${k.label}</div>`
+    ).join('');
+    btn.textContent = this._tutorialStep < steps.length - 1 ? 'NEXT' : 'START PLAYING';
+    stepEl.textContent = `${this._tutorialStep + 1} / ${steps.length}`;
+    overlay.classList.add('active');
+  },
+
+  advanceTutorial() {
+    this._tutorialStep++;
+    if (this._tutorialStep >= this._tutorialSteps.length) {
+      this.completeTutorial();
+    } else {
+      this._showTutorialStep();
+    }
+  },
+
+  completeTutorial() {
+    const overlay = document.getElementById('tutorialOverlay');
+    if (overlay) overlay.classList.remove('active');
+    State.meta.tutorialComplete = true;
+    Save.save();
+  },
+
+  toggleControlsOverlay() {
+    const el = document.getElementById('controlsOverlay');
+    if (el) el.classList.toggle('active');
+  },
+
+  // ═══ SHIP SKINS ═══
+  isSkinUnlocked(skinId, skinDef) {
+    if (skinId === 'default') return true;
+    const unlock = skinDef?.unlock;
+    if (!unlock || unlock === 'always') return true;
+    
+    switch (unlock.type) {
+      case 'prestige':
+        return (State.meta.prestige?.level || 0) >= (unlock.level || 1);
+      case 'depth': {
+        const hz = State.meta.highestZones || {};
+        const best = Math.max(hz.normal || 0, hz.risk || 0, hz.chaos || 0);
+        return best >= (unlock.zone || 1);
+      }
+      case 'achievement':
+        return State.meta.achievements?.[unlock.id]?.completed === true;
+      default:
+        return false;
+    }
+  },
+
+  selectSkin(skinId) {
+    const skins = State.data.skins;
+    if (!skins?.[skinId]) return;
+    if (!this.isSkinUnlocked(skinId, skins[skinId])) return;
+    State.meta.selectedSkin = skinId;
+    Save.save();
+    this.renderHubUI();
+  },
+
+  // ═══ UNIFIED SERVICE MODAL (v2.16.6D) ═══
+  _combatServiceTab: 'inventory',
+  _serviceModalOrigin: 'combat',
+
+  _getCombatServiceModal() {
+    return document.getElementById('combatServiceModal');
+  },
+
+  _captureMountRef(node, saveKey) {
+    if (!node || this[saveKey]) return;
+    this[saveKey] = { parent: node.parentNode, next: node.nextSibling };
+  },
+
+  _mountNodeToHost(node, hostId, saveKey) {
+    const host = document.getElementById(hostId);
+    if (!node || !host) return;
+    this._captureMountRef(node, saveKey);
+    if (node.parentNode !== host) {
+      host.replaceChildren();
+      host.appendChild(node);
+    }
+  },
+
+  _restoreMountedNode(node, saveKey) {
+    const ref = this[saveKey];
+    if (!node || !ref?.parent) return;
+    if (node.parentNode === ref.parent) return;
+    if (ref.next && ref.next.parentNode === ref.parent) ref.parent.insertBefore(node, ref.next);
+    else ref.parent.appendChild(node);
+  },
+
+  _hardCloseLegacyCombatModals() {
+    const legacyIds = [
+      'combatInventoryModal',
+      'combatParagonModal',
+      'combatSkillModal',
+      'combatStatsModal',
+      'combatStatsModalOld',
+      'craftModal',
+      'vendorModal'
+    ];
+    for (const id of legacyIds) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      el.classList.remove('active');
+      el.setAttribute('aria-hidden', 'true');
+      el.style.display = 'none';
+      el.style.pointerEvents = 'none';
+    }
+  },
+
+  _serviceSceneLabel() {
+    return this._serviceModalOrigin === 'hub' ? 'STATION SERVICE' : 'PAUSED';
+  },
+
+  _updateCombatServiceHeader(tab) {
+    const title = document.getElementById('combatServiceTitle');
+    const subtitle = document.getElementById('combatServiceSubtitle');
+    const statPoints = document.getElementById('combatServiceStatPoints');
+    const skillPoints = document.getElementById('combatServiceSkillPoints');
+    const sceneLabel = this._serviceSceneLabel();
+    const map = {
+      inventory: { title: 'LOADOUT', subtitle: `${sceneLabel} · Inventory / stash / quick stats` },
+      paragon: { title: 'PARAGON', subtitle: `${sceneLabel} · Ship stats + paragon choices` },
+      skills: { title: 'SKILLS', subtitle: `${sceneLabel} · Skill trees and ranks` },
+      crafting: { title: 'CRAFTING', subtitle: `${sceneLabel} · Reroll, enchant, salvage, refine` },
+      forge: { title: 'FORGE', subtitle: `${sceneLabel} · Sockets, gems, corruption, final upgrades` }
+    };
+    const cfg = map[tab] || map.inventory;
+    if (title) title.textContent = cfg.title;
+    if (subtitle) subtitle.textContent = cfg.subtitle;
+    if (statPoints) statPoints.textContent = String(State.meta.statPoints || 0);
+    if (skillPoints) skillPoints.textContent = String(State.meta.skillPoints || 0);
+  },
+
+  _renderCombatServiceQuickStats() {
+    const qs = document.getElementById('combatServiceQuickStats');
+    if (!qs) return;
+    const p = State.player || {};
+    const entries = [
+      ['DMG', Math.round(p.damage || 0)],
+      ['SPD', Math.round(p.speed || 0)],
+      ['CRIT', ((p.critChance || 0)).toFixed(1) + '%'],
+      ['HP', Math.round(p.hp || 0) + '/' + Math.round(p.maxHP || 0)],
+      ['SHD', Math.round(p.shield || 0) + '/' + Math.round(p.maxShield || 0)],
+      ['LUCK', Math.round(p.luck || 0)],
+      ['RATE', (p.fireRate || 0).toFixed(2)],
+      ['HEAT', Math.round(p.heat || 0) + '/' + Math.round(p.heatMax || 100)]
+    ];
+    qs.innerHTML = entries
+      .filter(([, value]) => value !== '0/0' && value !== 0 && value !== '0.00')
+      .map(([label, value]) => `<div class="stat-pill">${label}: <span>${value}</span></div>`)
+      .join('');
+  },
+
+  _mountCombatServiceDom() {
+    this._mountNodeToHost(document.getElementById('equipmentGrid'), 'combatServiceEquipmentGrid', '_savedEquipParent');
+    this._mountNodeToHost(document.getElementById('stashGrid'), 'combatServiceStashGrid', '_savedStashParent');
+    this._mountNodeToHost(document.getElementById('shipStats'), 'combatServiceShipStats', '_savedStatsParent');
+    this._mountNodeToHost(document.getElementById('pilotStats'), 'combatServicePilotStats', '_savedParagonParent');
+    this._mountNodeToHost(document.getElementById('skillTrees'), 'combatServiceSkillTrees', '_savedSkillsParent');
+
+    this._mountNodeToHost(document.querySelector('#craftModal .craft-currencies'), 'combatServiceCraftCurrenciesHost', '_savedCraftCurrenciesParent');
+    this._mountNodeToHost(document.getElementById('craftItemSlot'), 'combatServiceCraftItemSlotHost', '_savedCraftItemSlotParent');
+    this._mountNodeToHost(document.getElementById('craftItemName'), 'combatServiceCraftItemNameHost', '_savedCraftItemNameParent');
+    this._mountNodeToHost(document.getElementById('craftResult'), 'combatServiceCraftResultHost', '_savedCraftResultParent');
+    this._mountNodeToHost(document.getElementById('craftSalvageBtn'), 'combatServiceCraftSalvageHost', '_savedCraftSalvageParent');
+    this._mountNodeToHost(document.getElementById('craftRecipeLabel'), 'combatServiceCraftRecipeLabelHost', '_savedCraftRecipeLabelParent');
+    this._mountNodeToHost(document.getElementById('craftRecipes'), 'combatServiceCraftRecipesHost', '_savedCraftRecipesParent');
+    this._mountNodeToHost(document.getElementById('craftStashPick'), 'combatServiceCraftPickerHost', '_savedCraftPickerParent');
+
+    this._mountNodeToHost(document.getElementById('vendorCells'), 'combatServiceVendorCurrenciesHost', '_savedVendorCellsParent');
+    this._mountNodeToHost(document.getElementById('vendorGrid'), 'combatServiceVendorGridHost', '_savedVendorGridParent');
+    this._mountNodeToHost(document.getElementById('vendorDetail'), 'combatServiceVendorDetailHost', '_savedVendorDetailParent');
+  },
+
+  _restoreCombatServiceDom() {
+    this._restoreMountedNode(document.getElementById('equipmentGrid'), '_savedEquipParent');
+    this._restoreMountedNode(document.getElementById('stashGrid'), '_savedStashParent');
+    this._restoreMountedNode(document.getElementById('shipStats'), '_savedStatsParent');
+    this._restoreMountedNode(document.getElementById('pilotStats'), '_savedParagonParent');
+    this._restoreMountedNode(document.getElementById('skillTrees'), '_savedSkillsParent');
+
+    this._restoreMountedNode(document.querySelector('.craft-currencies'), '_savedCraftCurrenciesParent');
+    this._restoreMountedNode(document.getElementById('craftItemSlot'), '_savedCraftItemSlotParent');
+    this._restoreMountedNode(document.getElementById('craftItemName'), '_savedCraftItemNameParent');
+    this._restoreMountedNode(document.getElementById('craftResult'), '_savedCraftResultParent');
+    this._restoreMountedNode(document.getElementById('craftSalvageBtn'), '_savedCraftSalvageParent');
+    this._restoreMountedNode(document.getElementById('craftRecipeLabel'), '_savedCraftRecipeLabelParent');
+    this._restoreMountedNode(document.getElementById('craftRecipes'), '_savedCraftRecipesParent');
+    this._restoreMountedNode(document.getElementById('craftStashPick'), '_savedCraftPickerParent');
+
+    this._restoreMountedNode(document.getElementById('vendorCells'), '_savedVendorCellsParent');
+    this._restoreMountedNode(document.getElementById('vendorGrid'), '_savedVendorGridParent');
+    this._restoreMountedNode(document.getElementById('vendorDetail'), '_savedVendorDetailParent');
+  },
+
+  _renderServiceCraftingPage() {
+    try { this._updateCraftCurrencies(); } catch (e) { console.warn('[SERVICE MODAL] _updateCraftCurrencies failed', e); }
+    try { this._renderCraftRecipes(); } catch (e) { console.warn('[SERVICE MODAL] _renderCraftRecipes failed', e); }
+  },
+
+  _renderServiceForgePage() {
+    try { UI.renderVendor(); } catch (e) { console.warn('[SERVICE MODAL] renderVendor failed', e); }
+    try {
+      if (UI._forgeRecipeId) UI.selectForgeRecipe(UI._forgeRecipeId);
+    } catch (e) { console.warn('[SERVICE MODAL] selectForgeRecipe refresh failed', e); }
+  },
+
+  _renderCombatServiceModal() {
+    this._mountCombatServiceDom();
+    try { Stats.calculate(); } catch (e) { console.warn('[SERVICE MODAL] Stats.calculate failed', e); }
+    try { UI.renderEquipment(); } catch (e) { console.warn('[SERVICE MODAL] renderEquipment failed', e); }
+    try { UI.renderStash(); } catch (e) { console.warn('[SERVICE MODAL] renderStash failed', e); }
+    try { UI.renderPilotStats(); } catch (e) { console.warn('[SERVICE MODAL] renderPilotStats failed', e); }
+    try { UI.renderSkillTrees(); } catch (e) { console.warn('[SERVICE MODAL] renderSkillTrees failed', e); }
+    try { UI.renderShipStats(); } catch (e) { console.warn('[SERVICE MODAL] renderShipStats failed', e); }
+    this._renderCombatServiceQuickStats();
+    this._updateCombatServiceHeader(this._combatServiceTab || 'inventory');
+
+    if (this._combatServiceTab === 'crafting') this._renderServiceCraftingPage();
+    if (this._combatServiceTab === 'forge') this._renderServiceForgePage();
+  },
+
+  switchCombatServiceTab(tab = 'inventory') {
+    const modal = this._getCombatServiceModal();
+    if (!modal) return;
+    this._combatServiceTab = tab;
+
+    modal.querySelectorAll('[data-service-tab]').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.serviceTab === tab);
+    });
+    modal.querySelectorAll('[data-service-page]').forEach((page) => {
+      page.classList.toggle('active', page.dataset.servicePage === tab);
+    });
+    this._renderCombatServiceModal();
+  },
+
+  openServiceModal(tab = 'inventory', origin = 'hub') {
+    const scene = SceneManager.getScene?.() || State.scene;
+    if (origin === 'combat' && scene !== 'combat') return;
+    const modal = this._getCombatServiceModal();
+    if (!modal) return;
+    this._serviceModalOrigin = origin;
+    this._hardCloseLegacyCombatModals();
+    if (origin === 'hub') this.hideModal('hubModal');
+    State.ui.paused = true;
+    modal.classList.add('active');
+    this.switchCombatServiceTab(tab);
+    setTimeout(() => this.resize(true), 30);
+  },
+
+  openCombatServiceModal(tab = 'inventory') {
+    this.openServiceModal(tab, 'combat');
+  },
+
+  closeServiceModal() {
+    const modal = this._getCombatServiceModal();
+    if (modal) modal.classList.remove('active');
+    this._restoreCombatServiceDom();
+    this._hardCloseLegacyCombatModals();
+    const origin = this._serviceModalOrigin || 'combat';
+    State.ui.paused = false;
+    try { Stats.calculate(); } catch (_) {}
+    try { UI.renderAll(); } catch (_) {}
+    try { Save.save('service-modal-close'); } catch (_) {}
+    if (origin === 'hub') {
+      try { this.renderHubUI(); } catch (_) {}
+      this.showModal('hubModal');
+    }
+    setTimeout(() => this.resize(true), 30);
+  },
+
+  closeCombatServiceModal() {
+    this.closeServiceModal();
+  },
+
+  openCombatModal(modalId) {
+    const tabMap = {
+      combatInventoryModal: 'inventory',
+      combatParagonModal: 'paragon',
+      combatSkillModal: 'skills',
+      combatStatsModal: 'paragon',
+      combatStatsModalOld: 'paragon'
+    };
+    const tab = tabMap[modalId];
+    if (tab) {
+      this.openCombatServiceModal(tab);
+      return;
+    }
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    State.ui.paused = true;
+    modal.classList.add('active');
+  },
+
+  closeCombatModal(modalId) {
+    if (['combatInventoryModal', 'combatParagonModal', 'combatSkillModal', 'combatStatsModal', 'combatStatsModalOld'].includes(modalId)) {
+      this.closeCombatServiceModal();
+      return;
+    }
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+    State.ui.paused = false;
+    try { Stats.calculate(); } catch (_) {}
+    try { UI.renderAll(); } catch (_) {}
+    setTimeout(() => this.resize(true), 30);
+  },
+
+  toggleCombatInventory() {
+    const scene = SceneManager.getScene?.() || State.scene;
+    if (scene !== 'combat') return;
+    const modal = this._getCombatServiceModal();
+    const isActive = modal?.classList.contains('active');
+    if (isActive && this._combatServiceTab === 'inventory') this.closeCombatServiceModal();
+    else this.openCombatServiceModal('inventory');
+  },
+
+  toggleCombatStats() {
+    const scene = SceneManager.getScene?.() || State.scene;
+    if (scene !== 'combat') return;
+    const modal = this._getCombatServiceModal();
+    const isActive = modal?.classList.contains('active');
+    if (isActive && this._combatServiceTab === 'paragon') this.closeCombatServiceModal();
+    else this.openCombatServiceModal('paragon');
+  },
+
+  toggleCombatSkills() {
+    const scene = SceneManager.getScene?.() || State.scene;
+    if (scene !== 'combat') return;
+    const modal = this._getCombatServiceModal();
+    const isActive = modal?.classList.contains('active');
+    if (isActive && this._combatServiceTab === 'skills') this.closeCombatServiceModal();
+    else this.openCombatServiceModal('skills');
+  },
+
+  toggleCombatServiceTab(tab = 'inventory') {
+    const scene = SceneManager.getScene?.() || State.scene;
+    if (scene !== 'combat') return;
+    const modal = this._getCombatServiceModal();
+    const isActive = modal?.classList.contains('active');
+    if (isActive && this._combatServiceTab === tab) this.closeCombatServiceModal();
+    else this.openCombatServiceModal(tab);
   }
 };
 

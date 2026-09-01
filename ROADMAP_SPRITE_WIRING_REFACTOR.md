@@ -67,3 +67,21 @@ and route all animated game entities through `runtime/SpriteManager.js` + `asset
 - No direct `./assets/enemies/*.png` hardcodes for animated enemies.
 - Runtime should request sprites semantically via category + entity + state.
 - `SpriteManager` remains the only animated sprite ingestion path.
+
+## Ship Forge Playtest Gate — SF01 (2026-09-01)
+
+Status: **IMPLEMENTED FOR PLAYTEST**
+
+The first Ship Forge player asset is now routed through the canonical runtime pipeline:
+
+`tools/ship-forge -> assets/sprites/player/ship/bank.png -> assets/sprite_manifest.json -> runtime/SpriteManager.js -> runtime/Player.js`
+
+### Acceptance criteria before further Ship Forge expansion
+- [ ] Player ship visible in live gameplay
+- [ ] Correct scale and center/pivot
+- [ ] Correct orientation while aiming
+- [ ] Left/right bank response visible during lateral movement
+- [ ] Existing movement and weapons remain functional
+- [ ] No sprite/runtime regression observed
+
+If any criterion fails, correct the export/runtime contract first. Do not expand Ship Forge features until the vertical slice is accepted.

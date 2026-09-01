@@ -362,6 +362,8 @@ bonzookaa/
 | v2.13.0 | 2026-03-01 | **"The Endgame Patch"**: Save migration v2→v3, mission system (10 templates), prestige/NG+ (7 tiers), 18 zone affixes, corruption 0-10, leaderboard, object pool infra, console cleanup |
 | v2.14.0 | 2026-03-02 | **"The Systems Patch"**: Achievement system (30 achievements, instant payouts), expanded leaderboard (damage/streak/bosses), boss hub portal fix, heat system overhaul (must release to cool), flawless zone tracking, stat field normalization |
 | v2.15.0 | 2026-03-03 | **"The Wiring Patch"**: ESC→PauseUI toggle, P→Settings modal (volume/shake/dmgNum/PostFX), AntiExploit wired (seed farming + reset abuse + EV spikes), SpriteManager draw hooks in 4 renderers, settings persistence, duplicate KeyE fix |
+| v2.16.0 | 2026-03-15 | **"The Flow Patch"**: BulletPool + ParticlePool fully wired (zero alloc in combat), Achievements boss-kill gap fixed, GITHUB_STRUCTURE.md |
+| v2.16.3 | 2026-03-19 | **"The Reward Spiral"**: Director P0 fix, depth-scaling loot, loot explosions, smart loot, 59 affixes + 18 synergy tags, progressive pity, item power score, particle LOD + batch render, 58 spritesheets, balance sim |
 
 ---
 
@@ -398,46 +400,59 @@ bonzookaa/
 
 ---
 
-## 🔮 PHASE 10: Deep Systems (Next)
+## ✅ PHASE 10.1: Object Pool Integration (v2.16.0)
+
+### ✅ 10.1 Object Pool Wiring
+- [x] Wire BulletPool → Bullets.js spawn/destroy (7 splice sites + spawn)
+- [x] Wire ParticlePool → Particles.js (8 emit helpers + update loop)
+- [x] Inline particle pushes in Bullets.js routed via Particles.sparks()
+- [x] spawnDamageNumber uses ParticlePool.acquire()
+- [x] Achievements.onEnemyKill wired in main.js onBossKilled
+- [x] GITHUB_STRUCTURE.md — full branch topology documented
+
+---
+
+## 🔮 PHASE 10: Deep Systems (Remaining)
 
 ### 10.1 Object Pool Integration
-- [ ] Wire BulletPool → Bullets.js spawn/destroy
-- [ ] Wire ParticlePool → Particles.js
+- [x] ~~Wire BulletPool → Bullets.js~~ ✅ v2.16.0
+- [x] ~~Wire ParticlePool → Particles.js~~ ✅ v2.16.0
 - [ ] Batch rendering (same-type draws)
-- [ ] Particle LOD (cap at high count)
+- [x] Particle LOD (cap at high count) ✅ v2.16.3
 
-### 10.2 Cosmetics & Sets
+### ✅ 10.2 Cosmetics & Sets (v2.16.3)
 - [ ] Ship skins (prestige/achievement unlocks)
-- [ ] Set item bonus logic (Items.getSetBonuses → Stats.js)
+- [x] Set item bonus logic (2 sets: Void Walker + Chrono Pilot, 2/3-piece bonuses wired → Stats.js)
 
 ### 10.3 Multiple Save Slots
 - [ ] 3 slots with preview (level, depth, playtime)
 - [ ] Slot selector on start screen
 
-### 10.4 Audio Expansion
+### ✅ 10.4 Audio Expansion (v2.16.3)
 - [ ] Weapon-type audio dispatch
 - [ ] Positional audio (stereo pan)
-- [ ] Dynamic music intensity (enemy count → filter)
+- [x] Dynamic music intensity (enemy count + Director phase → bass filter 200-1800Hz + volume swell)
 
-### 10.5 Sprite Art Production
-- [ ] Player Ship sprite sheet (5 states, 13 frames)
-- [ ] Grunt + Scout + Diver sprite sheets (most common enemies)
-- [ ] Death explosion effects (small + large)
-- [ ] 3 Boss sprite sheets (Sentinel, Collector, Harbinger)
-- [ ] Pickup + Loot drop sprite sheets (14 types)
-- [ ] Muzzle flash sprite sheets (6 weapon types)
+### ✅ 10.5 Sprite Art Production (v2.16.3)
+- [x] Player Ship sprite sheet (fire + hit states, 4 frames each)
+- [x] All enemy/boss/elite aggro/fire/death sheets
+- [x] Explosions + muzzle flashes (6 weapon types)
 
-### 10.6 Balance Pass
-- [ ] Automated sim: player progression vs enemy scaling (zone 1-500)
-- [ ] Verify power growth: gear + skills + prestige
-- [ ] Validate economy: scrap/cells sinks vs faucets
-- [ ] Difficulty lane reward parity check
+### ✅ 10.6 Balance Pass + Reward Spiral (v2.16.3)
+- [x] Depth-scaling drops, loot explosions, smart loot, progressive pity
+- [x] 59 affixes + 18 synergy tags + item power score + balance sim
 
-### 10.7 Onboarding / Tutorial
-- [ ] First-run zone with guided prompts
-- [ ] Key binding overlay (H key)
-- [ ] Tooltip system for hub UI elements
+### ✅ 10.7 Onboarding / Tutorial (v2.16.3)
+- [x] First-run 6-step tutorial overlay
+- [x] H key controls overlay (all keybindings)
+- [x] Tooltip system for hub service buttons
 
 ---
 
-*Last updated: 2026-03-03*
+*Last updated: 2026-03-19*
+
+
+## Hotfix Track
+- **v2.16.1** — Director full stable implementation: canonical `Director.update()` loop wiring, data load, hooks, debug overlay, dynamic spawn pacing, reward multipliers, reset safety.
+- **v2.16.2B** — Phase 2 cosmetic baseline: player fire/hit state readiness, bullet sprite aliases, sprite studio preset alignment.
+- **v2.16.3** — **P0 FIX**: Director.update() was never called in updateCombat() — L4D pacing system was inert. Single-line fix activates full intensity cycling. Player fire/hit sprite manifest + placeholders added.
