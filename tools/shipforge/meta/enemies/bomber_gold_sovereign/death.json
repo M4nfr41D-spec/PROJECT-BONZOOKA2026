@@ -1,0 +1,170 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "enemies",
+  "entity": "bomber_gold_sovereign",
+  "state": "death",
+  "physicalFile": "assets/sprites/enemies/bomber_gold_sovereign/death.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "enemies": {
+      "bomber_gold_sovereign": {
+        "size": 128,
+        "death": {
+          "file": "sprites/enemies/bomber_gold_sovereign/death.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 12,
+          "loop": false,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/enemies/bomber_gold_sovereign/death_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "enemy_bomber",
+    "components": {
+      "hull": "hammer",
+      "wing": "bomber_slab",
+      "engine": "wide_tri",
+      "weapon": "bomber_pods"
+    },
+    "skin": "gold",
+    "faction": "sovereign",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 3,
+      "runtimeState": "death"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 90210,
+    "variationPercent": 5,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "muzzle_right_inner",
+      "kind": "muzzle",
+      "x": 4.2512,
+      "y": -0.1327,
+      "z": -4.5909
+    },
+    {
+      "name": "muzzle_right_outer",
+      "kind": "muzzle",
+      "x": 4.7316,
+      "y": -0.1327,
+      "z": -4.5909
+    },
+    {
+      "name": "muzzle_left_inner",
+      "kind": "muzzle",
+      "x": -4.7316,
+      "y": -0.1327,
+      "z": -4.5909
+    },
+    {
+      "name": "muzzle_left_outer",
+      "kind": "muzzle",
+      "x": -4.2512,
+      "y": -0.1327,
+      "z": -4.5909
+    },
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": 0,
+      "y": -0.3827,
+      "z": 4.7564
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": -2.1705,
+      "y": -0.3827,
+      "z": 4.0116
+    },
+    {
+      "name": "exhaust_2",
+      "kind": "exhaust",
+      "x": 2.2003,
+      "y": -0.3827,
+      "z": 4.0542
+    },
+    {
+      "name": "fx_damage_sparks",
+      "kind": "fx",
+      "x": 0.6941,
+      "y": 0.6073,
+      "z": -2.1712
+    },
+    {
+      "name": "fx_wreck_smoke",
+      "kind": "fx",
+      "x": 0,
+      "y": 0.6273,
+      "z": -3.434
+    }
+  ],
+  "bounds": {
+    "width": 15.1994,
+    "height": 2.6445,
+    "depth": 9.7818
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 3.3258,
+    "authority": "runtime-tunable recommendation"
+  }
+}

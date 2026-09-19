@@ -1,0 +1,1542 @@
+{
+  "schema": "bonzookaa.shipforge.production_matrix.v1",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "createdAt": "2026-09-11T22:19:20.431Z",
+  "runtimePolicy": {
+    "profile": "runtime1",
+    "thrusters": "dynamic_external_fx",
+    "manifestPath": "sprites/<category>/<entity>/<state>.png",
+    "physicalPath": "assets/sprites/<category>/<entity>/<state>.png"
+  },
+  "families": [
+    {
+      "id": "mk1_reference__reference__neutral",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference",
+      "skin": "reference",
+      "faction": "neutral",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_reference__reference__bonzooka",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference_mk1_reference_2",
+      "skin": "reference",
+      "faction": "bonzooka",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_reference__reference__raider",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference_raider",
+      "skin": "reference",
+      "faction": "raider",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_reference__reference__voidborn",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference_voidborn",
+      "skin": "reference",
+      "faction": "voidborn",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_reference__reference__corrupted",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference_corrupted",
+      "skin": "reference",
+      "faction": "corrupted",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_reference__reference__sovereign",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference_sovereign",
+      "skin": "reference",
+      "faction": "sovereign",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_reference__reference__industrial",
+      "recipeKey": "mk1_reference",
+      "recipe": {
+        "label": "Player · MK-I Reference",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "reference",
+        "faction": "neutral",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_reference_industrial",
+      "skin": "reference",
+      "faction": "industrial",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__neutral",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship",
+      "skin": "default",
+      "faction": "neutral",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__bonzooka",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_mk1_corps_2",
+      "skin": "default",
+      "faction": "bonzooka",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__raider",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_raider",
+      "skin": "default",
+      "faction": "raider",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__voidborn",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_voidborn",
+      "skin": "default",
+      "faction": "voidborn",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__corrupted",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_corrupted",
+      "skin": "default",
+      "faction": "corrupted",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__sovereign",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_sovereign",
+      "skin": "default",
+      "faction": "sovereign",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "mk1_corps__default__industrial",
+      "recipeKey": "mk1_corps",
+      "recipe": {
+        "label": "Player · MK-I Corps",
+        "role": "player",
+        "type": "player_mk1",
+        "skin": "default",
+        "faction": "bonzooka",
+        "components": {
+          "hull": "reference",
+          "wing": "delta",
+          "engine": "preset",
+          "weapon": "quad_pod"
+        },
+        "seed": 1337,
+        "variation": 0
+      },
+      "role": "player",
+      "entity": "ship_industrial",
+      "skin": "default",
+      "faction": "industrial",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__neutral",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void",
+      "skin": "void",
+      "faction": "neutral",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__bonzooka",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void_interceptor_void_2",
+      "skin": "void",
+      "faction": "bonzooka",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__raider",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void_raider",
+      "skin": "void",
+      "faction": "raider",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__voidborn",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void_voidborn",
+      "skin": "void",
+      "faction": "voidborn",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__corrupted",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void_corrupted",
+      "skin": "void",
+      "faction": "corrupted",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__sovereign",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void_sovereign",
+      "skin": "void",
+      "faction": "sovereign",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "interceptor_void__void__industrial",
+      "recipeKey": "interceptor_void",
+      "recipe": {
+        "label": "Player · Void Interceptor",
+        "role": "player",
+        "type": "player_interceptor",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "needle",
+          "wing": "swept",
+          "engine": "twin",
+          "weapon": "twin_lance"
+        },
+        "seed": 4102,
+        "variation": 6
+      },
+      "role": "player",
+      "entity": "ship_interceptor_void_industrial",
+      "skin": "void",
+      "faction": "industrial",
+      "states": [
+        "idle",
+        "thrust",
+        "fire",
+        "hit",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__neutral",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson",
+      "skin": "crimson",
+      "faction": "neutral",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__bonzooka",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson_bonzooka",
+      "skin": "crimson",
+      "faction": "bonzooka",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__raider",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson_raider",
+      "skin": "crimson",
+      "faction": "raider",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__voidborn",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson_voidborn",
+      "skin": "crimson",
+      "faction": "voidborn",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__corrupted",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson_corrupted",
+      "skin": "crimson",
+      "faction": "corrupted",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__sovereign",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson_sovereign",
+      "skin": "crimson",
+      "faction": "sovereign",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "raider_grunt__crimson__industrial",
+      "recipeKey": "raider_grunt",
+      "recipe": {
+        "label": "Enemy · Raider Grunt",
+        "role": "enemies",
+        "type": "enemy_fighter",
+        "skin": "crimson",
+        "faction": "raider",
+        "components": {
+          "hull": "raider",
+          "wing": "swept",
+          "engine": "tri",
+          "weapon": "twin_lance"
+        },
+        "seed": 771,
+        "variation": 8
+      },
+      "role": "enemies",
+      "entity": "grunt_crimson_industrial",
+      "skin": "crimson",
+      "faction": "industrial",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__neutral",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void",
+      "skin": "void",
+      "faction": "neutral",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__bonzooka",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void_bonzooka",
+      "skin": "void",
+      "faction": "bonzooka",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__raider",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void_raider",
+      "skin": "void",
+      "faction": "raider",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__voidborn",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void_voidborn",
+      "skin": "void",
+      "faction": "voidborn",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__corrupted",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void_corrupted",
+      "skin": "void",
+      "faction": "corrupted",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__sovereign",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void_sovereign",
+      "skin": "void",
+      "faction": "sovereign",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "void_scout__void__industrial",
+      "recipeKey": "void_scout",
+      "recipe": {
+        "label": "Enemy · Void Scout",
+        "role": "enemies",
+        "type": "enemy_scout",
+        "skin": "void",
+        "faction": "voidborn",
+        "components": {
+          "hull": "wedge",
+          "wing": "claw",
+          "engine": "twin",
+          "weapon": "none"
+        },
+        "seed": 8821,
+        "variation": 10
+      },
+      "role": "enemies",
+      "entity": "scout_void_industrial",
+      "skin": "void",
+      "faction": "industrial",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__neutral",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic",
+      "skin": "toxic",
+      "faction": "neutral",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__bonzooka",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic_bonzooka",
+      "skin": "toxic",
+      "faction": "bonzooka",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__raider",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic_raider",
+      "skin": "toxic",
+      "faction": "raider",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__voidborn",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic_voidborn",
+      "skin": "toxic",
+      "faction": "voidborn",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__corrupted",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic_corrupted",
+      "skin": "toxic",
+      "faction": "corrupted",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__sovereign",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic_sovereign",
+      "skin": "toxic",
+      "faction": "sovereign",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "corrupted_elite__toxic__industrial",
+      "recipeKey": "corrupted_elite",
+      "recipe": {
+        "label": "Enemy · Corrupted Elite",
+        "role": "enemies",
+        "type": "enemy_elite",
+        "skin": "toxic",
+        "faction": "corrupted",
+        "components": {
+          "hull": "spire",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "twin_lance"
+        },
+        "seed": 666,
+        "variation": 12
+      },
+      "role": "enemies",
+      "entity": "corrupted_toxic_industrial",
+      "skin": "toxic",
+      "faction": "industrial",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__neutral",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold",
+      "skin": "gold",
+      "faction": "neutral",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__bonzooka",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold_bonzooka",
+      "skin": "gold",
+      "faction": "bonzooka",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__raider",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold_raider",
+      "skin": "gold",
+      "faction": "raider",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__voidborn",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold_voidborn",
+      "skin": "gold",
+      "faction": "voidborn",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__corrupted",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold_corrupted",
+      "skin": "gold",
+      "faction": "corrupted",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__sovereign",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold_sovereign",
+      "skin": "gold",
+      "faction": "sovereign",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "sovereign_bomber__gold__industrial",
+      "recipeKey": "sovereign_bomber",
+      "recipe": {
+        "label": "Enemy · Sovereign Bomber",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "gold",
+        "faction": "sovereign",
+        "components": {
+          "hull": "hammer",
+          "wing": "bomber_slab",
+          "engine": "wide_tri",
+          "weapon": "bomber_pods"
+        },
+        "seed": 90210,
+        "variation": 5
+      },
+      "role": "enemies",
+      "entity": "bomber_gold_industrial",
+      "skin": "gold",
+      "faction": "industrial",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    },
+    {
+      "id": "custom_ship_recipe__mythic__sovereign",
+      "recipeKey": "custom_ship_recipe",
+      "recipe": {
+        "label": "custom_ship_recipe",
+        "role": "enemies",
+        "type": "enemy_bomber",
+        "skin": "mythic",
+        "faction": "sovereign",
+        "damage": "auto",
+        "components": {
+          "hull": "raider",
+          "wing": "forward_swept",
+          "engine": "quad",
+          "weapon": "bomber_pods"
+        },
+        "seed": 42,
+        "variation": 0,
+        "modules": {
+          "wings": true,
+          "weapons": true,
+          "engines": true,
+          "details": true
+        }
+      },
+      "role": "enemies",
+      "entity": "bomber_mythic_sovereign",
+      "skin": "mythic",
+      "faction": "sovereign",
+      "states": [
+        "patrol",
+        "aggro",
+        "fire",
+        "death"
+      ],
+      "size": 128
+    }
+  ],
+  "assetCount": 221
+}

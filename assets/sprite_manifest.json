@@ -115,6 +115,1401 @@
         "fps": 1,
         "loop": true
       }
+    },
+    "ship_reference": {
+      "size": 128,
+      "hit": {
+        "file": "sprites/player/ship_reference/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_reference_voidborn": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_reference_voidborn/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_voidborn/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_reference_voidborn/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_voidborn/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_reference_voidborn/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_voidborn/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_reference_mk1_reference_2": {
+      "size": 128,
+      "hit": {
+        "file": "sprites/player/ship_reference_mk1_reference_2/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_mk1_reference_2/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference_mk1_reference_2/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_mk1_reference_2/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference_mk1_reference_2/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_mk1_reference_2/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_reference_corrupted": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_reference_corrupted/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_corrupted/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_reference_corrupted/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_corrupted/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_reference_corrupted/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_corrupted/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_reference_raider": {
+      "size": 128,
+      "hit": {
+        "file": "sprites/player/ship_reference_raider/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_raider/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_reference_sovereign": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_reference_sovereign/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_sovereign/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_reference_sovereign/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_sovereign/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_reference_sovereign/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_sovereign/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference_sovereign/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_sovereign/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_reference_industrial": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_reference_industrial/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_industrial/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_reference_industrial/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_industrial/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_reference_industrial/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_industrial/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_reference_industrial/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_industrial/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_reference_industrial/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_reference_industrial/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_mk1_corps_2": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_mk1_corps_2/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_mk1_corps_2/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_mk1_corps_2/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_mk1_corps_2/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_mk1_corps_2/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_mk1_corps_2/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_mk1_corps_2/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_mk1_corps_2/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_mk1_corps_2/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_mk1_corps_2/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_raider": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_raider/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_raider/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_raider/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_raider/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_raider/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_raider/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_voidborn": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_voidborn/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_voidborn/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_voidborn/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_voidborn/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_voidborn/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_voidborn/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_corrupted": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_corrupted/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_corrupted/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_corrupted/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_corrupted/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_corrupted/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_corrupted/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_sovereign": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_sovereign/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_sovereign/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_sovereign/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_sovereign/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_sovereign/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_sovereign/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_sovereign/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_sovereign/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_industrial": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_industrial/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_industrial/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_industrial/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_industrial/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_industrial/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_industrial/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_industrial/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_industrial/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_industrial/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_industrial/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_interceptor_void/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_interceptor_void/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_interceptor_void/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void_interceptor_void_2": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void_interceptor_void_2/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_interceptor_void_2/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void_interceptor_void_2/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_interceptor_void_2/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_interceptor_void_interceptor_void_2/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_interceptor_void_2/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_interceptor_void_interceptor_void_2/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_interceptor_void_2/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_interceptor_void_interceptor_void_2/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_interceptor_void_2/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void_raider": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void_raider/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_raider/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void_raider/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_raider/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_interceptor_void_raider/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_raider/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_interceptor_void_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_interceptor_void_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void_voidborn": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void_voidborn/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_voidborn/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void_voidborn/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_voidborn/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_interceptor_void_voidborn/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_voidborn/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_interceptor_void_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_interceptor_void_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void_corrupted": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void_corrupted/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_corrupted/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void_corrupted/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_corrupted/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "hit": {
+        "file": "sprites/player/ship_interceptor_void_corrupted/hit.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_corrupted/hit_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_interceptor_void_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/player/ship_interceptor_void_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void_sovereign": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void_sovereign/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_sovereign/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void_sovereign/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_sovereign/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/player/ship_interceptor_void_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "ship_interceptor_void_industrial": {
+      "size": 128,
+      "idle": {
+        "file": "sprites/player/ship_interceptor_void_industrial/idle.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_industrial/idle_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "thrust": {
+        "file": "sprites/player/ship_interceptor_void_industrial/thrust.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 6,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/player/ship_interceptor_void_industrial/thrust_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
     }
   },
   "enemies": {
@@ -296,6 +1691,1743 @@
         "frames": 1,
         "fps": 1,
         "loop": true
+      }
+    },
+    "grunt_crimson": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "grunt_crimson_bonzooka": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson_bonzooka/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_bonzooka/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson_bonzooka/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_bonzooka/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson_bonzooka/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_bonzooka/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson_bonzooka/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_bonzooka/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "grunt_crimson_raider": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson_raider/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_raider/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson_raider/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_raider/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "grunt_crimson_voidborn": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson_voidborn/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_voidborn/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson_voidborn/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_voidborn/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "grunt_crimson_corrupted": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson_corrupted/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_corrupted/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson_corrupted/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_corrupted/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "grunt_crimson_sovereign": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson_sovereign/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_sovereign/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson_sovereign/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_sovereign/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson_sovereign/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_sovereign/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "grunt_crimson_industrial": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/grunt_crimson_industrial/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_industrial/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/grunt_crimson_industrial/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_industrial/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/grunt_crimson_industrial/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_industrial/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/grunt_crimson_industrial/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/grunt_crimson_industrial/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void_bonzooka": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void_bonzooka/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_bonzooka/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void_bonzooka/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_bonzooka/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void_bonzooka/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_bonzooka/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void_bonzooka/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_bonzooka/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void_raider": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void_raider/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_raider/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void_raider/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_raider/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void_voidborn": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void_voidborn/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_voidborn/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void_voidborn/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_voidborn/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void_corrupted": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void_corrupted/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_corrupted/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void_corrupted/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_corrupted/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void_sovereign": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void_sovereign/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_sovereign/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void_sovereign/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_sovereign/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void_sovereign/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_sovereign/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "scout_void_industrial": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/scout_void_industrial/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_industrial/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/scout_void_industrial/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_industrial/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/scout_void_industrial/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_industrial/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/scout_void_industrial/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/scout_void_industrial/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic_bonzooka": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic_bonzooka/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_bonzooka/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic_bonzooka/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_bonzooka/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic_bonzooka/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_bonzooka/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic_bonzooka/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_bonzooka/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic_raider": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic_raider/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_raider/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic_raider/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_raider/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic_voidborn": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic_voidborn/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_voidborn/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic_voidborn/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_voidborn/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic_corrupted": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic_corrupted/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_corrupted/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic_corrupted/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_corrupted/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic_sovereign": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic_sovereign/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_sovereign/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic_sovereign/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_sovereign/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic_sovereign/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_sovereign/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "corrupted_toxic_industrial": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/corrupted_toxic_industrial/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_industrial/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/corrupted_toxic_industrial/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_industrial/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/corrupted_toxic_industrial/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_industrial/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/corrupted_toxic_industrial/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/corrupted_toxic_industrial/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/bomber_gold/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/bomber_gold/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/bomber_gold/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold_bonzooka": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold_bonzooka/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_bonzooka/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/bomber_gold_bonzooka/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_bonzooka/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/bomber_gold_bonzooka/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_bonzooka/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/bomber_gold_bonzooka/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_bonzooka/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold_raider": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold_raider/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_raider/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/bomber_gold_raider/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_raider/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/bomber_gold_raider/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_raider/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/bomber_gold_raider/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_raider/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold_voidborn": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold_voidborn/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_voidborn/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/bomber_gold_voidborn/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_voidborn/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/bomber_gold_voidborn/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_voidborn/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/bomber_gold_voidborn/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_voidborn/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold_corrupted": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold_corrupted/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_corrupted/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/bomber_gold_corrupted/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_corrupted/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/bomber_gold_corrupted/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_corrupted/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/bomber_gold_corrupted/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_corrupted/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold_sovereign": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold_sovereign/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_sovereign/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "aggro": {
+        "file": "sprites/enemies/bomber_gold_sovereign/aggro.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_sovereign/aggro_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "fire": {
+        "file": "sprites/enemies/bomber_gold_sovereign/fire.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 8,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_sovereign/fire_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      },
+      "death": {
+        "file": "sprites/enemies/bomber_gold_sovereign/death.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_sovereign/death_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_gold_industrial": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_gold_industrial/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_gold_industrial/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
+      }
+    },
+    "bomber_mythic_sovereign": {
+      "size": 128,
+      "patrol": {
+        "file": "sprites/enemies/bomber_mythic_sovereign/patrol.png",
+        "cols": 1,
+        "rows": 1,
+        "frames": 1,
+        "fps": 1,
+        "loop": true,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "emissive": {
+          "file": "sprites/enemies/bomber_mythic_sovereign/patrol_emissive.png",
+          "blend": "additive",
+          "note": "black = no contribution; tint/pulse at runtime"
+        }
       }
     }
   },

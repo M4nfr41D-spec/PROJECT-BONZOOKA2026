@@ -1,0 +1,163 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "enemies",
+  "entity": "bomber_mythic_sovereign",
+  "state": "patrol",
+  "physicalFile": "assets/sprites/enemies/bomber_mythic_sovereign/patrol.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "enemies": {
+      "bomber_mythic_sovereign": {
+        "size": 128,
+        "patrol": {
+          "file": "sprites/enemies/bomber_mythic_sovereign/patrol.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/enemies/bomber_mythic_sovereign/patrol_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "enemy_bomber",
+    "components": {
+      "hull": "raider",
+      "wing": "forward_swept",
+      "engine": "quad",
+      "weapon": "bomber_pods"
+    },
+    "skin": "mythic",
+    "faction": "sovereign",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 0,
+      "runtimeState": "patrol"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 42,
+    "variationPercent": 0,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "muzzle_right_inner",
+      "kind": "muzzle",
+      "x": 4.2273,
+      "y": -0.3525,
+      "z": -4.0493
+    },
+    {
+      "name": "muzzle_right_outer",
+      "kind": "muzzle",
+      "x": 4.6977,
+      "y": -0.3525,
+      "z": -4.0493
+    },
+    {
+      "name": "muzzle_left_inner",
+      "kind": "muzzle",
+      "x": -4.6977,
+      "y": -0.3525,
+      "z": -4.0493
+    },
+    {
+      "name": "muzzle_left_outer",
+      "kind": "muzzle",
+      "x": -4.2273,
+      "y": -0.3525,
+      "z": -4.0493
+    },
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": -1.62,
+      "y": -0.6025,
+      "z": 5.1641
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": 1.62,
+      "y": -0.6025,
+      "z": 5.1641
+    },
+    {
+      "name": "exhaust_2",
+      "kind": "exhaust",
+      "x": -0.54,
+      "y": -0.6025,
+      "z": 5.4006
+    },
+    {
+      "name": "exhaust_3",
+      "kind": "exhaust",
+      "x": 0.54,
+      "y": -0.6025,
+      "z": 5.4006
+    }
+  ],
+  "bounds": {
+    "width": 14.8118,
+    "height": 2.205,
+    "depth": 11.854
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 4.0304,
+    "authority": "runtime-tunable recommendation"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "player",
+  "entity": "ship_interceptor_void_corrupted",
+  "state": "hit",
+  "physicalFile": "assets/sprites/player/ship_interceptor_void_corrupted/hit.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "player": {
+      "ship_interceptor_void_corrupted": {
+        "size": 128,
+        "hit": {
+          "file": "sprites/player/ship_interceptor_void_corrupted/hit.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 8,
+          "loop": false,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/player/ship_interceptor_void_corrupted/hit_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "player_interceptor",
+    "components": {
+      "hull": "needle",
+      "wing": "swept",
+      "engine": "twin",
+      "weapon": "twin_lance"
+    },
+    "skin": "void",
+    "faction": "corrupted",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 1,
+      "runtimeState": "hit"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 4102,
+    "variationPercent": 6,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "muzzle_right_lance",
+      "kind": "muzzle",
+      "x": 2.2345,
+      "y": -0.3697,
+      "z": -5.1591
+    },
+    {
+      "name": "muzzle_left_lance",
+      "kind": "muzzle",
+      "x": -2.2345,
+      "y": -0.3697,
+      "z": -5.1591
+    },
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": -0.6034,
+      "y": -0.5897,
+      "z": 6.2827
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": 0.5882,
+      "y": -0.5897,
+      "z": 6.2907
+    }
+  ],
+  "bounds": {
+    "width": 10.4383,
+    "height": 2.2307,
+    "depth": 16.0579
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 3.549,
+    "authority": "runtime-tunable recommendation"
+  }
+}

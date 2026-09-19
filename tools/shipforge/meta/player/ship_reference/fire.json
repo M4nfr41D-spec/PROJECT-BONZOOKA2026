@@ -1,0 +1,156 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "player",
+  "entity": "ship_reference",
+  "state": "fire",
+  "physicalFile": "assets/sprites/player/ship_reference/fire.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "player": {
+      "ship_reference": {
+        "size": 128,
+        "fire": {
+          "file": "sprites/player/ship_reference/fire.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 8,
+          "loop": false,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/player/ship_reference/fire_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "player_mk1",
+    "components": {
+      "hull": "reference",
+      "wing": "delta",
+      "engine": "preset",
+      "weapon": "quad_pod"
+    },
+    "skin": "reference",
+    "faction": "neutral",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 0,
+      "runtimeState": "fire"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 1337,
+    "variationPercent": 0,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "muzzle_right_inner",
+      "kind": "muzzle",
+      "x": 3.74,
+      "y": -0.1813,
+      "z": -4.2131
+    },
+    {
+      "name": "muzzle_right_outer",
+      "kind": "muzzle",
+      "x": 4.16,
+      "y": -0.1813,
+      "z": -4.2131
+    },
+    {
+      "name": "muzzle_left_inner",
+      "kind": "muzzle",
+      "x": -4.16,
+      "y": -0.1813,
+      "z": -4.2131
+    },
+    {
+      "name": "muzzle_left_outer",
+      "kind": "muzzle",
+      "x": -3.74,
+      "y": -0.1813,
+      "z": -4.2131
+    },
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": 0,
+      "y": -0.4313,
+      "z": 6.8419
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": 1.55,
+      "y": -0.4313,
+      "z": 5.9219
+    },
+    {
+      "name": "exhaust_2",
+      "kind": "exhaust",
+      "x": -1.55,
+      "y": -0.4313,
+      "z": 5.9219
+    }
+  ],
+  "bounds": {
+    "width": 13.9368,
+    "height": 2.5474,
+    "depth": 14.7386
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 4.7385,
+    "authority": "runtime-tunable recommendation"
+  }
+}

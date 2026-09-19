@@ -1,0 +1,121 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "enemies",
+  "entity": "scout_void_sovereign",
+  "state": "fire",
+  "physicalFile": "assets/sprites/enemies/scout_void_sovereign/fire.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "enemies": {
+      "scout_void_sovereign": {
+        "size": 128,
+        "fire": {
+          "file": "sprites/enemies/scout_void_sovereign/fire.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 8,
+          "loop": false,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/enemies/scout_void_sovereign/fire_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "enemy_scout",
+    "components": {
+      "hull": "wedge",
+      "wing": "claw",
+      "engine": "twin",
+      "weapon": "none"
+    },
+    "skin": "void",
+    "faction": "sovereign",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 0,
+      "runtimeState": "fire"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 8821,
+    "variationPercent": 10,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": -0.5599,
+      "y": -0.5865,
+      "z": 4.3464
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": 0.5266,
+      "y": -0.5865,
+      "z": 4.4631
+    }
+  ],
+  "bounds": {
+    "width": 8.3649,
+    "height": 2.237,
+    "depth": 9.8936
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 2.8441,
+    "authority": "runtime-tunable recommendation"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "enemies",
+  "entity": "corrupted_toxic_industrial",
+  "state": "patrol",
+  "physicalFile": "assets/sprites/enemies/corrupted_toxic_industrial/patrol.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "enemies": {
+      "corrupted_toxic_industrial": {
+        "size": 128,
+        "patrol": {
+          "file": "sprites/enemies/corrupted_toxic_industrial/patrol.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/enemies/corrupted_toxic_industrial/patrol_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "enemy_elite",
+    "components": {
+      "hull": "spire",
+      "wing": "forward_swept",
+      "engine": "quad",
+      "weapon": "twin_lance"
+    },
+    "skin": "toxic",
+    "faction": "industrial",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 0,
+      "runtimeState": "patrol"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 666,
+    "variationPercent": 12,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "muzzle_right_lance",
+      "kind": "muzzle",
+      "x": 2.2005,
+      "y": -0.3825,
+      "z": -4.5709
+    },
+    {
+      "name": "muzzle_left_lance",
+      "kind": "muzzle",
+      "x": -2.2005,
+      "y": -0.3825,
+      "z": -4.5709
+    },
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": -0.8801,
+      "y": -0.6025,
+      "z": 4.653
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": 0.9771,
+      "y": -0.6025,
+      "z": 4.7714
+    },
+    {
+      "name": "exhaust_2",
+      "kind": "exhaust",
+      "x": -0.3308,
+      "y": -0.6025,
+      "z": 5.1618
+    },
+    {
+      "name": "exhaust_3",
+      "kind": "exhaust",
+      "x": 0.301,
+      "y": -0.6025,
+      "z": 4.9056
+    }
+  ],
+  "bounds": {
+    "width": 13.9746,
+    "height": 2.205,
+    "depth": 14.245
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 4.7514,
+    "authority": "runtime-tunable recommendation"
+  }
+}

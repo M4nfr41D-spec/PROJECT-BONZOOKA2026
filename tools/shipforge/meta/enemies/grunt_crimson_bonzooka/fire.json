@@ -1,0 +1,142 @@
+{
+  "schema": "bonzookaa.shipforge.asset.v4",
+  "generator": "M4NFROID SHIP FORGE v3.0.0",
+  "category": "enemies",
+  "entity": "grunt_crimson_bonzooka",
+  "state": "fire",
+  "physicalFile": "assets/sprites/enemies/grunt_crimson_bonzooka/fire.png",
+  "thrusterPolicy": "dynamic_external_fx",
+  "manifestFragment": {
+    "enemies": {
+      "grunt_crimson_bonzooka": {
+        "size": 128,
+        "fire": {
+          "file": "sprites/enemies/grunt_crimson_bonzooka/fire.png",
+          "cols": 1,
+          "rows": 1,
+          "frames": 1,
+          "fps": 8,
+          "loop": false,
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "emissive": {
+            "file": "sprites/enemies/grunt_crimson_bonzooka/fire_emissive.png",
+            "blend": "additive",
+            "note": "black = no contribution; tint/pulse at runtime"
+          }
+        }
+      }
+    }
+  },
+  "tooling": {
+    "preset": "enemy_fighter",
+    "components": {
+      "hull": "raider",
+      "wing": "swept",
+      "engine": "tri",
+      "weapon": "twin_lance"
+    },
+    "skin": "crimson",
+    "faction": "bonzooka",
+    "damagePreview": {
+      "mode": "auto",
+      "resolvedLevel": 0,
+      "runtimeState": "fire"
+    },
+    "recipe": "custom_ship_recipe",
+    "variantSeed": 771,
+    "variationPercent": 8,
+    "profile": "bank4",
+    "productionProfiles": {
+      "runtime1": {
+        "directRuntime": true,
+        "kind": "static",
+        "frames": 1
+      },
+      "heading8": {
+        "directRuntime": false,
+        "kind": "heading",
+        "angles": [
+          0,
+          45,
+          90,
+          135,
+          180,
+          225,
+          270,
+          315
+        ]
+      },
+      "bank4": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "bank7": {
+        "directRuntime": false,
+        "kind": "bank",
+        "angles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      }
+    }
+  },
+  "hardpoints": [
+    {
+      "name": "muzzle_right_lance",
+      "kind": "muzzle",
+      "x": 1.9144,
+      "y": -0.3272,
+      "z": -4.0844
+    },
+    {
+      "name": "muzzle_left_lance",
+      "kind": "muzzle",
+      "x": -1.9144,
+      "y": -0.3272,
+      "z": -4.0844
+    },
+    {
+      "name": "exhaust_0",
+      "kind": "exhaust",
+      "x": 0,
+      "y": -0.5472,
+      "z": 5.543
+    },
+    {
+      "name": "exhaust_1",
+      "kind": "exhaust",
+      "x": -1.0663,
+      "y": -0.5472,
+      "z": 4.8688
+    },
+    {
+      "name": "exhaust_2",
+      "kind": "exhaust",
+      "x": 1.0677,
+      "y": -0.5472,
+      "z": 4.9538
+    }
+  ],
+  "bounds": {
+    "width": 10.9155,
+    "height": 2.3157,
+    "depth": 11.6532
+  },
+  "collision": {
+    "shape": "circle",
+    "recommendedRadius": 3.7113,
+    "authority": "runtime-tunable recommendation"
+  }
+}
