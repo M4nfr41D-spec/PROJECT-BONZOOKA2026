@@ -59,7 +59,7 @@ export const Enemies = {
 
     // Ability-specific state (semantic sprite wiring only — no hardcoded PNG paths)
     enemy.spriteCategory = isBoss ? 'bosses' : (isElite ? 'elites' : 'enemies');
-    enemy.spriteId = type;
+    enemy.spriteId = enemyData.spriteId || type;
     enemy.animState = 'patrol';
 
     if (enemy.abilities.includes('aimShot')) {

@@ -116,54 +116,6 @@
         "loop": true
       }
     },
-    "ship_reference": {
-      "size": 128,
-      "hit": {
-        "file": "sprites/player/ship_reference/hit.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 8,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      },
-      "death": {
-        "file": "sprites/player/ship_reference/death.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 12,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      },
-      "fire": {
-        "file": "sprites/player/ship_reference/fire.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 8,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      }
-    },
     "ship_reference_voidborn": {
       "size": 128,
       "idle": {
@@ -242,54 +194,6 @@
         }
       }
     },
-    "ship_reference_mk1_reference_2": {
-      "size": 128,
-      "hit": {
-        "file": "sprites/player/ship_reference_mk1_reference_2/hit.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 8,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_mk1_reference_2/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      },
-      "death": {
-        "file": "sprites/player/ship_reference_mk1_reference_2/death.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 12,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_mk1_reference_2/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      },
-      "fire": {
-        "file": "sprites/player/ship_reference_mk1_reference_2/fire.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 8,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_mk1_reference_2/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      }
-    },
     "ship_reference_corrupted": {
       "size": 128,
       "idle": {
@@ -363,54 +267,6 @@
         "anchorY": 0.5,
         "emissive": {
           "file": "sprites/player/ship_reference_corrupted/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      }
-    },
-    "ship_reference_raider": {
-      "size": 128,
-      "hit": {
-        "file": "sprites/player/ship_reference_raider/hit.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 8,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_raider/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      },
-      "death": {
-        "file": "sprites/player/ship_reference_raider/death.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 12,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_raider/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      },
-      "fire": {
-        "file": "sprites/player/ship_reference_raider/fire.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 8,
-        "loop": false,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_raider/fire_emissive.png",
           "blend": "additive",
           "note": "black = no contribution; tint/pulse at runtime"
         }
@@ -3389,42 +3245,6 @@
         "anchorY": 0.5,
         "emissive": {
           "file": "sprites/enemies/bomber_gold_sovereign/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      }
-    },
-    "bomber_gold_industrial": {
-      "size": 128,
-      "patrol": {
-        "file": "sprites/enemies/bomber_gold_industrial/patrol.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 1,
-        "loop": true,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_industrial/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
-      }
-    },
-    "bomber_mythic_sovereign": {
-      "size": 128,
-      "patrol": {
-        "file": "sprites/enemies/bomber_mythic_sovereign/patrol.png",
-        "cols": 1,
-        "rows": 1,
-        "frames": 1,
-        "fps": 1,
-        "loop": true,
-        "anchorX": 0.5,
-        "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_mythic_sovereign/patrol_emissive.png",
           "blend": "additive",
           "note": "black = no contribution; tint/pulse at runtime"
         }

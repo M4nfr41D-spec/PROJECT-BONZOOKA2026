@@ -64,7 +64,7 @@
     "exhaustEdge": "rgba(255,200,160,0.7)",
     "navLeft": "#ff8800",
     "navRight": "#ff2200",
-    "spriteEntity": "ship_default_alt"
+    "spriteEntity": "ship_raider"
   },
   "void": {
     "name": "Void Stalker",
@@ -99,7 +99,7 @@
     "exhaustEdge": "rgba(220,180,255,0.7)",
     "navLeft": "#ff33ff",
     "navRight": "#8833ff",
-    "spriteEntity": "ship_void"
+    "spriteEntity": "ship_interceptor_void"
   },
   "gold": {
     "name": "Golden Sovereign",
@@ -134,7 +134,7 @@
     "exhaustEdge": "rgba(255,240,180,0.7)",
     "navLeft": "#ff8800",
     "navRight": "#ffcc00",
-    "spriteEntity": "ship_gold"
+    "spriteEntity": "ship_sovereign"
   },
   "phantom": {
     "name": "Phantom",
@@ -169,7 +169,7 @@
     "exhaustEdge": "rgba(180,210,240,0.4)",
     "navLeft": "rgba(255,80,80,0.4)",
     "navRight": "rgba(80,255,80,0.4)",
-    "spriteEntity": "ship_phantom"
+    "spriteEntity": "ship_interceptor_void_voidborn"
   },
   "inferno": {
     "name": "Inferno",
@@ -204,7 +204,7 @@
     "exhaustEdge": "rgba(255,220,160,0.7)",
     "navLeft": "#ff4400",
     "navRight": "#ffaa00",
-    "spriteEntity": "ship_inferno"
+    "spriteEntity": "ship_interceptor_void_raider"
   },
   "glacier": {
     "name": "Glacier",
@@ -239,7 +239,7 @@
     "exhaustEdge": "rgba(200,230,255,0.7)",
     "navLeft": "#4488ff",
     "navRight": "#88eeff",
-    "spriteEntity": "ship_glacier"
+    "spriteEntity": "ship_reference_industrial"
   },
   "mythic": {
     "name": "Mythic Ascendant",
@@ -274,7 +274,7 @@
     "exhaustEdge": "rgba(255,200,230,0.7)",
     "navLeft": "#ff44aa",
     "navRight": "#ff88ff",
-    "spriteEntity": "ship_stealth"
+    "spriteEntity": "ship_interceptor_void_sovereign"
   },
   "toxic": {
     "name": "Toxic Reactor",
@@ -284,7 +284,7 @@
       "type": "depth",
       "zone": 150
     },
-    "spriteEntity": "ship_toxic",
+    "spriteEntity": "ship_corrupted",
     "hull": [
       "#44aa44",
       "#228822",

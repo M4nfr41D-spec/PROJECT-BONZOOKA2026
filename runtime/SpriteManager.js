@@ -186,6 +186,7 @@ export const SpriteManager = {
             if (val && typeof val === 'object' && val.file) {
               _manifest[cat][eid][key] = val;
               paths.add(val.file);
+              if (val.emissive?.file) paths.add(val.emissive.file);
             }
           }
         }
@@ -278,6 +279,15 @@ export const SpriteManager = {
     if (options?.alpha !== undefined) ctx.globalAlpha = options.alpha;
 
     ctx.drawImage(img, col * fw, row * fh, fw, fh, -dw / 2, -dh / 2, dw, dh);
+
+    // Emissive layer: black pixels contribute nothing, so additive blending
+    // gives the glow without needing a separate mask pass.
+    const emImg = def.emissive?.file ? _sheets[def.emissive.file] : null;
+    if (emImg && emImg.complete && emImg.naturalWidth > 0) {
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.drawImage(emImg, col * fw, row * fh, fw, fh, -dw / 2, -dh / 2, dw, dh);
+      ctx.globalCompositeOperation = 'source-over';
+    }
 
     // Damage tint flash overlay
     if (options?.tint) {

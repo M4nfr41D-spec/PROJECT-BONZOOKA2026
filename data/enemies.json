@@ -10,7 +10,8 @@
       "xp": 5,
       "pattern": "straight",
       "color": "#44aa44",
-      "shootInterval": 2.5
+      "shootInterval": 2.5,
+      "spriteId": "grunt_crimson"
     },
     "scout": {
       "name": "Scout",
@@ -22,7 +23,8 @@
       "xp": 7,
       "pattern": "zigzag",
       "color": "#44aaff",
-      "shootInterval": 2
+      "shootInterval": 2,
+      "spriteId": "scout_void"
     },
     "diver": {
       "name": "Diver",
@@ -34,7 +36,8 @@
       "xp": 10,
       "pattern": "dive",
       "color": "#ff4444",
-      "shootInterval": 1.8
+      "shootInterval": 1.8,
+      "spriteId": "scout_void_raider"
     },
     "tank": {
       "name": "Tank",
@@ -46,7 +49,8 @@
       "xp": 15,
       "pattern": "straight",
       "color": "#888888",
-      "shootInterval": 1.5
+      "shootInterval": 1.5,
+      "spriteId": "bomber_gold_sovereign"
     },
     "corrupted": {
       "name": "Corrupted Spawn",
@@ -66,7 +70,8 @@
         "duration": 4,
         "tick": 0.5,
         "dpsPctMaxHp": 0.01
-      }
+      },
+      "spriteId": "grunt_crimson_corrupted"
     },
     "repair_drone": {
       "name": "Repair Drone",
@@ -86,7 +91,8 @@
         "range": 260,
         "healPctMaxHpPerSec": 0.03,
         "capPctMaxHpPerSec": 0.04
-      }
+      },
+      "spriteId": "scout_void_industrial"
     },
     "bomber": {
       "name": "Bomber",
@@ -105,7 +111,8 @@
       "mineInterval": 2.5,
       "mineCount": 1,
       "mineDamage": 12,
-      "mineLife": 15
+      "mineLife": 15,
+      "spriteId": "bomber_gold"
     },
     "cloaker": {
       "name": "Cloaker",
@@ -123,7 +130,8 @@
       ],
       "cloakRange": 250,
       "uncloakRange": 120,
-      "cloakAlpha": 0.08
+      "cloakAlpha": 0.08,
+      "spriteId": "scout_void_voidborn"
     },
     "summoner": {
       "name": "Summoner",
@@ -141,7 +149,8 @@
       ],
       "summonInterval": 6,
       "summonType": "grunt",
-      "summonMax": 3
+      "summonMax": 3,
+      "spriteId": "corrupted_toxic_voidborn"
     },
     "turret": {
       "name": "Turret",
@@ -159,7 +168,8 @@
         "rapidFire"
       ],
       "burstCount": 3,
-      "burstDelay": 0.15
+      "burstDelay": 0.15,
+      "spriteId": "bomber_gold_bonzooka"
     },
     "shielder": {
       "name": "Shielder",
@@ -177,7 +187,8 @@
       ],
       "barrierRadius": 100,
       "barrierArc": 1.2,
-      "barrierHP": 40
+      "barrierHP": 40,
+      "spriteId": "corrupted_toxic_sovereign"
     }
   },
   "elite": {
@@ -195,7 +206,8 @@
       "abilities": [
         "summon",
         "shield"
-      ]
+      ],
+      "spriteId": "corrupted_toxic"
     },
     "berserker": {
       "name": "Berserker",
@@ -210,7 +222,8 @@
       "shootInterval": 0.8,
       "abilities": [
         "enrage"
-      ]
+      ],
+      "spriteId": "corrupted_toxic_raider"
     },
     "sniper": {
       "name": "Sniper",
@@ -225,7 +238,8 @@
       "shootInterval": 2.5,
       "abilities": [
         "aimShot"
-      ]
+      ],
+      "spriteId": "corrupted_toxic_bonzooka"
     }
   },
   "bosses": {
@@ -378,38 +392,98 @@
   },
   "waveCompositions": {
     "1-5": {
-      "pool": ["grunt"],
-      "count": [4, 6],
+      "pool": [
+        "grunt"
+      ],
+      "count": [
+        4,
+        6
+      ],
       "eliteChance": 0
     },
     "6-10": {
-      "pool": ["grunt", "scout"],
-      "count": [5, 8],
+      "pool": [
+        "grunt",
+        "scout"
+      ],
+      "count": [
+        5,
+        8
+      ],
       "eliteChance": 0.05
     },
     "11-20": {
-      "pool": ["grunt", "scout", "diver", "repair_drone"],
-      "count": [6, 10],
+      "pool": [
+        "grunt",
+        "scout",
+        "diver",
+        "repair_drone"
+      ],
+      "count": [
+        6,
+        10
+      ],
       "eliteChance": 0.1
     },
     "21-30": {
-      "pool": ["grunt", "scout", "diver", "tank", "turret"],
-      "count": [8, 12],
+      "pool": [
+        "grunt",
+        "scout",
+        "diver",
+        "tank",
+        "turret"
+      ],
+      "count": [
+        8,
+        12
+      ],
       "eliteChance": 0.15
     },
     "31-50": {
-      "pool": ["scout", "diver", "tank", "bomber", "cloaker", "turret"],
-      "count": [10, 15],
+      "pool": [
+        "scout",
+        "diver",
+        "tank",
+        "bomber",
+        "cloaker",
+        "turret"
+      ],
+      "count": [
+        10,
+        15
+      ],
       "eliteChance": 0.2
     },
     "51-100": {
-      "pool": ["diver", "tank", "bomber", "cloaker", "summoner", "turret", "shielder"],
-      "count": [12, 18],
+      "pool": [
+        "diver",
+        "tank",
+        "bomber",
+        "cloaker",
+        "summoner",
+        "turret",
+        "shielder"
+      ],
+      "count": [
+        12,
+        18
+      ],
       "eliteChance": 0.25
     },
     "101+": {
-      "pool": ["tank", "bomber", "cloaker", "summoner", "turret", "shielder", "corrupted"],
-      "count": [14, 22],
+      "pool": [
+        "tank",
+        "bomber",
+        "cloaker",
+        "summoner",
+        "turret",
+        "shielder",
+        "corrupted"
+      ],
+      "count": [
+        14,
+        22
+      ],
       "eliteChance": 0.3
     }
   }
