@@ -10,6 +10,10 @@ import { Input } from './Input.js';
 import { Bullets } from './Bullets.js';
 import { Particles } from './Particles.js';
 
+// Ship Forge renders fill their frame far more than the old art did, so this is
+// tuned against the enemy sprites rather than being a bare frame size.
+const SHIP_DRAW_SIZE = 34;
+
 export const Player = {
   _hitFlash: 0,
   _thrustAnim: 0,
@@ -889,12 +893,12 @@ export const Player = {
           SM.stop('player_ship');
           // bankAngles ascend toward a left roll, so a right turn takes the low end
           const idx = Math.round((1 - this._bankAnim) / 2 * (bank.length - 1));
-          if (SM.drawFrame(ctx, 'player', tryEntity, shipState, idx, p.x, p.y, p.angle, 55, null)) {
+          if (SM.drawFrame(ctx, 'player', tryEntity, shipState, idx, p.x, p.y, p.angle, SHIP_DRAW_SIZE, null)) {
             return;
           }
         }
         SM.play('player_ship', 'player', tryEntity, shipState);
-        if (SM.drawAnimated(ctx, 'player_ship', p.x, p.y, p.angle, 55)) {
+        if (SM.drawAnimated(ctx, 'player_ship', p.x, p.y, p.angle, SHIP_DRAW_SIZE)) {
           return; // sprite rendered — skip canvas fallback
         }
       }

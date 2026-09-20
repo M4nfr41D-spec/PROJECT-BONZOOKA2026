@@ -236,6 +236,14 @@ State.enemies.push(enemy);
     for (const e of State.enemies) {
       if (e.dead) continue;
 
+      // Turn rate of the facing the draw pass uses, smoothed here for the bank frame
+      const face = Math.atan2(State.player.y - e.y, State.player.x - e.x);
+      const prevFace = (e._prevFace === undefined) ? face : e._prevFace;
+      const faceDelta = ((face - prevFace + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+      e._prevFace = face;
+      const turn = dt > 0 ? Math.max(-1, Math.min(1, faceDelta / (dt * 3))) : 0;
+      e._bankAnim = (e._bankAnim || 0) + (turn - (e._bankAnim || 0)) * Math.min(1, dt * 6);
+
       if (inWorld) {
         this.updateExplorationAI(e, dt, zone);
 
@@ -1106,11 +1114,22 @@ updateExplorationShooting(e, dt) {
         const useCat = SM.has(spCat, spId, spState) ? spCat : 'enemies';
         if (hasSpr) {
           e.animState = spState;
-          SM.play(e, useCat, spId, spState);
           const sprOpts = {
             alpha: (e.abilities?.includes('cloak') && e._cloaked) ? (e._cloakAlpha || 0.08) : 1,
             tint: e._hitFlash > 0 ? 'rgba(255,255,255,0.6)' : null
           };
+          // A bank sheet holds roll poses, so the frame follows the turn rate;
+          // animating it would roll the ship on its own.
+          const bank = SM.getStateDef(useCat, spId, spState)?.bankAngles;
+          if (bank?.length) {
+            SM.stop(e);
+            const idx = Math.round((1 - (e._bankAnim || 0)) / 2 * (bank.length - 1));
+            if (SM.drawFrame(ctx, useCat, spId, spState, idx, e.x, e.y, faceAng, e.size, sprOpts)) {
+              this._drawHPBar(ctx, e);
+              continue;
+            }
+          }
+          SM.play(e, useCat, spId, spState);
           if (SM.drawAnimated(ctx, e, e.x, e.y, faceAng, e.size, sprOpts)) {
             this._drawHPBar(ctx, e);
             continue; // skip canvas fallback

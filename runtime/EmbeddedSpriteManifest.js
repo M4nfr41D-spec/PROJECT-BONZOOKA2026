@@ -388,78 +388,148 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_reference_industrial/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_industrial/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_reference_industrial/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_industrial/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_reference_industrial/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_industrial/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_reference_industrial/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_industrial/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_reference_industrial/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_reference_industrial/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_mk1_corps_2": {
@@ -544,78 +614,148 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_raider/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_raider/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_raider/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_raider/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_raider/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_raider/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_raider/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_raider/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_raider/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_raider/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_voidborn": {
@@ -700,156 +840,296 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_corrupted/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_corrupted/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_corrupted/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_corrupted/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_corrupted/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_corrupted/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_corrupted/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_corrupted/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_corrupted/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_corrupted/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_sovereign": {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_sovereign/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_sovereign/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_sovereign/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_sovereign/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_sovereign/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_sovereign/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_sovereign/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_sovereign/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_sovereign/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_sovereign/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_industrial": {
@@ -934,78 +1214,148 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_interceptor_void/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_interceptor_void/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_interceptor_void/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_interceptor_void/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_interceptor_void/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_interceptor_void_interceptor_void_2": {
@@ -1090,156 +1440,296 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_interceptor_void_raider/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_raider/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_interceptor_void_raider/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_raider/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_interceptor_void_raider/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_raider/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_interceptor_void_raider/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_raider/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_interceptor_void_raider/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_raider/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_interceptor_void_voidborn": {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_interceptor_void_voidborn/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_voidborn/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_interceptor_void_voidborn/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_voidborn/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "hit": {
         "file": "sprites/player/ship_interceptor_void_voidborn/hit.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_voidborn/hit_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_interceptor_void_voidborn/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_voidborn/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/player/ship_interceptor_void_voidborn/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_voidborn/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_interceptor_void_corrupted": {
@@ -1324,48 +1814,148 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "idle": {
         "file": "sprites/player/ship_interceptor_void_sovereign/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_sovereign/idle_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship_interceptor_void_sovereign/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 6,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_sovereign/thrust_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship_interceptor_void_sovereign/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/player/ship_interceptor_void_sovereign/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "fire": {
+        "file": "sprites/player/ship_interceptor_void_sovereign/fire.png",
+        "cols": 7,
+        "rows": 1,
+        "frames": 7,
+        "fps": 8,
+        "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "hit": {
+        "file": "sprites/player/ship_interceptor_void_sovereign/hit.png",
+        "cols": 7,
+        "rows": 1,
+        "frames": 7,
+        "fps": 8,
+        "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_interceptor_void_industrial": {
@@ -1587,63 +2177,119 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/grunt_crimson/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/grunt_crimson/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/grunt_crimson/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/grunt_crimson/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "grunt_crimson_bonzooka": {
@@ -1839,63 +2485,119 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/grunt_crimson_corrupted/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson_corrupted/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/grunt_crimson_corrupted/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson_corrupted/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/grunt_crimson_corrupted/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson_corrupted/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/grunt_crimson_corrupted/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/grunt_crimson_corrupted/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "grunt_crimson_sovereign": {
@@ -2028,63 +2730,119 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/scout_void/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/scout_void/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/scout_void/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/scout_void/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "scout_void_bonzooka": {
@@ -2154,126 +2912,238 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/scout_void_raider/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_raider/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/scout_void_raider/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_raider/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/scout_void_raider/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_raider/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/scout_void_raider/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_raider/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "scout_void_voidborn": {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/scout_void_voidborn/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_voidborn/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/scout_void_voidborn/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_voidborn/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/scout_void_voidborn/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_voidborn/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/scout_void_voidborn/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_voidborn/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "scout_void_corrupted": {
@@ -2406,315 +3276,595 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/scout_void_industrial/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_industrial/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/scout_void_industrial/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_industrial/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/scout_void_industrial/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_industrial/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/scout_void_industrial/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/scout_void_industrial/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "corrupted_toxic": {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/corrupted_toxic/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/corrupted_toxic/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/corrupted_toxic/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/corrupted_toxic/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "corrupted_toxic_bonzooka": {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/corrupted_toxic_bonzooka/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_bonzooka/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/corrupted_toxic_bonzooka/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_bonzooka/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/corrupted_toxic_bonzooka/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_bonzooka/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/corrupted_toxic_bonzooka/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_bonzooka/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "corrupted_toxic_raider": {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/corrupted_toxic_raider/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_raider/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/corrupted_toxic_raider/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_raider/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/corrupted_toxic_raider/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_raider/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/corrupted_toxic_raider/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_raider/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "corrupted_toxic_voidborn": {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/corrupted_toxic_voidborn/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_voidborn/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/corrupted_toxic_voidborn/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_voidborn/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/corrupted_toxic_voidborn/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_voidborn/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/corrupted_toxic_voidborn/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_voidborn/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "corrupted_toxic_corrupted": {
@@ -2784,63 +3934,119 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/corrupted_toxic_sovereign/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_sovereign/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/corrupted_toxic_sovereign/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_sovereign/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/corrupted_toxic_sovereign/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_sovereign/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/corrupted_toxic_sovereign/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/corrupted_toxic_sovereign/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "corrupted_toxic_industrial": {
@@ -2910,126 +4116,238 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/bomber_gold/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/bomber_gold/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/bomber_gold/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/bomber_gold/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "bomber_gold_bonzooka": {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/bomber_gold_bonzooka/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_bonzooka/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/bomber_gold_bonzooka/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_bonzooka/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/bomber_gold_bonzooka/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_bonzooka/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/bomber_gold_bonzooka/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_bonzooka/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "bomber_gold_raider": {
@@ -3225,63 +4543,119 @@ export const EmbeddedSpriteManifest = {
       "size": 128,
       "patrol": {
         "file": "sprites/enemies/bomber_gold_sovereign/patrol.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 1,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_sovereign/patrol_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "aggro": {
         "file": "sprites/enemies/bomber_gold_sovereign/aggro.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_sovereign/aggro_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "fire": {
         "file": "sprites/enemies/bomber_gold_sovereign/fire.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 8,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_sovereign/fire_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/enemies/bomber_gold_sovereign/death.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
         "fps": 12,
         "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
         "anchorX": 0.5,
         "anchorY": 0.5,
-        "emissive": {
-          "file": "sprites/enemies/bomber_gold_sovereign/death_emissive.png",
-          "blend": "additive",
-          "note": "black = no contribution; tint/pulse at runtime"
-        }
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     }
   },
