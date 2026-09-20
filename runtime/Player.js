@@ -887,7 +887,8 @@ export const Player = {
         const bank = SM.getStateDef('player', tryEntity, shipState)?.bankAngles;
         if (bank?.length) {
           SM.stop('player_ship');
-          const idx = Math.round((this._bankAnim + 1) / 2 * (bank.length - 1));
+          // bankAngles ascend toward a left roll, so a right turn takes the low end
+          const idx = Math.round((1 - this._bankAnim) / 2 * (bank.length - 1));
           if (SM.drawFrame(ctx, 'player', tryEntity, shipState, idx, p.x, p.y, p.angle, 55, null)) {
             return;
           }
