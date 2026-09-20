@@ -6,27 +6,148 @@ export const EmbeddedSpriteManifest = {
       "size": 256,
       "idle": {
         "file": "sprites/player/ship/idle.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
-        "fps": 18,
-        "loop": true
+        "frames": 7,
+        "fps": 1,
+        "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "thrust": {
         "file": "sprites/player/ship/thrust.png",
-        "cols": 1,
+        "cols": 7,
         "rows": 1,
-        "frames": 1,
+        "frames": 7,
+        "fps": 6,
+        "loop": true,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "fire": {
+        "file": "sprites/player/ship/fire.png",
+        "cols": 7,
+        "rows": 1,
+        "frames": 7,
         "fps": 8,
-        "loop": true
+        "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
+      },
+      "hit": {
+        "file": "sprites/player/ship/hit.png",
+        "cols": 7,
+        "rows": 1,
+        "frames": 7,
+        "fps": 8,
+        "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       },
       "death": {
         "file": "sprites/player/ship/death.png",
-        "cols": 4,
-        "rows": 5,
-        "frames": 25,
+        "cols": 7,
+        "rows": 1,
+        "frames": 7,
         "fps": 12,
-        "loop": true
+        "loop": false,
+        "sequenceSpec": "0-6",
+        "sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "bankAngles": [
+          -42,
+          -28,
+          -14,
+          0,
+          14,
+          28,
+          42
+        ]
       }
     },
     "ship_reference_voidborn": {

@@ -13,6 +13,7 @@ import { Particles } from './Particles.js';
 export const Player = {
   _hitFlash: 0,
   _thrustAnim: 0,
+  _bankAnim: 0,
   _fireFlash: 0,
 
   update(dt, canvas, explorationMode = false) {
@@ -230,6 +231,14 @@ export const Player = {
     // ========== VISUAL: thrust lerp + flash decay ==========
     const isMoving = Math.abs(p.vx) > 15 || Math.abs(p.vy) > 15;
     this._thrustAnim += ((isMoving ? 1 : 0) - this._thrustAnim) * Math.min(1, dt * 8);
+
+    // Turn rate drives which bank frame a bank sheet shows, so it is smoothed
+    // here rather than in draw(), where dt is not available.
+    const prev = (this._prevAngle === undefined) ? p.angle : this._prevAngle;
+    const delta = ((p.angle - prev + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+    this._prevAngle = p.angle;
+    const turn = dt > 0 ? Math.max(-1, Math.min(1, delta / (dt * 4))) : 0;
+    this._bankAnim += (turn - this._bankAnim) * Math.min(1, dt * 7);
     if (this._hitFlash > 0) this._hitFlash -= dt;
     if (this._fireFlash > 0) this._fireFlash -= dt;
 
@@ -873,6 +882,16 @@ export const Player = {
       const tryEntity = (skinEntity !== 'ship' && SM.has('player', skinEntity, shipState))
         ? skinEntity : 'ship';
       if (SM.has('player', tryEntity, shipState)) {
+        // A bank sheet holds roll poses, not a time sequence, so the frame is
+        // picked by turn rate instead of being animated.
+        const bank = SM.getStateDef('player', tryEntity, shipState)?.bankAngles;
+        if (bank?.length) {
+          SM.stop('player_ship');
+          const idx = Math.round((this._bankAnim + 1) / 2 * (bank.length - 1));
+          if (SM.drawFrame(ctx, 'player', tryEntity, shipState, idx, p.x, p.y, p.angle, 55, null)) {
+            return;
+          }
+        }
         SM.play('player_ship', 'player', tryEntity, shipState);
         if (SM.drawAnimated(ctx, 'player_ship', p.x, p.y, p.angle, 55)) {
           return; // sprite rendered — skip canvas fallback
