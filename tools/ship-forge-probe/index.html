@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ship Forge HTTPS Runtime Probe</title>
+<style>
+:root{--bg:#05070c;--panel:#0b1018;--line:#1b2635;--ink:#c3d2e2;--hot:#2fb4ff;--ok:#6ee7a8;--bad:#ffb03a}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+#stage{position:fixed;inset:0 0 170px;display:grid;place-items:center;background:linear-gradient(#0d1522 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,#0d1522 1px,transparent 1px) 0 0/40px 40px}
+canvas{display:block;touch-action:none}#ui{position:fixed;left:0;right:0;bottom:0;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:rgba(11,16,24,.95);border-top:1px solid var(--line)}
+h1{margin:0 0 8px;color:var(--hot);font-size:12px;letter-spacing:.18em}.row{display:flex;align-items:center;gap:10px}.row label{width:72px;color:#6f8196}.row input{flex:1}.status{margin-top:10px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="ui"><h1>SHIP FORGE · HTTPS RUNTIME PROBE</h1><div class="row"><label>BANK</label><input id="bank" type="range" min="-60" max="60" value="0"><output id="out">0°</output></div><div id="status" class="status">initialisiere …</div></div>
+<script type="module">
+const status=document.getElementById('status');
+try{
+  const THREE=await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.setClearColor(0x000000,0);
+  document.getElementById('stage').appendChild(renderer.domElement);
+  const scene=new THREE.Scene();
+  const cam=new THREE.OrthographicCamera(-7,7,8,-8,.1,100);cam.position.set(0,20,0);cam.up.set(0,0,-1);cam.lookAt(0,0,0);
+  scene.add(new THREE.AmbientLight(0xffffff,1.2));const key=new THREE.DirectionalLight(0xffffff,2.0);key.position.set(-5,8,-6);scene.add(key);
+  const ship=new THREE.Group();scene.add(ship);
+  const hullMat=new THREE.MeshStandardMaterial({color:0xc8d0d9,metalness:.85,roughness:.28});
+  const darkMat=new THREE.MeshStandardMaterial({color:0x18202a,metalness:.8,roughness:.45});
+  const glowMat=new THREE.MeshStandardMaterial({color:0x04263a,emissive:0x24bfff,emissiveIntensity:2.3});
+  function box(w,h,d,m,x,y,z){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);ship.add(o);return o}
+  box(1.8,.7,8.5,hullMat,0,0,0);box(.75,.5,4.8,darkMat,0,.55,-1.2);box(.34,.12,3.2,glowMat,0,.86,-1.7);
+  for(const s of [-1,1]){const wing=new THREE.Mesh(new THREE.BoxGeometry(4.8,.28,2.2),hullMat);wing.position.set(2.8*s,-.15,1.3);wing.rotation.y=.46*s;ship.add(wing);box(.65,.75,2.4,darkMat,4.0*s,.35,1.0);box(.16,.12,1.5,glowMat,4.0*s,.76,.75)}
+  for(const x of [-1.05,0,1.05]){const r=x===0?.7:.48;const g=new THREE.CylinderGeometry(r,r*.88,1.8,20);g.rotateX(Math.PI/2);const e=new THREE.Mesh(g,darkMat);e.position.set(x,.15,4.4);ship.add(e);const n=new THREE.CylinderGeometry(r*.72,r*.72,.15,20);n.rotateX(Math.PI/2);const q=new THREE.Mesh(n,glowMat);q.position.set(x,.17,5.33);ship.add(q)}
+  function fit(){const h=Math.max(240,innerHeight-170),w=innerWidth;renderer.setSize(w,h,false);const a=w/h;cam.left=-7*a;cam.right=7*a;cam.top=8;cam.bottom=-8;cam.updateProjectionMatrix();renderer.render(scene,cam)}
+  addEventListener('resize',fit);fit();
+  document.getElementById('bank').oninput=e=>{const v=+e.target.value;document.getElementById('out').textContent=v+'°';ship.rotation.z=THREE.MathUtils.degToRad(v);renderer.render(scene,cam)};
+  status.className='status ok';status.textContent='OK · THREE r'+THREE.REVISION+' · WebGL aktiv · HTTPS module import aktiv';
+}catch(err){status.className='status bad';status.textContent='FEHLER · '+(err?.message||err);console.error(err)}
+</script>
+</body>
+</html>
